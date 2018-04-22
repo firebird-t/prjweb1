@@ -5,6 +5,14 @@
 	<title>Cadastro de Dispositivos</title>
 </head>
 <body>
+
+	<%if(validacao){ %>
+	<ul>
+		<% for(var i = 0; i < validacao.length; i++){ %>
+			<li><%= validacao[i].msg %></li>		
+		<% } %>
+	</ul>
+	<% }%>
 	<form class="form-group" action="/dados/inserir" method="post">
 	  <div >
 	    <label for="exampleInputEmail1">Nome do Dispositivo</label>

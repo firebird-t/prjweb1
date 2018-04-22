@@ -1,13 +1,16 @@
-module.exports = function(){
-
-	this.getData = function(connection, callback){
-		connection.query('select * from devices', callback);
-	}
-
-
-	this.insertData = function(body, connection, callback){
-		connection.query('insert into devices set ?', body, callback);
-	}
-
-	return this;
+function dadosDB(connection){
+	this._connection = connection;
 }
+
+dadosDB.prototype.getData = function(callback){
+		this._connection.query('select * from devices', callback);
+}
+
+dadosDB.prototype.insertData = function(body, callback){
+		this._connection.query('insert into devices set ?', body, callback);
+}
+
+module.exports = function(){
+	return dadosDB;
+}
+

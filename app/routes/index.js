@@ -5,9 +5,9 @@ module.exports = function(app){
 	app.get('/',function(request, response){		
 
 		var conn = app.config.dbconn();
-		var deviceDataModel = app.app.models.deviceData
+		var deviceDataModel = new app.app.models.deviceData(conn);
 		
-		deviceDataModel.getData(conn, function(error , result){
+		deviceDataModel.getData(function(error , result){
 			response.render("home/index.ejs",{devices : result});
 		})
 		
