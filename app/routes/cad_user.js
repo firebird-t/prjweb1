@@ -8,5 +8,7 @@ module.exports = function(app){
 		var connection = app.config.dbConn();
 		var cadUser = new app.app.models.CadUserDAO;
 
+		cadUser.
+
 	})	
 }
