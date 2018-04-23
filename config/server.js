@@ -2,8 +2,24 @@ var express = require('express');
 var consign = require('consign');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
+var session = require('express-session');
 
 var app = express();
+
+//Configurando Express Session
+//if (app.get('env') === 'production') {
+//   sess. // serve secure cookies
+//}
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
+
+//Pastas estáticas
+//app.use(express.static('./app/public'));
 
 //Configurando Engine
 app.set('view engine','ejs');

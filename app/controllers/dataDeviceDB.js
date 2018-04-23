@@ -9,7 +9,7 @@ module.exports.dados_inserir = function(app, request, response){
 	var erros = request.validationErrors();
 	
 	if(erros){
-		response.render("cadastro/inserir_dados.ejs" , {validacao : erros});
+		response.render("dispositivos/inserir_dados.ejs" , {validacao : erros});
 		return;
 	}
 

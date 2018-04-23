@@ -1,11 +1,13 @@
-var conn = require('../../config/dbconn')();
+//var conn = require('../../config/dbconn')();
 
 module.exports = function(app){	
 	
 	app.get('/',function(request, response){		
-
-		app.app.controllers.dataDeviceDB.dados_inserir(app, request, response);		
+		response.render('home/login');
+		//app.app.controllers.dataDeviceDB.capturaDados(app, request, response);		
 		console.log('index carregado');
 		
 	})
+
+	
 }

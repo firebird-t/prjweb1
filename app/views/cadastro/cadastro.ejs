@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Página Inicial</title>
+	<title>Cadastro de Usuários</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -16,10 +16,10 @@
 	  <div class="collapse navbar-collapse" id="navbarNav">
 	    <ul class="navbar-nav">
 	      <li class="nav-item active">
-	        <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+	        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">Meus Dispositivos</a>
+	        <a class="nav-link" href="#">Meus Dispositos</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="#">Status</a>
@@ -31,24 +31,21 @@
 	  </div>
 	</nav>
 	<div class="container">
-		<table>
-			<tr>
-				<td>Dispositivo</td>
-				<td>IP</td>
-				<td>Protocolo</td>
-			</tr>
-
-			<% for (var i = 0; i < devices.length; i++) { %>
-					<tr>
-						<td> <%= devices[i].nome %> </td>
-						<td> <%= devices[i].ip %> </td>
-						<td> <%= devices[i].protocolo %> </td>
-					</tr>		
-				<%
-				}
-			%>
-
-		</table>
+		<form action="/cadastro/inserir" method="post" style="margin-top: 30px">
+		  <div class="form-group">
+		    <label for="email">E-mail</label>
+		    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"">
+		  </div>
+		  <div class="form-group">
+		    <label for="senha">Senha</label>
+		    <input type="password" class="form-control" id="senha" name="senha">
+		  </div>
+		  <div class="form-group">
+		    <label for="senha_v">Digite a sua senha novamente</label>
+		    <input type="password" class="form-control" id="senha_v" name="senha_v">
+		  </div>
+		  <button type="submit" class="btn btn-primary">Enviar</button>
+		</form>
 	</div>
 </body>
 </html>
