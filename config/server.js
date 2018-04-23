@@ -3,13 +3,13 @@ var consign = require('consign');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var session = require('express-session');
+var helmet = require('helmet');
+
 
 var app = express();
 
-//Configurando Express Session
-//if (app.get('env') === 'production') {
-//   sess. // serve secure cookies
-//}
+//Proteção contra ataques
+app.use(helmet());
 
 app.use(session({
   secret: 'keyboard cat',

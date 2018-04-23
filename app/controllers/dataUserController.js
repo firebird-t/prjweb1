@@ -20,7 +20,7 @@ module.exports.verifica_dados_login = function(app, request, response){
 			 if(result.length > 0){
 			 	console.log('Usuário logado');
 			 	//response.render('home/home.ejs',{user : result,devices:{}});	 	
-			 	response.redirect('/home')
+			 	response.redirect('/home');
 			 }else{
 			 	console.log('Usuário não encontrado');
 			 	response.redirect('/');

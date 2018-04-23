@@ -38,13 +38,16 @@
 				<td>Protocolo</td>
 			</tr>
 
-			<% for (var i = 0; i < devices.length; i++) { %>
+			<% 
+				if(type of(devices) != undefined){
+					for (var i = 0; i < devices.length; i++) { %>
 					<tr>
 						<td> <%= devices[i].nome %> </td>
 						<td> <%= devices[i].ip %> </td>
 						<td> <%= devices[i].protocolo %> </td>
 					</tr>		
-				<%
+					<%
+					}
 				}
 			%>
 
