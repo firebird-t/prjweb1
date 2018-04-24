@@ -11,6 +11,6 @@ var app = require('./config/server');
 //Mensagem de inicio
 var msg = require("./mod_test");
 
-app.listen(3000, function(){
+app.listen(80, function(){
 	console.log(msg());
 });
