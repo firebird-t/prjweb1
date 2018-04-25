@@ -5,7 +5,7 @@ var expressValidator = require('express-validator');
 var session = require('express-session');
 var helmet = require('helmet');
 
-
+//instância do express
 var app = express();
 
 //Proteção contra ataques
