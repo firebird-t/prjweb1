@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
--- Servidor:                     192.168.10.109
+-- Servidor:                     127.0.0.1
 -- Versão do servidor:           10.2.14-MariaDB - mariadb.org binary distribution
--- OS do Servidor:               Win64
--- HeidiSQL Versão:              9.5.0.5277
+-- OS do Servidor:               Win32
+-- HeidiSQL Versão:              9.4.0.5125
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -25,9 +25,10 @@ CREATE TABLE IF NOT EXISTS `devices` (
   `data_criacao` timestamp NOT NULL DEFAULT current_timestamp(),
   `tipo` varchar(50) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela trabalho.devices: ~13 rows (aproximadamente)
+-- Copiando dados para a tabela trabalho.devices: ~15 rows (aproximadamente)
+DELETE FROM `devices`;
 /*!40000 ALTER TABLE `devices` DISABLE KEYS */;
 INSERT INTO `devices` (`id`, `nome`, `ip`, `protocolo`, `data_criacao`, `tipo`) VALUES
 	(1, 'controle_temp', '192.168.10.100', 'ip', '2018-04-21 15:44:55', 'arduino\r\n'),
@@ -42,7 +43,9 @@ INSERT INTO `devices` (`id`, `nome`, `ip`, `protocolo`, `data_criacao`, `tipo`) 
 	(10, 'leonardo', '192.168.1.6', 'leonardo', '2018-04-22 17:48:28', '0'),
 	(11, 'Raspberry', 'leonardo', 'ip', '2018-04-22 18:55:18', '0'),
 	(12, 'Raspberry', '192.168.1.5', 'ip', '2018-04-22 19:12:27', '0'),
-	(13, 'Raspberry', '192.168.1.5', 'Ethernet', '2018-04-22 19:40:49', '0');
+	(13, 'Raspberry', '192.168.1.5', 'Ethernet', '2018-04-22 19:40:49', '0'),
+	(14, 'teste 34', '192.168.47.93', 'ptr', '2018-04-23 10:24:45', '0'),
+	(15, 'teste 34', '192.168.47.93', 'ptr', '2018-04-23 15:49:18', '0');
 /*!40000 ALTER TABLE `devices` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela trabalho.users
@@ -51,11 +54,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `nome` varchar(50) NOT NULL,
   `nome_usuario` varchar(50) NOT NULL,
   `senha` varchar(255) NOT NULL,
+  `email` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela trabalho.users: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela trabalho.users: ~1 rows (aproximadamente)
+DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` (`id`, `nome`, `nome_usuario`, `senha`, `email`) VALUES
+	(0, 'Leonardo', 'leonardoeverson', '12345', 'llinharespinheiro@gmail.com');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
