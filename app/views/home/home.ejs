@@ -31,14 +31,18 @@
 	  </div>
 	</nav>
 	<div class="container">
-		<table>
-			<tr>
-				<td>Dispositivo</td>
-				<td>IP</td>
-				<td>Protocolo</td>
-			</tr>
-
-			
+		
+		<h6>Meus Dispositivos</h6>
+		
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">Nome</th>
+		      <th scope="col">IP</th>
+		      <th scope="col">Protocolo</th>
+		    </tr>
+		  </thead>
+		  <tbody>
 			<% 
 				if(typeof(devices) != "undefined"){
 					for (var i = 0; i < devices.length; i++) { %>
@@ -51,7 +55,7 @@
 					}
 				}
 			%>
-
+		  </tbody>
 		</table>
 	</div>
 </body>

@@ -12,10 +12,9 @@ var app = express();
 app.use(helmet());
 
 app.use(session({
-  secret: 'keyboard cat',
+  secret: 'teste teste',
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
+  saveUninitialized: false
 }))
 
 //Pastas estáticas
@@ -32,6 +31,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //Express Validator
 app.use(expressValidator());
+
+app.use(expressValidator({
+  customValidators: {
+    isEqual: (value1, value2) => {
+      return value1 === value2
+    }
+  }
+}))
 
 //Localizando rotas e models
 consign()

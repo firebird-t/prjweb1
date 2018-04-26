@@ -2,11 +2,22 @@
 
 module.exports = function(app){	
 	
-	app.get('/',function(request, response){		
-		response.render('home/login');
-		//app.app.controllers.dataDeviceDB.capturaDados(app, request, response);		
-		console.log('index carregado');
+	app.get('/',function(request, response){
+	
+		if(request.session.autorizado){
+			response.redirect('/home');
+		}else{
+			response.render('home/login');
+		}
 		
+	})
+
+	app.get('index',function(request, response){		
+		if(request.session.autorizado){
+			response.redirect('/home');
+		}else{
+			response.render('home/login');
+		}
 	})
 
 	

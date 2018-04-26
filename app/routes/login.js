@@ -7,9 +7,7 @@ module.exports = function(app){
 	})
 
 	app.post('/login/entrar',function(request, response){
-		app.app.controllers.dataUserController.verifica_dados_login(app, request, response);
+		app.app.controllers.dados_usuarios.verifica_dados_login(app, request, response);
 	})
-
-
 
 }

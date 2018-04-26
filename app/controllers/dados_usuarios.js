@@ -1,6 +1,6 @@
 module.exports.verifica_dados_login = function(app, request, response){
 		var conn = app.config.dbconn();
-		var dadosUsuario = new app.app.models.cadUserDAO(conn);
+		var dadosUsuario = new app.app.models.dados_usuariosDAO(conn);
 
 		var dados = request.body;
 
@@ -18,13 +18,17 @@ module.exports.verifica_dados_login = function(app, request, response){
 		
 		dadosUsuario.validalogin(dados, function(error, result){
 			 if(result.length > 0){
-			 	console.log('Usuário logado');
-			 	//response.render('home/home.ejs',{user : result,devices:{}});	 	
+			 	console.log('Usuário logado');				 	
+			 	
+			 	request.session.autorizado = true;
+			 	request.session.user = result[0]['nome_usuario'];
+			 	request.session.user_id = result[0]['id'];
+			 	
 			 	response.redirect('/home');
+
 			 }else{
 			 	console.log('Usuário não encontrado');
-			 	response.redirect('/');
+			 	response.redirect('index');
 			 }
 		})
 }
-

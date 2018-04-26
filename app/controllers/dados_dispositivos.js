@@ -9,22 +9,22 @@ module.exports.dados_inserir = function(app, request, response){
 	var erros = request.validationErrors();
 	
 	if(erros){
-		response.render("dispositivos/inserir_dados.ejs" , {validacao : erros});
+		response.render("dispositivos/inserir_dados" , {validacao : erros});
 		return;
 	}
 
 	var conn = app.config.dbconn();
-	var deviceDataModel = new app.app.models.deviceData(conn);
+	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
 
-	deviceDataModel.insertData(body, function(error , result){
+	deviceDataModel.insertData(request.session, body, function(error , result){
 		//response.render("home/index", {resposta : result});
-		response.redirect("/");
+		//response.redirect("/");
 	})
 }
 
 module.exports.capturaDados = function(app, request, response){
 	var conn = app.config.dbconn();
-	var deviceDataModel = new app.app.models.deviceData(conn);
+	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
 	
 	deviceDataModel.getData(function(error , result){
 		response.render("home/index.ejs",{devices : result});
