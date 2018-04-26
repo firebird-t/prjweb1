@@ -20,5 +20,14 @@ module.exports = function(app){
 		}
 	})
 
+	app.get('/index',function(request, response){		
+		if(request.session.autorizado){
+			response.redirect('/home');
+		}else{
+			response.render('home/login');
+		}
+	})
+
+
 	
 }

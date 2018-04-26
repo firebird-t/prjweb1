@@ -27,6 +27,6 @@ module.exports.capturaDados = function(app, request, response){
 	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
 	
 	deviceDataModel.getData(function(error , result){
-		response.render("home/index.ejs",{devices : result});
+		response.render("home/home",{devices : result});
 	})
 }

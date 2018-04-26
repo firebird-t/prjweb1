@@ -3,7 +3,7 @@
 module.exports = function(app){	
 	
 	app.get('/login',function(request, response){		
-		response.render('home/login.ejs')
+		response.render('home/login')
 	})
 
 	app.post('/login/entrar',function(request, response){

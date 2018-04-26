@@ -23,12 +23,12 @@ module.exports.verifica_dados_login = function(app, request, response){
 			 	request.session.autorizado = true;
 			 	request.session.user = result[0]['nome_usuario'];
 			 	request.session.user_id = result[0]['id'];
-			 	
-			 	response.redirect('/home');
 
+			 	response.redirect('/home');
+				return;
 			 }else{
 			 	console.log('Usuário não encontrado');
-			 	response.redirect('index');
+			 	response.render('home/login',{validacao:{}});
 			 }
 		})
 }

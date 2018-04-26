@@ -5,8 +5,6 @@ module.exports.cadastrar_usuario = function(app, request, response){
 	
 	var body = request.body;
 
-	console.log(body);
-
 	request.assert('email', 'O campo email não pode ficar vazio').notEmpty().isEmail();
 	request.assert('nome_usuario', 'O campo email não pode ficar vazio').notEmpty();
 	request.assert('senha', 'Senha inválida').notEmpty();
@@ -21,7 +19,15 @@ module.exports.cadastrar_usuario = function(app, request, response){
 	}
 
 	cadUser.cadastrar(body, function(error, result){
-		response.send(error + result);
+		if(result.affectedRows > 0){
+			request.session.autorizado = true;
+			request.session.nome = body.nome;
+			request.session.user = body.nome_usuario;
+			request.session.id_user = result.insertId;
+			response.redirect('/home');
+		}else{
+			response.send('Falha ao cadastrar o usuário:' + error);
+		}
 		//response.redirect("cadastro/cadastro");
 	})
 }

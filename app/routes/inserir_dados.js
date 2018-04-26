@@ -1,8 +1,15 @@
 module.exports = function(app){
 	
-	app.get('/inserir_dados',function(request, response){
+	app.get('/cadastrar_dispositivo',function(request, response){
 		if(request.session.autorizado){
-			response.render("dispositivos/inserir_dados.ejs",{validacao:{}});
+			response.render("dispositivos/cadastrar_dispositivo",{validacao:{}});
+		}
+	})
+
+
+	app.get('/listar_dispositivo',function(request, response){
+		if(request.session.autorizado){
+			response.render("dispositivos/listar_dispositivo",{validacao:{}});
 		}
 	})
 

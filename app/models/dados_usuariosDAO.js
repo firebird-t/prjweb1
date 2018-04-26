@@ -3,9 +3,9 @@ function dadosUsuario(connection){
 }
 
 dadosUsuario.prototype.cadastrar = function(dados, callback){
-	var query = 'insert into users (nome, nome_usuario, email, senha) VALUES (';
-	var query += dados.nome+','+dados.nome_usuario+','+dados.email+','+dados.senha+')';	
-	this._connection.query('insert into users', dados, callback);
+	var query = 'INSERT INTO users (nome, nome_usuario, email, senha) VALUES ';
+	query += '("' + dados.nome+'","'+dados.nome_usuario+'","'+dados.email+'","'+dados.senha+'")';	
+	this._connection.query(query, callback);
 }
 
 dadosUsuario.prototype.recuperar = function(dados, callback){
