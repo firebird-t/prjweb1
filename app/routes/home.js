@@ -11,7 +11,7 @@ module.exports = function(app){
 			}
 						
 		}else{
-			response.send('Usuário não autorizado');
+			response.redirect('/')
 		}	
 	})
 
