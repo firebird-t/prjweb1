@@ -40,5 +40,15 @@ module.exports.recuperar_dados_cadastro = function(app, request, response){
 	// cadUser.cadastrar(dados, function(request, response){
 	// 	response.render("cadastro/cad_user.ejs");
 	// })
+}
 
+module.exports.checa_nome_usuario = function(app, request, response){
+
+	var v_name_user = new app.app.controllers.dados_usuariosDAO;
+	var body = request.body;
+
+	v_name_user.validaNomeUsuario(body, function(error, result){
+		
+	});
+	
 }

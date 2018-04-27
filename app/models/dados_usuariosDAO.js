@@ -16,6 +16,10 @@ dadosUsuario.prototype.validalogin = function(dados, callback){
 	this._connection.query('select * from users where nome_usuario = ? and senha = ?', [dados.nome_usuario, dados.senha], callback);
 }
 
+dadosUsuario.prototype.validaNomeUsuario = function(dados, callback){
+	var query = 'SELECT nome_usuario FROM users WHERE nome_usuario = ?';
+	this._connection.query(query, callback);
+}
 
 module.exports = function(){
 	return dadosUsuario;
