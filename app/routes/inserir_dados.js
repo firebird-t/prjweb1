@@ -16,6 +16,8 @@ module.exports = function(app){
 	app.post('/dispositivos/inserir',function(request, response){
 		if(request.session.autorizado){
 			app.app.controllers.dados_dispositivos.dados_inserir(app, request, response);
+		}else{
+			response.send('Usuário não autorizado');
 		}
 	})
 }

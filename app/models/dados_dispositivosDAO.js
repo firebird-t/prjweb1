@@ -7,8 +7,8 @@ dadosDispositivos.prototype.getData = function(callback){
 }
 
 dadosDispositivos.prototype.insertData = function(session_id, body, callback){
-		var query = 'insert into devices (id_usuario, nome_disposito, ip, protocolo, tipo_dispositivo ) VALUES';
-		query += '('+session_id+','+body.nome_disposito+','+body.ip+','+body.protocolo+','+body.tipo_dispositivo+')';
+		var query = 'insert into devices (id_usuario, nome_dispositivo, ip, protocolo, tipo_dispositivo ) VALUES';
+		query += '('+session_id+',"'+body.nome_dispositivo+'","'+body.ip+'","'+body.protocolo+'","'+body.tipo_dispositivo+'")';
 		this._connection.query(query, callback);
 }
 
