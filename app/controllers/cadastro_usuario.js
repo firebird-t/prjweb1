@@ -23,6 +23,8 @@ module.exports.cadastrar_usuario = function(app, request, response){
 		return;
 	}
 
+	
+
 	cadUser.validaNomeUsuario(body.nome_usuario,function(error, result){
 		if(result.length > 0){
 			return;
