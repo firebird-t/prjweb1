@@ -19,14 +19,15 @@ module.exports.cadastrar_usuario = function(app, request, response){
 	}
 
 	cadUser.cadastrar(body, function(error, result){
-		if(result.affectedRows > 0){
+		if(error) {
+			response.send('Falha ao cadastrar o usuário:' + error);
+		}
+		else{
 			request.session.autorizado = true;
 			request.session.nome = body.nome;
 			request.session.user = body.nome_usuario;
 			request.session.id_user = result.insertId;
 			response.redirect('/home');
-		}else{
-			response.send('Falha ao cadastrar o usuário:' + error);
 		}
 		//response.redirect("cadastro/cadastro");
 	})
