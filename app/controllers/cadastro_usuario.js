@@ -4,9 +4,14 @@ module.exports.cadastrar_usuario = function(app, request, response){
 	var cadUser = new app.app.models.dados_usuariosDAO(connection);
 	
 	var body = request.body;
+	var cadastro = false;
+	var erro_cadastro = {};
+	
+	erro_cadastro[0] = {'msg':'usuário existente'};
+	erro_cadastro[1] = {'msg':'email existente, insira outro'};
 
 	request.assert('email', 'O campo email não pode ficar vazio').trim().notEmpty().isEmail();
-	request.assert('nome_usuario', 'O campo email não pode ficar vazio').trim().notEmpty();
+	request.assert('nome_usuario', 'O campo nome de usuário não pode ficar vazio').trim().notEmpty();
 	request.assert('senha', 'Senha inválida').trim().notEmpty();
 	request.assert('senhav', 'Senha inválida').trim().notEmpty();
 	request.assert('senha', 'as senhas não são iguais').trim().isEqual(body.senhav);
@@ -18,27 +23,20 @@ module.exports.cadastrar_usuario = function(app, request, response){
 		return;
 	}
 
-
 	cadUser.validaNomeUsuario(body.nome_usuario,function(error, result){
 		if(result.length > 0){
-			var erro;
-			erro['nome_usuario'] = 'Nome de usuário existente';
-			response.render('cadastro/cadastro',{validacao : erro});
 			return;
 		}
 	});
 
-
+	//console.log(cadastro)
 	cadUser.validaEmail(body.email,function(error, result){
-		if(result.length > 0){
-			var erro;
-			erro['email'] = 'email existente, insira outro';
-			response.render('cadastro/cadastro',{validacao : erro});
+		if(result.length > 0){			
 			return;
 		}
 	});
 
-
+	
 	cadUser.cadastrar(body, function(error, result){
 		if(error) {
 			response.send('Falha ao cadastrar o usuário:' + error);
@@ -50,8 +48,9 @@ module.exports.cadastrar_usuario = function(app, request, response){
 			request.session.user_id = result.insertId;
 			response.redirect('/home');
 		}
-		//response.redirect("cadastro/cadastro");
 	})
+	
+
 }
 
 module.exports.recuperar_dados_cadastro = function(app, request, response){
