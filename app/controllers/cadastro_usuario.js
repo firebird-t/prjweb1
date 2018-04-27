@@ -5,11 +5,11 @@ module.exports.cadastrar_usuario = function(app, request, response){
 	
 	var body = request.body;
 
-	request.assert('email', 'O campo email não pode ficar vazio').notEmpty().isEmail();
-	request.assert('nome_usuario', 'O campo email não pode ficar vazio').notEmpty();
-	request.assert('senha', 'Senha inválida').notEmpty();
-	request.assert('senhav', 'Senha inválida').notEmpty();
-	request.assert('senha', 'as senhas não são iguais').isEqual(body.senhav);
+	request.assert('email', 'O campo email não pode ficar vazio').trim().notEmpty().isEmail();
+	request.assert('nome_usuario', 'O campo email não pode ficar vazio').trim().notEmpty();
+	request.assert('senha', 'Senha inválida').trim().notEmpty();
+	request.assert('senhav', 'Senha inválida').trim().notEmpty();
+	request.assert('senha', 'as senhas não são iguais').trim().isEqual(body.senhav);
 
 	var erros = request.validationErrors();
 
@@ -17,6 +17,27 @@ module.exports.cadastrar_usuario = function(app, request, response){
 		response.send(erros);
 		return;
 	}
+
+
+	cadUser.validaNomeUsuario(body.nome_usuario,function(error, result){
+		if(result.length > 0){
+			var erro;
+			erro['nome_usuario'] = 'Nome de usuário existente';
+			response.render('cadastro/cadastro',{validacao : erro});
+			return;
+		}
+	});
+
+
+	cadUser.validaEmail(body.email,function(error, result){
+		if(result.length > 0){
+			var erro;
+			erro['email'] = 'email existente, insira outro';
+			response.render('cadastro/cadastro',{validacao : erro});
+			return;
+		}
+	});
+
 
 	cadUser.cadastrar(body, function(error, result){
 		if(error) {

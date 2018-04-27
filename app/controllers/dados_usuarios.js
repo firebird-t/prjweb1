@@ -4,7 +4,7 @@ module.exports.verifica_dados_login = function(app, request, response){
 
 		var dados = request.body;
 
-		request.assert('nome_usuario', 'Insira o login do usuário').notEmpty();
+		request.assert('nome_usuario', 'Insira o login do usuário').trim().notEmpty();
 		request.assert('senha', 'Insira a senha do usuário').notEmpty();
 
 		var erros = request.validationErrors();

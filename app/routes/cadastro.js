@@ -1,7 +1,7 @@
 module.exports = function(app){
 	
 	app.get('/cadastro',function(request, response){
-		response.render("cadastro/cadastro");
+		response.render("cadastro/cadastro",{validacao:{}});
 	})
 
 	app.get('/cadastro/recuperar',function(request, response){

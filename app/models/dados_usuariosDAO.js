@@ -17,7 +17,12 @@ dadosUsuario.prototype.validalogin = function(dados, callback){
 }
 
 dadosUsuario.prototype.validaNomeUsuario = function(dados, callback){
-	var query = 'SELECT nome_usuario FROM users WHERE nome_usuario = ?';
+	var query = 'SELECT nome_usuario FROM users WHERE nome_usuario ='+dados;
+	this._connection.query(query, callback);
+}
+
+dadosUsuario.prototype.validaEmail = function(dados, callback){
+	var query = 'SELECT email FROM users WHERE email ='+dados;
 	this._connection.query(query, callback);
 }
 
