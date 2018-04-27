@@ -26,7 +26,7 @@ module.exports.cadastrar_usuario = function(app, request, response){
 			request.session.autorizado = true;
 			request.session.nome = body.nome;
 			request.session.user = body.nome_usuario;
-			request.session.id_user = result.insertId;
+			request.session.user_id = result.insertId;
 			response.redirect('/home');
 		}
 		//response.redirect("cadastro/cadastro");

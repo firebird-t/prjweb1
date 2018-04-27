@@ -2,8 +2,8 @@ function dadosDispositivos(connection){
 	this._connection = connection;
 }
 
-dadosDispositivos.prototype.getData = function(callback){
-		this._connection.query('select * from devices', callback);
+dadosDispositivos.prototype.getData = function(id, callback){
+		this._connection.query('select * from devices where id_usuario ='+id, callback);
 }
 
 dadosDispositivos.prototype.insertData = function(session_id, body, callback){

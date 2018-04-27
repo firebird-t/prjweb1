@@ -18,7 +18,8 @@ module.exports.dados_inserir = function(app, request, response){
 
 	deviceDataModel.insertData(request.session.user_id, body, function(error , result){
 		if(error){
-
+			console.log(error);
+			response.render("dispositivos/listar_dispositivo", {validacao : error});
 		}else{
 			response.render("dispositivos/listar_dispositivo", {validacao : {}});
 		}
@@ -29,7 +30,7 @@ module.exports.capturaDados = function(app, request, response){
 	var conn = app.config.dbconn();
 	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
 	
-	deviceDataModel.getData(function(error , result){
+	deviceDataModel.getData(request.session.user_id,function(error , result){
 		response.render("home/home",{devices : result});
 	})
 }
