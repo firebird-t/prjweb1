@@ -7,11 +7,11 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 
 	var body = request.body;
 	var cadastro = false;
-	var erro_cadastro = {};
+	var erro_cadastro = [];
 
-	erro_cadastro[0] = { 'msg': 'usuário existente' };
-	erro_cadastro[1] = { 'msg': 'email existente, insira outro' };
-
+	erro_cadastro.push({ 'msg': 'usuário existente, insira outro','id':0 });
+	erro_cadastro.push({ 'msg': 'email existente, insira outro','id':1 });
+	
 	request.assert('email', 'O campo email não pode ficar vazio').trim().notEmpty().isEmail();
 	request.assert('nome_usuario', 'O campo nome de usuário não pode ficar vazio').trim().notEmpty();
 	request.assert('senha', 'Senha inválida').trim().notEmpty();
@@ -21,17 +21,18 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 	var erros = request.validationErrors();
 
 	if (erros) {
-		response.send(erros);
+		console.log(erros)
+		response.render('cadastro/cadastro',{validacao: erros});
 		return;
 	}
 
 	//console.log(cadastro)
-
+	var nivel = 0;
 	async.series([
 		function (callback) {
 			cadUser.validaNomeUsuario(body.nome_usuario, function (error, result) {
+				nivel++;
 				if (result.length > 0) {
-					console.log('1');
 					callback('false', result)
 				}else{
 					callback(null, result)
@@ -41,14 +42,15 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 		function (callback) {
 			cadUser.validaEmail(body.email,function(error, result){
 				if (result.length > 0) {
-					console.log('2');
-					callback('false', result)
+					callback('false', result,)
 				}else{
 					callback(null, result)
 				}
+				nivel++;
 			});
 		}, function (callback) {
 			cadUser.cadastrar(body, function(error, result){
+				nivel++;
 				if(error) {
 					response.send('Falha ao cadastrar o usuário:' + error);
 				}
@@ -63,7 +65,7 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 		}
 	],function(err, results){
 		if(err){
-			response.send('Houve algo de ruim na requisição seu fdp no nível:' + result);
+			response.render('cadastro/cadastro',{validacao : [erro_cadastro[nivel - 1]]});
 		}
 	})
 

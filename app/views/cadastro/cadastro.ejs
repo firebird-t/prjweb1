@@ -21,7 +21,7 @@
 	    </ul>
 	  </div>
 	</nav>
-	<%if(validacao){ %>
+	<%if(validacao){%>
 	<ul>
 		<% for(var i = 0; i < validacao.length; i++){ %>
 			<li><%= validacao[i].msg %></li>		
@@ -32,23 +32,23 @@
 		<form action="/cadastro/inserir" method="post" style="margin-top: 30px">
 		  <div class="form-group">
 		    <label for="email">Nome</label>
-		    <input type="text" class="form-control" id="nome" name="nome" aria-describedby="emailHelp" required="" length='10'>
+		    <input type="text" class="form-control" id="nome" name="nome" aria-describedby="emailHelp" length='10'>
 		  </div>
 		  <div class="form-group">
 		    <label for="email">E-mail</label>
-		    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" required="">
+		    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" >
 		  </div>
 		  <div class="form-group">
 		    <label for="email">Nome de usuário</label>
-		    <input type="text" class="form-control" id="nome_usuario" name="nome_usuario" aria-describedby="emailHelp" length='8' required>
+		    <input type="text" class="form-control" id="nome_usuario" name="nome_usuario" aria-describedby="emailHelp" length='8'>
 		  </div>
 		  <div class="form-group">
 		    <label for="senha">Senha</label>
-		    <input type="password" class="form-control" id="senha" name="senha" required="">
+		    <input type="password" class="form-control" id="senha" name="senha">
 		  </div>
 		  <div class="form-group">
-		    <label for="senhav">Digite a sua senha novamente</label>
-		    <input type="password" class="form-control" id="senhav" name="senhav" required="">
+				<label for="senhav">Digite a sua senha novamente</label>>
+				<input type="password" class="form-control" id="senha" name="senhav">
 		  </div>
 		  <button type="submit" class="btn btn-primary">Enviar</button>
 		</form>
