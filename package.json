@@ -9,6 +9,7 @@
   "author": "Leonardo Everson",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.6.0",
     "body-parser": "^1.18.2",
     "consign": "^0.1.6",
     "crypto": "^1.0.1",
