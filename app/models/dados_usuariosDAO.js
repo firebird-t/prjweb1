@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+
 function dadosUsuario(connection){
 	this._connection = connection;
 }
@@ -22,8 +24,9 @@ dadosUsuario.prototype.recuperar = function(dados, callback){
 }
 
 dadosUsuario.prototype.cadastrar = function(dados, callback){
+	var secret = crypto.createHash('sha256').update(dados.senha).digest('hex');
 	var query = 'INSERT INTO users (nome, nome_usuario, email, senha) VALUES ';
-	query += '("' + dados.nome+'","'+dados.nome_usuario+'","'+dados.email+'","'+dados.senha+'")';	
+	query += '("' + dados.nome+'","'+dados.nome_usuario+'","'+dados.email+'","'+secret+'")';	
 	this._connection.query(query, callback);
 }
 

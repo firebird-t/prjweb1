@@ -1,7 +1,8 @@
 
 module.exports.cadastrar_usuario = function (app, request, response) {
-
+	const crypto = require('crypto');
 	async = require('async');
+	
 	var connection = app.config.dbconn();
 	var cadUser = new app.app.models.dados_usuariosDAO(connection);
 
@@ -11,6 +12,7 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 
 	erro_cadastro.push({ 'msg': 'usuário existente, insira outro','id':0 });
 	erro_cadastro.push({ 'msg': 'email existente, insira outro','id':1 });
+	erro_cadastro.push({ 'msg': 'falha ao cadastrar o usuario','id':2 });
 	
 	request.assert('email', 'O campo email não pode ficar vazio').trim().notEmpty().isEmail();
 	request.assert('nome_usuario', 'O campo nome de usuário não pode ficar vazio').trim().notEmpty();
@@ -31,7 +33,6 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 	async.series([
 		function (callback) {
 			cadUser.validaNomeUsuario(body.nome_usuario, function (error, result) {
-				nivel++;
 				if (result.length > 0) {
 					callback('false', result)
 				}else{
@@ -42,7 +43,7 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 		function (callback) {
 			cadUser.validaEmail(body.email,function(error, result){
 				if (result.length > 0) {
-					callback('false', result,)
+					callback('false', result)
 				}else{
 					callback(null, result)
 				}
@@ -52,7 +53,7 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 			cadUser.cadastrar(body, function(error, result){
 				nivel++;
 				if(error) {
-					response.send('Falha ao cadastrar o usuário:' + error);
+					callback('false', result)
 				}
 				else{
 					request.session.autorizado = true;
@@ -65,7 +66,7 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 		}
 	],function(err, results){
 		if(err){
-			response.render('cadastro/cadastro',{validacao : [erro_cadastro[nivel - 1]]});
+			response.render('cadastro/cadastro',{validacao : [erro_cadastro[nivel]]});
 		}
 	})
 
