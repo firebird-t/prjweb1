@@ -28,7 +28,7 @@ module.exports.verifica_dados_login = function(app, request, response){
 				return;
 			 }else{
 			 	console.log('Usuário não encontrado');
-			 	response.render('home/login',{validacao:{}});
+			 	response.render('home/login',{validacao:[{'msg':'Usuário não encontrado'}]});
 			 }
 		})
 }

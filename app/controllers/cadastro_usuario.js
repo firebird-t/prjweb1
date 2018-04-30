@@ -42,12 +42,12 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 		},
 		function (callback) {
 			cadUser.validaEmail(body.email,function(error, result){
+				nivel++;
 				if (result.length > 0) {
 					callback('false', result)
 				}else{
 					callback(null, result)
 				}
-				nivel++;
 			});
 		}, function (callback) {
 			cadUser.cadastrar(body, function(error, result){
