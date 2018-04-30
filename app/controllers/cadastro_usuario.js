@@ -1,8 +1,8 @@
 
 module.exports.cadastrar_usuario = function (app, request, response) {
-	const crypto = require('crypto');
+
 	async = require('async');
-	
+
 	var connection = app.config.dbconn();
 	var cadUser = new app.app.models.dados_usuariosDAO(connection);
 
