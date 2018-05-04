@@ -5,11 +5,9 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 
 	var connection = app.config.dbconn();
 	var cadUser = new app.app.models.dados_usuariosDAO(connection);
-
 	var body = request.body;
-	var cadastro = false;
+	
 	var erro_cadastro = [];
-
 	erro_cadastro.push({ 'msg': 'usuário existente, insira outro','id':0 });
 	erro_cadastro.push({ 'msg': 'email existente, insira outro','id':1 });
 	erro_cadastro.push({ 'msg': 'falha ao cadastrar o usuario','id':2 });
