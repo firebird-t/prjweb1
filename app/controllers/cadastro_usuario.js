@@ -26,7 +26,6 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 		return;
 	}
 
-	//console.log(cadastro)
 	var nivel = 0;
 	async.series([
 		function (callback) {
@@ -73,10 +72,6 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 module.exports.recuperar_dados_cadastro = function (app, request, response) {
 	var connection = app.config.dbconn();
 	var cadUser = new app.app.models.dados_usuariosDAO(connection);
-
-	// cadUser.cadastrar(dados, function(request, response){
-	// 	response.render("cadastro/cad_user.ejs");
-	// })
 }
 
 module.exports.checa_nome_usuario = function (app, request, response) {

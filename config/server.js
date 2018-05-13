@@ -12,7 +12,7 @@ var app = express();
 app.use(helmet());
 
 app.use(session({
-  secret: 'teste teste',
+  secret: '1234567890!@#$%¨&*()_+qazxswedcvfrtgbnyujmkiolpç^~~;.',
   resave: false,
   saveUninitialized: false
 }))

@@ -7,7 +7,7 @@ function dadosUsuario(connection){
 
 dadosUsuario.prototype.validalogin = function(dados, callback){
 	var secret = crypto.createHash('sha256').update(dados.senha).digest('hex');
-	console.log(secret)
+	//console.log(secret)
 	this._connection.query('select * from users where nome_usuario = ? and senha = ?', [dados.nome_usuario, secret], callback);
 }
 
