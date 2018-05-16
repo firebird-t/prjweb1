@@ -74,13 +74,13 @@ module.exports.recuperar_dados_cadastro = function (app, request, response) {
 	var cadUser = new app.app.models.dados_usuariosDAO(connection);
 }
 
-module.exports.checa_nome_usuario = function (app, request, response) {
+// module.exports.checa_nome_usuario = function (app, request, response) {
 
-	var v_name_user = new app.app.controllers.dados_usuariosDAO;
-	var body = request.body;
+// 	var v_name_user = new app.app.controllers.dados_usuariosDAO;
+// 	var body = request.body;
 
-	v_name_user.validaNomeUsuario(body, function (error, result) {
+// 	v_name_user.validaNomeUsuario(body, function (error, result) {
 
-	});
+// 	});
 
-}
+// }
