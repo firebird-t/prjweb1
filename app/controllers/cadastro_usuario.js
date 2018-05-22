@@ -68,19 +68,3 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 	})
 
 }
-
-module.exports.recuperar_dados_cadastro = function (app, request, response) {
-	var connection = app.config.dbconn();
-	var cadUser = new app.app.models.dados_usuariosDAO(connection);
-}
-
-// module.exports.checa_nome_usuario = function (app, request, response) {
-
-// 	var v_name_user = new app.app.controllers.dados_usuariosDAO;
-// 	var body = request.body;
-
-// 	v_name_user.validaNomeUsuario(body, function (error, result) {
-
-// 	});
-
-// }

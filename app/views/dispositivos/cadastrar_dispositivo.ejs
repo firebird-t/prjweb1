@@ -8,40 +8,8 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	  <a class="navbar-brand" href="#">#</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	  <div class="collapse navbar-collapse" id="navbarNav">
-	    <ul class="navbar-nav">
-	      <li class="nav-item">
-	        <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
-	      </li>
-	     <!--  <li class="nav-item">
-	        <a class="nav-link" href="/listar_dispositivo" active>Meus Dispositivos</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="/status">Status</a>
-	      </li> -->
-	      <li class="nav-item dropdown">
-	              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	               Dispositivos
-	              </a>
-	              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	                <a class="dropdown-item" href="#">Listar</a>
-	                <a class="dropdown-item" href="#">Cadastrar</a>
-	                <a class="dropdown-item" href="#">Consultar Status</a>
-	              </div>
-	        </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="/meudados">Meu Cadastro</a>
-	      </li>
-	    </ul>
-	  </div>
-	</nav>
+	<% include ../header/header %>
 	<div class="container">
-<body>
 
 	<%if(validacao){ %>
 	<ul>
@@ -50,28 +18,51 @@
 		<% } %>
 	</ul>
 	<% }%>
+
 	<form class="form-group" action="/dispositivos/inserir" method="post">
-	  <div >
-	    <label for="exampleInputEmail1">Nome do Dispositivo</label>
-	    <input type="text" class="form-control" aria-describedby="emailHelp" name="nome_dispositivo">
-	  </div>
-	  <div class="form-group">
-	    <label for="exampleInputEmail1">IP de Acesso</label>
-	    <input type="text" class="form-control" aria-describedby="emailHelp" name="ip">
-	  </div>
-	  <div class="form-group">
-	    <label for="exampleInputEmail1">Protocolo</label>
-	    <input type="text" class="form-control" aria-describedby="emailHelp" name="protocolo">
-	  </div>
-	  <div class="form-group">
-	    <label for="exampleInputEmail1">Tipo de Dispositivo</label>
-	    <!-- <input type="text" class="form-control" aria-describedby="emailHelp" name="protocolo"> -->
-	  	<select class="form-group" name="tipo_dispositivo">
-	  		<option value="Doméstico">Doméstico</option>
-	  		<option value="Comercial">Comercial</option>
-	  	</select>
-	  </div>
-	  <button type="submit" class="btn btn-primary">Enviar</button>
+		<div >
+			<label for="exampleInputEmail1">Nome do Dispositivo</label>
+			<input type="text" class="form-control" aria-describedby="emailHelp" name="nome_dispositivo">
+		</div>
+		<div class="form-group">
+			<label for="exampleInputEmail1">IP/Host de Acesso</label>
+			<input type="text" class="form-control" aria-describedby="emailHelp" name="ip">
+		</div>
+		<div class="form-check">
+			<input id="input_receive" type="checkbox" class="form-check-input"/>
+			<label class="form-check-label">A plataforma receberá dados do dispositivo</label>
+		</div>
+		<br/>
+		<div class="form-group">
+			<label for="exampleInputEmail1">Protocolo de Comunicação(ex: HTTP, REST, MQTT, CoAP, AMQP, Websocket, Node)</label>
+			<input type="text" class="form-control" aria-describedby="emailHelp" id="protocolo" name="protocolo">
+		</div>
+		<div class="form-group">
+			<label for="exampleInputEmail1">Intervalo de comunicação</label>
+			<input type="number" class="form-control" aria-describedby="emailHelp" id="intervalo" name="intervalo">
+		</div>
+
+		<div class="form-group">
+			<label for="exampleInputEmail1">Descrição do Dispositivo(Especificação)</label>
+			<input type="text"  class="form-control" name="tipo_dispositivo">
+		</div>
+		<button type="submit" class="btn btn-primary">Enviar</button>
 	</form>
+	<script type="text/javascript">
+		$('#input_receive').on('click', function(event) {
+			//event.preventDefault();
+			/* Act on the event */
+			if(this.checked){
+				$('#protocolo').attr('disabled',true);
+				$('#intervalo').attr('disabled',true);
+				console.log('checked')
+			}else{
+				$('#protocolo').attr('disabled',false);
+				$('#intervalo').attr('disabled',false);
+				console.log('unchecked')
+			}
+
+		});
+	</script>
 </body>
 </html>

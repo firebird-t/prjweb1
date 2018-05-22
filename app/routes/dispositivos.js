@@ -1,15 +1,20 @@
 module.exports = function(app){
 	
-	app.get('/cadastrar_dispositivo',function(request, response){
+	app.get('/dispositivos/cadastrar',function(request, response){
 		if(request.session.autorizado){
 			response.render("dispositivos/cadastrar_dispositivo",{validacao:{}});
 		}
 	})
 
-
-	app.get('/listar_dispositivo',function(request, response){
+	app.get('/dispositivos/listar',function(request, response){
 		if(request.session.autorizado){
 			response.render("dispositivos/listar_dispositivo",{validacao:{}});
+		}
+	})
+
+	app.get('/dispositivos/status',function(request, response){
+		if(request.session.autorizado){
+			response.render("dispositivos/status",{validacao:{}});
 		}
 	})
 

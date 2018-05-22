@@ -7,7 +7,7 @@ module.exports = function(app){
 		if(request.session.autorizado){
 			response.redirect('/home');
 		}else{
-			response.render('home/login',{validacao:{}});
+			response.render('home/login');
 		}
 		
 	})

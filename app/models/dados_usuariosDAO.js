@@ -4,7 +4,6 @@ function dadosUsuario(connection){
 	this._connection = connection;
 }
 
-
 dadosUsuario.prototype.validalogin = function(dados, callback){
 	var secret = crypto.createHash('sha256').update(dados.senha).digest('hex');
 	//console.log(secret)
@@ -22,7 +21,11 @@ dadosUsuario.prototype.validaEmail = function(dados, callback){
 }
 
 dadosUsuario.prototype.recuperar = function(dados, callback){
-	this._connection.query('select * from users where id= ? and username = ?', [dados], callback);
+	this._connection.query('select * from users where id= ?', [dados], callback);
+}
+
+dadosUsuario.prototype.atualizar = function(dados, callback){
+	//this._connection.query('select * from users where id= ?', [dados], callback);
 }
 
 dadosUsuario.prototype.cadastrar = function(dados, callback){

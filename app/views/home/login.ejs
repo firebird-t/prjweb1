@@ -22,13 +22,15 @@
       </div>
     </nav>
 <body>
-<div class="container">
-    <%if(validacao){%>
-    <ul>
+<div class="container">   
+    <% if(typeof(validacao) != 'undefined'){ %>
+        <div class="alert alert-danger" role="alert">
+        <ul>
         <% for(var i = 0; i < validacao.length; i++){ %>
             <li><%= validacao[i].msg %></li>        
         <% } %>
-    </ul>
+        </ul>
+        </div>
     <% }%>
         <form class="form-horizontal" role="form" method="POST" action="/login/entrar" style="margin-top: 30px">
 
