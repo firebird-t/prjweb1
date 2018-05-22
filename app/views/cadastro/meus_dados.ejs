@@ -2,15 +2,12 @@
 <html>
 <head>
 	<title>Página Inicial</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<% include ../header/header %>
 	<div class="container">
 		<h1>Atualizar dados de cadastro</h1>
+		<img src="..." class="rounded float-left" alt="...">
 		<form action="/cadastro/atualizar" method="post" style="margin-top: 30px">
 		<% if(typeof(dados) != undefined){%>	
 			  <div class="form-group">
@@ -27,11 +24,11 @@
 			  </div>
 			  <div class="form-group">
 			    <label for="senha">Senha</label>
-			    <input type="password" class="form-control" id="senha" name="senha">
+			    <input type="password" class="form-control" id="senha_update" name="senha_update_v">
 			  </div>
 			  <div class="form-group">
 					<label for="senhav">Digite a sua senha novamente</label>
-					<input type="password" class="form-control" id="senha" name="senhav">
+					<input type="password" class="form-control" id="senha_update_v" name="senha_update_v">
 			  </div>
 			  <button type="submit" class="btn btn-primary">Atualizar</button>
 		<% }else{ %>
