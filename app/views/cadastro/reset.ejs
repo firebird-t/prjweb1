@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Cadastro</title>
+	<title>Recuperação de acesso</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -20,7 +24,7 @@
 	    </ul>
 	  </div>
 	</nav>
-	<%if(validacao){%>
+	<% if(typeof(validacao) != "undefined"){%>
 	<ul>
 		<% for(var i = 0; i < validacao.length; i++){ %>
 			<li><%= validacao[i].msg %></li>		
@@ -28,28 +32,12 @@
 	</ul>
 	<% }%>
 	<div class="container">
-		<form action="/cadastro/inserir" method="post" style="margin-top: 30px">
-		  <div class="form-group">
-		    <label for="email">Nome</label>
-		    <input type="text" class="form-control" id="nome" name="nome" aria-describedby="emailHelp" length='10'>
-		  </div>
-		  <div class="form-group">
-		    <label for="email">E-mail</label>
-		    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" >
-		  </div>
-		  <div class="form-group">
-		    <label for="email">Nome de usuário</label>
-		    <input type="text" class="form-control" id="nome_usuario" name="nome_usuario" aria-describedby="emailHelp" length='8'>
-		  </div>
-		  <div class="form-group">
-		    <label for="senha">Senha</label>
-		    <input type="password" class="form-control" id="senha" name="senha">
-		  </div>
-		  <div class="form-group">
-				<label for="senhav">Digite a sua senha novamente</label>
-				<input type="password" class="form-control" id="senha" name="senhav">
-		  </div>
-		  <button type="submit" class="btn btn-primary">Enviar</button>
+		<form action="" method="post" style="margin-top: 30px">
+			<div class="form-group">
+				<label for="email">E-mail</label>
+				<input type="email" name="email" class="form-control">
+			</div>
+			<button type="submit" class="btn btn-primary">Enviar</button>
 		</form>
 	</div>
 

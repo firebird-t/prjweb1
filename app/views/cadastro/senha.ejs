@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Atualizar dados de cadastro</title>
+	<title>Alterar Senha</title>
 </head>
 <body>
 	<% include ../header/header %>
 	<div class="container">
+		<h1>Atualizar dados de cadastro</h1>
 		
 		<div class="form-group">
 		    <label for="exampleFormControlFile1">Example file input</label>
 		    <input type="file" class="form-control-file" id="exampleFormControlFile1">
 		</div>
-		<form action="/cadastro/atualizar/dados" method="post" style="margin-top: 30px">
+		<form action="/cadastro/atualizar/senha" method="post" style="margin-top: 30px">
 		<% if(typeof(dados) != undefined){%>	
 			  <div class="form-group">
 			    <label for="email">Nome</label>
@@ -24,7 +25,8 @@
 			  <div class="form-group">
 			    <label for="email">Nome de usuário</label>
 			    <input type="text" class="form-control" id="nome_usuario" name="nome_usuario" aria-describedby="emailHelp" length='8' value=<%= dados[0].nome_usuario %>>
-			  </div>		  
+			  </div>
+			  
 			  <button type="submit" class="btn btn-primary">Atualizar</button>
 		<% }else{ %>
 				<p> Não há dados para exibir</p>

@@ -85,11 +85,7 @@ module.exports.atualiza_dados = function(app, request, response){
 		}
 	],function(err, results){
 		if(err){
-			response.render('cadastro/meus_dados',{validacao : [erro_cadastro[nivel]]});
+			response.render('cadastro/perfil',{validacao : [erro_cadastro[nivel]]});
 		}
 	})
-	// cadUser.recuperar([request.session.user_id], function(error, result){
-	// 	console.log(result, request.session.user_id)
-	// 	response.render("cadastro/meus_dados",{dados : result});
-	// })
 }

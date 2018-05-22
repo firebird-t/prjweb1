@@ -26,14 +26,11 @@ dadosUsuario.prototype.recuperar = function(dados, callback){
 
 dadosUsuario.prototype.atualizar = function(dados, callback){
 	var query = "update users set(nome, nome_usuario, email";
-	
-	if(dados.senha != ""){
-		query += ",senha";
-	}else{
-		query += ")";
-	}
-
 	//this._connection.query('select * from users where id= ?', [dados], callback);
+}
+
+dadosUsuario.prototype.atualizar_senha = function(dados, callback){
+	
 }
 
 dadosUsuario.prototype.cadastrar = function(dados, callback){
