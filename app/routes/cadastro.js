@@ -4,16 +4,20 @@ module.exports = function(app){
 		response.render("cadastro/cadastro",{validacao:{}});
 	})
 
-	app.post('/cadastro/inserir',function(request, response){	
+	app.post('/cadastro/inserir',function(request, response){
 		app.app.controllers.cadastro_usuario.cadastrar_usuario(app, request, response);
 	})
 
 	app.post('/cadastro/atualizar/dados',function(request, response){
-		app.app.controllers.cadastro_usuario.atualizar_dados(app, request, response);
+		if(request.session.autorizado){
+			app.app.controllers.cadastro_usuario.atualizar_dados(app, request, response);
+		}
 	})
 
 	app.post('/cadastro/atualizar/senha',function(request, response){
-		app.app.controllers.cadastro_usuario.atualizar_dados(app, request, response);
+		if(request.session.autorizado){
+			app.app.controllers.cadastro_usuario.atualizar_senha(app, request, response);
+		}
 	})
 
 	app.get("/perfil/dados", function(request, response){
