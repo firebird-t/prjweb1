@@ -24,13 +24,15 @@
 	    </ul>
 	  </div>
 	</nav>
-	<%if(validacao){%>
-	<ul>
-		<% for(var i = 0; i < validacao.length; i++){ %>
-			<li><%= validacao[i].msg %></li>		
-		<% } %>
-	</ul>
-	<% }%>
+	<div class="alert alert-danger" role="alert">
+    <%if(validacao){%>
+    <ul>
+        <% for(var i = 0; i < validacao.length; i++){ %>
+            <li><%= validacao[i].msg %></li>        
+        <% } %>
+    </ul>
+    <% }%>
+    </div>
 	<div class="container">
 		<form action="/cadastro/inserir" method="post" style="margin-top: 30px">
 		  <div class="form-group">
