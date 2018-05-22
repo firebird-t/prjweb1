@@ -6,31 +6,23 @@
 <body>
 	<% include ../header/header %>
 	<div class="container">
-		<h1>Atualizar dados de cadastro</h1>
-		
-		<div class="form-group">
-		    <label for="exampleFormControlFile1">Example file input</label>
-		    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-		</div>
-		<form action="/cadastro/atualizar/senha" method="post" style="margin-top: 30px">
-		<% if(typeof(dados) != undefined){%>	
+		<h3>Alterar senha</h3>
+
+		<form action="/cadastro/atualizar/senha" method="post" style="margin-top: 30px">	
 			  <div class="form-group">
-			    <label for="email">Nome</label>
-			    <input type="text" class="form-control" id="nome" name="nome" aria-describedby="emailHelp" length='10' value="<%= dados[0].nome %>">
+			    <label for="senha_antiga">Senha Antiga</label>
+			    <input type="password" class="form-control" id="senha_antiga" name="senha_antiga" aria-describedby="emailHelp" value="">
 			  </div>
 			  <div class="form-group">
-			    <label for="email">E-mail</label>
-			    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" value="<%= dados[0].email %>">
+			    <label for="senha_nova">Nova Senha</label>
+			    <input type="password" class="form-control" id="senha_nova" name="senha_nova" aria-describedby="emailHelp" value="">
 			  </div>
 			  <div class="form-group">
-			    <label for="email">Nome de usuário</label>
-			    <input type="text" class="form-control" id="nome_usuario" name="nome_usuario" aria-describedby="emailHelp" length='8' value=<%= dados[0].nome_usuario %>>
+			    <label for="senha_nova_conf">Redigite a nova senha</label>
+			    <input type="password" class="form-control" id="senha_nova_conf" name="senha_nova_conf" aria-describedby="emailHelp" length='8' value="">
 			  </div>
 			  
-			  <button type="submit" class="btn btn-primary">Atualizar</button>
-		<% }else{ %>
-				<p> Não há dados para exibir</p>
-		<% } %>%>	
+			  <button type="submit" class="btn btn-primary">Atualizar</button>	
 		</form>
 	</div>
 </body>
