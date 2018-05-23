@@ -1,5 +1,6 @@
 //Async
 async = require('async');
+crypto = require('crypto');
 
 module.exports.verifica_dados_login = function(app, request, response){
 		var conn = app.config.dbconn();
@@ -120,7 +121,34 @@ module.exports.atualizar_senha = function(app, request, response){
 	var connection = app.config.dbconn();
 	var cadUser = new app.app.models.dados_usuariosDAO(connection);
 	var body = request.body;
-	body["id"] = request.session.user_id;
+	//body.senha_antiga
+	//body.senha_nova
+	//body.senha_nova_conf
 
+	request.assert('senha_antiga', 'Senha inválida').trim().notEmpty();
+	request.assert('senha_nova', 'Senha inválida').trim().notEmpty();
+	request.assert('senha_nova', 'as senhas não são iguais').trim().isEqual(body.senha_nova_conf);
+
+	var erros = request.validationErrors();
+
+	if (erros) {
+		console.log(erros)
+		response.render('cadastro/senha',{validacao: erros});
+		return;
+	}
+
+	cadUser.validaSenha(request.session.user_id, function(error, result){
+		if(!error){
+			var senha_comp_1 = crypto.createHash('sha256').update(result[0]["senha"]).digest('hex');
+			var senha_comp_2 = crypto.createHash('sha256').update(body.senha_antiga ).digest('hex');
+			if(senha_comp_1 == senha_comp_2){
+				console.log('sucesso');
+			}else{
+				console.log('erro');
+			}
+		}else{
+			console.log(error);
+		}
+	})
 
 }	

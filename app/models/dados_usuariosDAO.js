@@ -52,6 +52,10 @@ dadosUsuario.prototype.cadastrar = function(dados, callback){
 	this._connection.query(query, callback);
 }
 
+dadosUsuario.prototype.validaSenha = function(dados, callback){
+	var query = 'SELECT senha from users where id ='+ dados;
+	this._connection.query(query, callback);
+}
 
 module.exports = function(){
 	return dadosUsuario;
