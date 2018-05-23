@@ -10,7 +10,7 @@ module.exports = function(app){
 
 	app.post('/cadastro/atualizar/dados',function(request, response){
 		if(request.session.autorizado){
-			app.app.controllers.cadastro_usuario.atualizar_dados(app, request, response);
+			app.app.controllers.dados_usuarios.atualizar_dados(app, request, response);
 		}
 	})
 

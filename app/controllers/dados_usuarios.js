@@ -1,3 +1,6 @@
+//Async
+async = require('async');
+
 module.exports.verifica_dados_login = function(app, request, response){
 		var conn = app.config.dbconn();
 		var dadosUsuario = new app.app.models.dados_usuariosDAO(conn);
@@ -46,6 +49,7 @@ module.exports.atualizar_dados = function(app, request, response){
 	var connection = app.config.dbconn();
 	var cadUser = new app.app.models.dados_usuariosDAO(connection);
 	var body = request.body;
+	body["id"] = request.session.user_id;
 
 	var erro_cadastro = [];
 	erro_cadastro.push({ 'msg': 'usuário existente, insira outro','id':0 });
@@ -53,9 +57,11 @@ module.exports.atualizar_dados = function(app, request, response){
 	erro_cadastro.push({ 'msg': 'falha ao atualizar as informações do usuário, tente novamente mais tarde','id':2 });
 
 	var nivel = 0;
+	console.log(body)
 	async.series([
 		function (callback) {
-			cadUser.validaNomeUsuario(body.nome_usuario, function (error, result) {
+			cadUser.validaNomeUsuario(body, function (error, result) {
+				console.log(error)
 				if (result.length > 0) {
 					callback('false', result)
 				}else{
@@ -64,7 +70,8 @@ module.exports.atualizar_dados = function(app, request, response){
 			}, 2);
 		},
 		function (callback) {
-			cadUser.validaEmail(body.email,function(error, result){
+			cadUser.validaEmail(body,function(error, result){
+				console.log(error)
 				nivel++;
 				if (result.length > 0) {
 					callback('false', result)
@@ -73,8 +80,9 @@ module.exports.atualizar_dados = function(app, request, response){
 				}
 			}, 2);
 		}, function (callback) {
-			cadUser.atualizar(body, function(error, result){
+			cadUser.atualizar_dados_usuario(body, function(error, result){
 				nivel++;
+				console.log(error)
 				if(error) {
 					callback('false', result)
 				}
@@ -85,7 +93,7 @@ module.exports.atualizar_dados = function(app, request, response){
 		}
 	],function(err, results){
 		if(err){
-			response.render('cadastro/perfil',{validacao : [erro_cadastro[nivel]]});
+			response.render('cadastro/meus_dados',{validacao : [erro_cadastro[nivel]]});
 		}
 	})
 }
@@ -107,4 +115,7 @@ module.exports.atualizar_senha = function(app, request, response){
 	var connection = app.config.dbconn();
 	var cadUser = new app.app.models.dados_usuariosDAO(connection);
 	var body = request.body;
+	body["id"] = request.session.user_id;
+
+
 }	
