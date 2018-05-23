@@ -11,12 +11,16 @@ module.exports = function(app){
 	app.post('/cadastro/atualizar/dados',function(request, response){
 		if(request.session.autorizado){
 			app.app.controllers.dados_usuarios.atualizar_dados(app, request, response);
+		}else{
+			response.redirect('/');
 		}
 	})
 
 	app.post('/cadastro/atualizar/senha',function(request, response){
 		if(request.session.autorizado){
 			app.app.controllers.dados_usuarios.atualizar_senha(app, request, response);
+		}else{
+			response.redirect('/');
 		}
 	})
 

@@ -57,11 +57,10 @@ module.exports.atualizar_dados = function(app, request, response){
 	erro_cadastro.push({ 'msg': 'falha ao atualizar as informações do usuário, tente novamente mais tarde','id':2 });
 
 	var nivel = 0;
-	console.log(body)
+
 	async.series([
 		function (callback) {
 			cadUser.validaNomeUsuario(body, function (error, result) {
-				console.log(error)
 				if (result.length > 0) {
 					callback('false', result)
 				}else{
@@ -71,7 +70,6 @@ module.exports.atualizar_dados = function(app, request, response){
 		},
 		function (callback) {
 			cadUser.validaEmail(body,function(error, result){
-				console.log(error)
 				nivel++;
 				if (result.length > 0) {
 					callback('false', result)
@@ -82,21 +80,25 @@ module.exports.atualizar_dados = function(app, request, response){
 		}, function (callback) {
 			cadUser.atualizar_dados_usuario(body, function(error, result){
 				nivel++;
-				console.log(error)
 				if(error) {
 					callback('false', result)
 				}
 				else{
 					cadUser.recuperar([request.session.user_id], function(error, result){
-						result["success"] =  true;
-						response.render("cadastro/meus_dados",{dados : result});
+						response.cookie("success","true")
+						//response.render("cadastro/meus_dados",{dados : result});
+						response.redirect("/perfil/dados");
+						
 					})
 				}
 			})
 		}
 	],function(err, results){
 		if(err){
-			response.render('cadastro/meus_dados',{validacao : [erro_cadastro[nivel]]});
+			//erro_cadastro[nivel]["success"] = false;
+			//response.render('cadastro/meus_dados',{validacao : [erro_cadastro[nivel]]});
+			response.cookie("success","false");
+			response.redirect("/perfil/dados");
 		}
 	})
 }

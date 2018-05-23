@@ -4,8 +4,9 @@ var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var session = require('express-session');
 var helmet = require('helmet');
-var cookieParser = require('cookie-parser')
-var cookieSession = require('cookie-session')
+var cookieParser = require('cookie-parser');
+//var cookieSession = require('cookie-session');
+var morgan = require('morgan');
 
 //instância do express
 var app = express();
@@ -15,6 +16,9 @@ app.use(helmet());
 
 //Cookie Parser
 app.use(cookieParser())
+
+//Logger
+app.use(morgan('dev'));
 
 //Cookie Session
 /*app.use(cookieSession({

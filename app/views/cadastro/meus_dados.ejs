@@ -4,26 +4,39 @@
 	<title>Atualizar dados de cadastro</title>
 </head>
 <body>
+	<script type="text/javascript">
+		//https://www.the-art-of-web.com/javascript/getcookie/
+		function getCookie(name)
+		  {
+		    var re = new RegExp(name + "=([^;]+)");
+		    var value = re.exec(document.cookie);
+		    return (value != null) ? unescape(value[1]) : null;
+		  }
+
+		 //https://stackoverflow.com/questions/179355/clearing-all-cookies-with-javascript?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+		// function deleteAllCookies() {
+		//      var cookies = document.cookie.split(";");
+
+		//      for (var i = 0; i < cookies.length; i++) {
+		//          var cookie = cookies[i];
+		//          var eqPos = cookie.indexOf("=");
+		//          var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+		//          document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+		//      }
+		//  }
+
+	</script>
 	<% include ../header/header %>
 	<div class="container">
-		<% if(typeof(validacao) != "undefined"){
-			if(Object.keys(validacao).length > 0){
-			%>	
-				<div class="alert alert-danger" role="alert">
-				  Houve um erro ao gravar os dados
-				</div>
-			<%} else { %>
-				<div class="alert alert-success" role="alert">
-				  Dados gravados com sucesso
-				</div>
-			<%}%>		
-		<%}%>
 		<div class="form-group">
-		    <label for="exampleFormControlFile1">Example file input</label>
+		    <label for="exampleFormControlFile1">Foto do Perfil</label>
 		    <input type="file" class="form-control-file" id="exampleFormControlFile1">
 		</div>
+
+		
 		<form action="/cadastro/atualizar/dados" method="post" style="margin-top: 30px">
-		<% if(typeof(dados) != undefined){%>	
+		<div id="message"></div>
+		<% if(typeof(dados) != "undefined"){%>
 			  <div class="form-group">
 			    <label for="email">Nome</label>
 			    <input type="text" class="form-control" id="nome" name="nome" aria-describedby="emailHelp" length='10' value="<%= dados[0].nome %>">
@@ -42,5 +55,18 @@
 		<% } %>%>	
 		</form>
 	</div>
+	<script type="text/javascript">
+			
+			if(getCookie("success") != null){
+			  	 if(getCookie("success") == "true") {
+			  		message.innerHTML = '<div class="alert alert-success" role="alert">Dados gravados com sucesso</div>';
+				}else{
+					message.innerHTML = '<div class="alert alert-danger" role="alert">Houve um erro ao gravar os dados</div>';
+				} 
+			}
+			
+			document.cookie = "success=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+
+	</script>
 </body>
 </html>
