@@ -35,7 +35,7 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 				}else{
 					callback(null, result)
 				}
-			});
+			}, 1);
 		},
 		function (callback) {
 			cadUser.validaEmail(body.email,function(error, result){
@@ -45,7 +45,7 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 				}else{
 					callback(null, result)
 				}
-			});
+			}, 1);
 		}, function (callback) {
 			cadUser.cadastrar(body, function(error, result){
 				nivel++;

@@ -6,7 +6,18 @@
 <body>
 	<% include ../header/header %>
 	<div class="container">
-		
+		<% if(typeof(validacao) != "undefined"){
+			if(Object.keys(validacao).length > 0){
+			%>	
+				<div class="alert alert-danger" role="alert">
+				  Houve um erro ao gravar os dados
+				</div>
+			<%} else { %>
+				<div class="alert alert-success" role="alert">
+				  Dados gravados com sucesso
+				</div>
+			<%}%>		
+		<%}%>
 		<div class="form-group">
 		    <label for="exampleFormControlFile1">Example file input</label>
 		    <input type="file" class="form-control-file" id="exampleFormControlFile1">

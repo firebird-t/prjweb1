@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var session = require('express-session');
 var helmet = require('helmet');
+var cookieParser = require('cookie-parser')
+var cookieSession = require('cookie-session')
 
 //instância do express
 var app = express();
@@ -11,6 +13,19 @@ var app = express();
 //Proteção contra ataques
 app.use(helmet());
 
+//Cookie Parser
+app.use(cookieParser())
+
+//Cookie Session
+/*app.use(cookieSession({
+  name: 'session',
+  keys: [/* secret keys ],
+
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))*/
+
+//Configurações da sessão
 app.use(session({
   secret: '1234567890!@#$%¨&*()_+qazxswedcvfrtgbnyujmkiolpç^~~;.',
   resave: false,

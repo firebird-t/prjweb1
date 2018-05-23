@@ -1,7 +1,7 @@
 module.exports = function(app){
 	
 	app.get('/cadastro',function(request, response){
-		response.render("cadastro/cadastro",{validacao:{}});
+		response.render("cadastro/cadastro");
 	})
 
 	app.post('/cadastro/inserir',function(request, response){
@@ -39,5 +39,10 @@ module.exports = function(app){
 
 	app.get("/password/reset", function(request, response){
 		response.render("cadastro/reset")
+	})
+
+	app.post("/password/reset", function(request, response){
+		//response.render("cadastro/reset")
+		app.app.controllers.dados_usuarios.senha_reset(app, request, response);
 	})
 }

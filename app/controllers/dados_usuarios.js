@@ -1,7 +1,6 @@
 module.exports.verifica_dados_login = function(app, request, response){
 		var conn = app.config.dbconn();
 		var dadosUsuario = new app.app.models.dados_usuariosDAO(conn);
-
 		var dados = request.body;
 
 		request.assert('nome_usuario', 'Insira o login do usuário').trim().notEmpty();
@@ -57,7 +56,7 @@ module.exports.atualiza_dados = function(app, request, response){
 				}else{
 					callback(null, result)
 				}
-			});
+			}, 2);
 		},
 		function (callback) {
 			cadUser.validaEmail(body.email,function(error, result){
@@ -67,7 +66,7 @@ module.exports.atualiza_dados = function(app, request, response){
 				}else{
 					callback(null, result)
 				}
-			});
+			}, 2);
 		}, function (callback) {
 			cadUser.atualizar(body, function(error, result){
 				nivel++;
@@ -75,11 +74,7 @@ module.exports.atualiza_dados = function(app, request, response){
 					callback('false', result)
 				}
 				else{
-					// request.session.autorizado = true;
-					// request.session.nome = body.nome;
-					// request.session.user = body.nome_usuario;
-					// request.session.user_id = result.insertId;
-					// response.redirect('/home');
+					response.render('cadastro/perfil',{validacao : {}});
 				}
 			})
 		}
@@ -88,4 +83,17 @@ module.exports.atualiza_dados = function(app, request, response){
 			response.render('cadastro/perfil',{validacao : [erro_cadastro[nivel]]});
 		}
 	})
+}
+
+module.exports.senha_reset = function(app, request, response){
+	var connection = app.config.dbconn();
+	var cadUser = new app.app.models.dados_usuariosDAO(connection);
+	var body = request.body;
+
+	//Verifica se o email existe
+
+	//Gera token  e grava no banco
+
+	//Envia email com link para redefinição de senha
+
 }
