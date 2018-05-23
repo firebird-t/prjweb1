@@ -5,9 +5,31 @@
 </head>
 <body>
 	<% include ../header/header %>
+	<script type="text/javascript">
+		//https://www.the-art-of-web.com/javascript/getcookie/
+		function getCookie(name)
+		  {
+		    var re = new RegExp(name + "=([^;]+)");
+		    var value = re.exec(document.cookie);
+		    return (value != null) ? unescape(value[1]) : null;
+		  }
+
+		 //https://stackoverflow.com/questions/179355/clearing-all-cookies-with-javascript?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+		// function deleteAllCookies() {
+		//      var cookies = document.cookie.split(";");
+
+		//      for (var i = 0; i < cookies.length; i++) {
+		//          var cookie = cookies[i];
+		//          var eqPos = cookie.indexOf("=");
+		//          var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+		//          document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+		//      }
+		//  }
+
+	</script>
 	<div class="container">
 		<h3>Alterar senha</h3>
-
+		<div id="message"></div>
 		<form action="/cadastro/atualizar/senha" method="post" style="margin-top: 30px">	
 			  <div class="form-group">
 			    <label for="senha_antiga">Senha Antiga</label>
@@ -25,5 +47,18 @@
 			  <button type="submit" class="btn btn-primary">Atualizar Senha</button>	
 		</form>
 	</div>
+		<script type="text/javascript">
+			
+			if(getCookie("success") != null){
+			  	 if(getCookie("success") == "true") {
+			  		message.innerHTML = '<div class="alert alert-success" role="alert">Dados gravados com sucesso</div>';
+				}else{
+					message.innerHTML = '<div class="alert alert-danger" role="alert">Houve um erro ao gravar os dados</div>';
+				} 
+			}
+			
+			document.cookie = "success=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+
+	</script>
 </body>
 </html>
