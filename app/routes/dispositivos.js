@@ -1,5 +1,6 @@
 module.exports = function(app){
 	
+	//Página de cadastro de dispositivos
 	app.get('/dispositivos/cadastrar',function(request, response){
 		if(request.session.autorizado){
 			response.render("dispositivos/cadastrar_dispositivo",{validacao:{}});
@@ -18,6 +19,7 @@ module.exports = function(app){
 		}
 	})
 
+	//Recebendo dados do formulário da página de cadastro de dispositivos
 	app.post('/dispositivos/inserir',function(request, response){
 		if(request.session.autorizado){
 			app.app.controllers.dados_dispositivos.dados_inserir(app, request, response);

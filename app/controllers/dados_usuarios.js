@@ -47,6 +47,11 @@ module.exports.atualiza_dados = function(app, request, response){
 	var cadUser = new app.app.models.dados_usuariosDAO(connection);
 	var body = request.body;
 
+	var erro_cadastro = [];
+	erro_cadastro.push({ 'msg': 'usuário existente, insira outro','id':0 });
+	erro_cadastro.push({ 'msg': 'email existente, insira outro','id':1 });
+	erro_cadastro.push({ 'msg': 'falha ao atualizar as informações do usuário, tente novamente mais tarde','id':2 });
+
 	var nivel = 0;
 	async.series([
 		function (callback) {
@@ -96,4 +101,8 @@ module.exports.senha_reset = function(app, request, response){
 
 	//Envia email com link para redefinição de senha
 
+}
+
+module.exports.atualiza_senha = function(app, request, response){
+	
 }
