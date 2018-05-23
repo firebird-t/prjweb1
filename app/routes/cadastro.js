@@ -18,7 +18,6 @@ module.exports = function(app){
 
 	app.post('/cadastro/atualizar/senha',function(request, response){
 		if(request.session.autorizado){
-			console.log("entrou aqui - route");
 			app.app.controllers.dados_usuarios.atualizar_senha(app, request, response);
 		}else{
 			response.redirect('/');
@@ -48,7 +47,6 @@ module.exports = function(app){
 
 	//Recebendo dados do form da página de reset de senha
 	app.post("/password/reset", function(request, response){
-		//response.render("cadastro/reset")
 		app.app.controllers.dados_usuarios.senha_reset(app, request, response);
 	})
 }
