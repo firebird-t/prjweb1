@@ -36,8 +36,8 @@ dadosUsuario.prototype.recuperar = function(dados, callback){
 }
 
 dadosUsuario.prototype.atualizar_dados_usuario = function(dados, callback){
-	var query = "update users set nome ='"+dados.nome+"' and nome_usuario ='"+dados.nome_usuario;
-	query += "' and email ='"+dados.email+"' where id = "+dados.id;
+	var query = 'update users set nome ="'+dados.nome+'", nome_usuario ="'+dados.nome_usuario;
+	query += '",email ="'+dados.email+'" where id ='+dados.id;
 	this._connection.query(query, callback);
 }
 

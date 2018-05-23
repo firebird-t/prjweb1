@@ -40,7 +40,7 @@ module.exports.recuperar_dados_cadastro = function (app, request, response) {
 	var connection = app.config.dbconn();
 	var cadUser = new app.app.models.dados_usuariosDAO(connection);
 	cadUser.recuperar([request.session.user_id], function(error, result){
-		console.log(result, request.session.user_id)
+		//console.log(result, request.session.user_id)
 		response.render("cadastro/meus_dados",{dados : result});
 	})
 }
@@ -87,7 +87,10 @@ module.exports.atualizar_dados = function(app, request, response){
 					callback('false', result)
 				}
 				else{
-					response.render('cadastro/perfil',{validacao : {}});
+					cadUser.recuperar([request.session.user_id], function(error, result){
+						result["success"] =  true;
+						response.render("cadastro/meus_dados",{dados : result});
+					})
 				}
 			})
 		}
