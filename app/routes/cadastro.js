@@ -16,7 +16,7 @@ module.exports = function(app){
 
 	app.post('/cadastro/atualizar/senha',function(request, response){
 		if(request.session.autorizado){
-			app.app.controllers.cadastro_usuario.atualizar_senha(app, request, response);
+			app.app.controllers.dados_usuarios.atualizar_senha(app, request, response);
 		}
 	})
 
@@ -30,7 +30,6 @@ module.exports = function(app){
 
 	app.get("/perfil/senha", function(request, response){
 		if(request.session.autorizado){
-			//app.app.controllers.dados_usuarios.recuperar_dados_cadastro(app, request, response);
 			response.render('cadastro/senha')
 		}else{
 			response.redirect('/');

@@ -41,7 +41,7 @@ dadosUsuario.prototype.atualizar = function(dados, callback){
 	this._connection.query(query, [dados], callback);
 }
 
-dadosUsuario.prototype.atualizar_senha = function(dados, callback){
+dadosUsuario.prototype.atualizar_senha_usuario = function(dados, callback){
 	
 }
 

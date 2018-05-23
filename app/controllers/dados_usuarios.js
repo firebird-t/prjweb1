@@ -42,7 +42,7 @@ module.exports.recuperar_dados_cadastro = function (app, request, response) {
 	})
 }
 
-module.exports.atualiza_dados = function(app, request, response){
+module.exports.atualizar_dados = function(app, request, response){
 	var connection = app.config.dbconn();
 	var cadUser = new app.app.models.dados_usuariosDAO(connection);
 	var body = request.body;
@@ -103,6 +103,8 @@ module.exports.senha_reset = function(app, request, response){
 
 }
 
-module.exports.atualiza_senha = function(app, request, response){
-	
-}
+module.exports.atualizar_senha = function(app, request, response){
+	var connection = app.config.dbconn();
+	var cadUser = new app.app.models.dados_usuariosDAO(connection);
+	var body = request.body;
+}	
