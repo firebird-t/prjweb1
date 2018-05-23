@@ -49,15 +49,16 @@
 	</div>
 		<script type="text/javascript">
 			
-			if(getCookie("success") != null){
-			  	 if(getCookie("success") == "true") {
+			
+			if(getCookie("senha_atualizada") != null){
+			  	 if(getCookie("senha_atualizada") == "true") {
 			  		message.innerHTML = '<div class="alert alert-success" role="alert">Dados gravados com sucesso</div>';
 				}else{
-					message.innerHTML = '<div class="alert alert-danger" role="alert">Houve um erro ao gravar os dados</div>';
+					message.innerHTML = '<div class="alert alert-danger" role="alert">Houve um erro ao alterar a senha</div>';
 				} 
 			}
 			
-			document.cookie = "success=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+			document.cookie = "senha_atualizada=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
 
 	</script>
 </body>

@@ -66,15 +66,15 @@
 	</div>
 	<script type="text/javascript">
 			
-			if(getCookie("senha_atualizada") != null){
-			  	 if(getCookie("senha_atualizada") == "true") {
+			if(getCookie("dados_atualizados") != null){
+			  	 if(getCookie("dados_atualizados") == "true") {
 			  		message.innerHTML = '<div class="alert alert-success" role="alert">Dados gravados com sucesso</div>';
 				}else{
 					message.innerHTML = '<div class="alert alert-danger" role="alert">Houve um erro ao alterar a senha</div>';
 				} 
 			}
 			
-			document.cookie = "senha_atualizada=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+			document.cookie = "dados_atualizados=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
 
 	</script>
 </body>

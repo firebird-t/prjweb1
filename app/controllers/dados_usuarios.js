@@ -142,12 +142,19 @@ module.exports.atualizar_senha = function(app, request, response){
 			var senha_comp_1 = result[0]["senha"];
 			var senha_comp_2 = crypto.createHash('sha256').update(body.senha_antiga).digest('hex');
 			if(senha_comp_1 == senha_comp_2){
-				cadUser.atualizar_senha_usuario(request.session.user_id, function(error, result){
-					request.cookie("senha_atualizada","true");
-					response.redirect('/perfil/senha');
+				cadUser.atualizar_senha_usuario(body.senha_nova, request.session.user_id, function(error, result){
+					if(!error){
+						console.log(result)
+						response.cookie("senha_atualizada","true");
+						response.redirect('/perfil/senha');
+					}else{
+						console.log(error);
+						response.cookie("senha_atualizada","false")
+						response.redirect('/perfil/senha');
+					}
 				})
 			}else{
-				request.cookie("senha_atualizada","false")
+				response.cookie("senha_atualizada","false")
 				response.redirect('/perfil/senha');
 			}
 		}else{
