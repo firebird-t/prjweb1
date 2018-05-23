@@ -42,12 +42,9 @@ CREATE TABLE IF NOT EXISTS `devices` (
   KEY `id_usuarioFK1` (`id_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela trabalho.devices: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela trabalho.devices: ~0 rows (aproximadamente)
 DELETE FROM `devices`;
 /*!40000 ALTER TABLE `devices` DISABLE KEYS */;
-INSERT INTO `devices` (`id`, `id_usuario`, `nome_dispositivo`, `ip`, `protocolo`, `data_criacao`, `tipo_dispositivo`, `tempo_verificacao`) VALUES
-	(16, 5, 'Arduino UNO R3', '192.168.54.8', 'REST', '2018-04-27 14:31:21', 'Doméstico', 0),
-	(17, 11, 'Arduino UNO R3', '192.168.54.1', 'REST', '2018-04-27 15:48:03', 'Comercial', 0);
 /*!40000 ALTER TABLE `devices` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela trabalho.device_data
@@ -64,9 +61,9 @@ DELETE FROM `device_data`;
 -- Copiando estrutura para tabela trabalho.tokens
 CREATE TABLE IF NOT EXISTS `tokens` (
   `user_id` int(11) NOT NULL,
-  `activate_date` datetime NOT NULL,
+  `activate_date` datetime NOT NULL DEFAULT current_timestamp(),
   `lifetime` int(11) NOT NULL,
-  `end_date` datetime NOT NULL,
+  `used_date` datetime NOT NULL,
   `token` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -83,14 +80,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `senha` varchar(255) NOT NULL,
   `email` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela trabalho.users: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela trabalho.users: ~0 rows (aproximadamente)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `nome`, `nome_usuario`, `senha`, `email`) VALUES
-	(27, 'Leonardo Everson', 'firebird1', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'firebird_tech@live.com'),
-	(28, 'Leonardo Everson', 'leonardoeverson', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'leonardo.everson@outlook.com');
+	(29, 'Leonardo', 'leonardo', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f', 'leonardo.everson@outlook.com');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

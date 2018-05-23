@@ -10,8 +10,8 @@ module.exports.verifica_dados_login = function(app, request, response){
 		request.assert('nome_usuario', 'Insira o login do usuário').trim().notEmpty();
 		request.assert('senha', 'Insira a senha do usuário').notEmpty();
 
-		var erros = request.validationErrors();
-		
+		var erros = request.validationErrors();		
+
 		if(erros){
 			console.log('usuário e/ou senha faltando');
 			//response.render("home/login",{validacao : erros});
@@ -25,6 +25,11 @@ module.exports.verifica_dados_login = function(app, request, response){
 			 	request.session.autorizado = true;
 			 	request.session.user = result[0]['nome_usuario'];
 			 	request.session.user_id = result[0]['id'];
+			 	
+			 	//Cookie de lembrança de login
+			 	if(dados.remember != undefined && dados.remember == 'on'){
+			 		response.cookie("lembrar_login","sim");
+			 	}
 
 			 	console.log('Usuário '+result[0]['nome']+' logado');	
 
@@ -86,7 +91,7 @@ module.exports.atualizar_dados = function(app, request, response){
 				}
 				else{
 					cadUser.recuperar([request.session.user_id], function(error, result){
-						response.cookie("success","true")
+						response.cookie("dados_atualizados","true")
 						//response.render("cadastro/meus_dados",{dados : result});
 						response.redirect("/perfil/dados");
 						
@@ -98,7 +103,7 @@ module.exports.atualizar_dados = function(app, request, response){
 		if(err){
 			//erro_cadastro[nivel]["success"] = false;
 			//response.render('cadastro/meus_dados',{validacao : [erro_cadastro[nivel]]});
-			response.cookie("success","false");
+			response.cookie("dados_atualizados","false");
 			response.redirect("/perfil/dados");
 		}
 	})
@@ -112,6 +117,11 @@ module.exports.senha_reset = function(app, request, response){
 	//Verifica se o email existe
 
 	//Gera token  e grava no banco
+	var token = (Math.random()*1e128).toString(36);
+	
+	//duração da validade do token
+	var lifetime = 12;
+
 
 	//Envia email com link para redefinição de senha
 
