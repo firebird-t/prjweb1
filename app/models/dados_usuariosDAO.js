@@ -41,7 +41,7 @@ dadosUsuario.prototype.atualizar_dados_usuario = function(dados, callback){
 	this._connection.query(query, callback);
 }
 
-dadosUsuario.prototype.atualizar_senha_usuario = function(dados,id, callback){
+dadosUsuario.prototype.atualizar_senha_usuario = function(dados, id, callback){
 	var secret = crypto.createHash('sha256').update(dados).digest('hex');
 	this._connection.query('update users set senha = ? where id = ?', [secret, id], callback);
 }
