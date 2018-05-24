@@ -1,7 +1,16 @@
 module.exports = function(app){
-	app.get('/password/reset',function(request, response){
-		request.render("cadastro/reset");
+	
+	//Página de reset de senha
+	app.get("/password/reset", function(request, response){
+		response.render("cadastro/reset");
 	})
 
-	app.get('/password/reset/token/')
+	//Recebendo dados do form da página de reset de senha
+	app.post("/password/reset", function(request, response){
+		app.app.controllers.dados_usuarios.senha_reset(app, request, response);
+	})
+
+	app.get('/password/reset/token/', function(request, response){
+		request.query.token;
+	})
 }

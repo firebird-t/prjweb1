@@ -110,20 +110,28 @@ module.exports.atualizar_dados = function(app, request, response){
 }
 
 module.exports.senha_reset = function(app, request, response){
+	
 	var connection = app.config.dbconn();
 	var cadUser = new app.app.models.dados_usuariosDAO(connection);
 	var body = request.body;
 
 	//Verifica se o email existe
+	cadUser.validaEmail(body.email, function(error, result){
+		if(result.length > 0){
+			//Gera token  e grava no banco
+			var token = (Math.random()*1e128).toString(36);
+			
+			//duração da validade do token
+			var lifetime = 12;
 
-	//Gera token  e grava no banco
-	var token = (Math.random()*1e128).toString(36);
-	
-	//duração da validade do token
-	var lifetime = 12;
 
+			//Envia email com link para redefinição de senha
+			
 
-	//Envia email com link para redefinição de senha
+		}else{
+			response.render('cadastro/reset',{validacao: [{'msg':'email não encontrado'}]});
+		}
+	}, 1);
 
 }
 
