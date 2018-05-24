@@ -118,16 +118,19 @@ module.exports.senha_reset = function(app, request, response){
 	//Verifica se o email existe
 	cadUser.validaEmail(body.email, function(error, result){
 		if(result.length > 0){
-			//Gera token  e grava no banco
+			//Gera token
 			var token = (Math.random()*1e128).toString(36);
 			
 			//duração da validade do token
 			var lifetime = 12;
-
-
-			//Envia email com link para redefinição de senha
 			
+			//Grava token no banco
+			var utils = new app.app.models.grava_token(result[0].id, lifetime, token, function(error, result){
 
+				if(!error){
+					app.app.controllers.mailer.mailer(body.email, 'Link para redefinição de senha', token);
+				}
+			})
 		}else{
 			response.render('cadastro/reset',{validacao: [{'msg':'email não encontrado'}]});
 		}

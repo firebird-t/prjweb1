@@ -1,7 +1,7 @@
 // Use at least Nodemailer v4.1.0
 const nodemailer = require('nodemailer');
 
-module.exports.mailer = function(to, subject){
+module.exports.mailer = function(to, subject, link, callback){
     
     const transporter = nodemailer.createTransport({
         host: 'smtp.ethereal.email',
@@ -15,8 +15,8 @@ module.exports.mailer = function(to, subject){
     // Message object
     let message = {
         from: 'Sender Name <sender@example.com>',
-        to: 'Recipient <recipient@example.com>',
-        subject: 'Nodemailer is unicode friendly ✔',
+        to: to,
+        subject: 'Link para redefinição de senha',
         text: 'Hello to myself!',
         html: '<p><b>Hello</b> to myself!</p>'
     };
