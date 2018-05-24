@@ -124,11 +124,15 @@ module.exports.senha_reset = function(app, request, response){
 			//duração da validade do token
 			var lifetime = 12;
 			
-			//Grava token no banco
-			var utils = new app.app.models.grava_token(result[0].id, lifetime, token, function(error, result){
+			//Instância da classe
+			var utils = new app.app.models.utilsDAO(connection);
 
+			//Gravando Token
+			utils.grava_token(result[0].id, lifetime, token, function(error, result){
 				if(!error){
-					app.app.controllers.mailer.mailer(body.email, 'Link para redefinição de senha', token);
+					//utils.ultimo_registro(function(error, result){
+						app.app.controllers.mailer.mailer(body.email, 'Link para redefinição de senha', token, result.insertId);
+					//})
 				}
 			})
 		}else{
@@ -165,11 +169,11 @@ module.exports.atualizar_senha = function(app, request, response){
 			if(senha_comp_1 == senha_comp_2){
 				cadUser.atualizar_senha_usuario(body.senha_nova, request.session.user_id, function(error, result){
 					if(!error){
-						console.log(result)
+						//console.log(result)
 						response.cookie("senha_atualizada","true");
 						response.redirect('/perfil/senha');
 					}else{
-						console.log(error);
+						//console.log(error);
 						response.cookie("senha_atualizada","false")
 						response.redirect('/perfil/senha');
 					}

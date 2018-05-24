@@ -1,14 +1,14 @@
 // Use at least Nodemailer v4.1.0
 const nodemailer = require('nodemailer');
 
-module.exports.mailer = function(to, subject, link, callback){
+module.exports.mailer = function(to, link, token, token_id, callback){
     
     const transporter = nodemailer.createTransport({
         host: 'smtp.ethereal.email',
         port: 587,
         auth: {
-            user: '',
-            pass: ''
+            user: 'rzl4kwpipwopmfdy@ethereal.email',
+            pass: 'CHBpcGAJyPsxcsPmxD'
         }
     });
 
@@ -17,8 +17,8 @@ module.exports.mailer = function(to, subject, link, callback){
         from: 'Sender Name <sender@example.com>',
         to: to,
         subject: 'Link para redefinição de senha',
-        text: 'Hello to myself!',
-        html: '<p><b>Hello</b> to myself!</p>'
+        text: 'Link para redefinição de senha!',
+        html: '<p><b>Link para redefinicão de senha/b>http://localhost?request_id='+token+'token_id='+token_id+'</p>'
     };
 
     // Create a SMTP transporter object
