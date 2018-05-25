@@ -25,16 +25,15 @@
 	  </div>
 	</nav>
 	<% if(typeof(validacao) != "undefined"){%>
-
 	<ul>
-		<% for(var i = 0; i < validacao.length; i++){ %>
-			<div class="alert alert-danger" role="alert">	
-					<li><%= validacao[i].msg %></li>
-			</div>		
+		<% if(validacao[0].erro == 'true'){ %>
+			<div class="alert alert-danger" role="alert"><li><%= validacao[0].msg %></li></div>	
+		<% }else{ %>
+			<div class="alert alert-success" role="alert"><li><%= validacao[0].msg %></li></div>
 		<% } %>
 	</ul>
 	<% }%>
-	<div class="alert alert-success" role="alert">A simple success alert—check it out!</div>
+	
 	
 	<div class="container">
 		<form action="/password/reset" method="post" style="margin-top: 30px">

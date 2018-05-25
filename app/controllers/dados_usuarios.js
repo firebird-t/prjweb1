@@ -153,10 +153,8 @@ module.exports.senha_reset = function(app, request, response){
 					//Gravando Token
 					utils.grava_token(result[0].id, token, lifetime, function(error, result){
 						if(!error){
-							//utils.ultimo_registro(function(error, result){
 								app.app.controllers.mailer.mailer(body.email, 'Link para redefinição de senha', token, result.insertId);
 								response.render('cadastro/reset',{validacao: [{'msg':'email enviado com sucesso'},{'erro':'false'}]});
-							//})
 						}else{
 							callback(error,result);
 						}
@@ -170,7 +168,7 @@ module.exports.senha_reset = function(app, request, response){
 
 			
 		}else{
-			response.render('cadastro/reset',{validacao: [{'msg':'email não encontrado'},{'erro':'true'}]});
+			response.render('cadastro/reset',{validacao: [{'msg':'email não encontrado','erro':'true'}]});
 		}
 	}, 1);
 
