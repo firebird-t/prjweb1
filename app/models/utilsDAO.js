@@ -8,12 +8,12 @@ utils.prototype.grava_token = function(id, token, lifetime, callback){
 }
 
 utils.prototype.atualiza_token = function(token_id, callback){
-	var query = "update tokens set used_date=NOW() where token_id="+token_id;
+	var query = "update tokens set used_date = NOW() where token_id="+token_id;
 	this._connection.query(query,callback);
 }
 
 utils.prototype.pesquisa_token = function(request_id, token_id, callback){
-	var query = "select * from tokens where token_id="+token_id+" token='"+request_id+"'";
+	var query = "select * from tokens where token_id="+token_id+" token='"+request_id+"' and used_date is null";
 	this._connection.query(query,callback);
 }
 
