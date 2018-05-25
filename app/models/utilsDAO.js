@@ -7,13 +7,13 @@ utils.prototype.grava_token = function(id, token, lifetime, callback){
 	this._connection.query(query,callback);
 }
 
-utils.prototype.atualiza_token = function(id, token, lifetime, callback){
-	var query = "update()";
+utils.prototype.atualiza_token = function(token_id, callback){
+	var query = "update tokens set used_date=NOW() where token_id="+token_id;
 	this._connection.query(query,callback);
 }
 
-utils.prototype.pesquisa_token = function(id, token, lifetime, callback){
-	var query = "select()";
+utils.prototype.pesquisa_token = function(request_id, token_id, callback){
+	var query = "select * from tokens where token_id="+token_id+" token='"+request_id+"'";
 	this._connection.query(query,callback);
 }
 

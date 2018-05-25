@@ -219,4 +219,13 @@ module.exports.atualizar_senha = function(app, request, response){
 		}
 	})
 
+}
+
+module.exports.valida_token = function(request_id, token_id){
+	var connection = new app.config.dbconn();
+	var utils = new app.app.models.utilsDAO.utils(connection);
+
+	utils.pesquisa_token(request_id, token_id, function(error, result){
+
+	})
 }	
