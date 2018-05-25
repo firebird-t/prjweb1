@@ -3,9 +3,10 @@ var http = require('http');
 
 var server = http.createServer(function(request, response){
 
+	token ;
 	var filtro = request.url;
 
-	console.log(filtro);
+	console.log(token);
 
 	switch(filtro){
 		case '/page1':
@@ -26,4 +27,4 @@ var server = http.createServer(function(request, response){
 
 	
 
-}).listen(3000);
+}).listen(80);

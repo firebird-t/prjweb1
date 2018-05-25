@@ -3,13 +3,13 @@ module.exports = function(app){
 	//Página de cadastro de dispositivos
 	app.get('/dispositivos/cadastrar',function(request, response){
 		if(request.session.autorizado){
-			response.render("dispositivos/cadastrar_dispositivo",{validacao:{}});
+			response.render("dispositivos/cadastrar",{validacao:{}});
 		}
 	})
 
 	app.get('/dispositivos/listar',function(request, response){
 		if(request.session.autorizado){
-			response.render("dispositivos/listar_dispositivo",{validacao:{}});
+			response.render("dispositivos/listar",{validacao:{}});
 		}
 	})
 

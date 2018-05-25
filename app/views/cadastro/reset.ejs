@@ -25,14 +25,17 @@
 	  </div>
 	</nav>
 	<% if(typeof(validacao) != "undefined"){%>
+
 	<ul>
 		<% for(var i = 0; i < validacao.length; i++){ %>
-			<li><%= validacao[i].msg %></li>		
+			<div class="alert alert-danger" role="alert">	
+					<li><%= validacao[i].msg %></li>
+			</div>		
 		<% } %>
 	</ul>
 	<% }%>
 	<div class="alert alert-success" role="alert">A simple success alert—check it out!</div>
-	<div class="alert alert-danger" role="alert">A simple danger alert—check it out!</div>
+	
 	<div class="container">
 		<form action="/password/reset" method="post" style="margin-top: 30px">
 			<div class="form-group">

@@ -24,7 +24,7 @@ dadosUsuario.prototype.validaNomeUsuario = function(dados, callback, tipo){
 dadosUsuario.prototype.validaEmail = function(dados, callback, tipo){
 	var query;
 	if(tipo == 1){
-		query = 'SELECT email FROM users WHERE email ="'+dados.email+"'";
+		query = "SELECT email, id FROM users WHERE email ='"+dados.email+"'";
 	}else{
 		query = "SELECT email FROM users WHERE email ='"+dados.email+"'and id !="+dados.id;
 	}

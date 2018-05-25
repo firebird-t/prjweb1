@@ -115,28 +115,62 @@ module.exports.senha_reset = function(app, request, response){
 	var cadUser = new app.app.models.dados_usuariosDAO(connection);
 	var body = request.body;
 
+	console.log(body.email);
 	//Verifica se o email existe
-	cadUser.validaEmail(body.email, function(error, result){
+	cadUser.validaEmail(body, function(error, result){
+		console.log(error);
 		if(result.length > 0){
-			//Gera token
-			var token = (Math.random()*1e128).toString(36);
 			
 			//duração da validade do token
 			var lifetime = 12;
 			
+			var token;
+
 			//Instância da classe
 			var utils = new app.app.models.utilsDAO(connection);
 
-			//Gravando Token
-			utils.grava_token(result[0].id, lifetime, token, function(error, result){
-				if(!error){
-					//utils.ultimo_registro(function(error, result){
-						app.app.controllers.mailer.mailer(body.email, 'Link para redefinição de senha', token, result.insertId);
-					//})
+			async.series([
+				function (callback) {
+					token = (function(){
+						g = function(){
+							c='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+							p='';
+							for(i=0;i<128;i++){
+								p+=c.charAt(Math.floor(Math.random()*62));
+							}
+							return p;
+						};
+						
+						p = g();
+						while(!/[A-Z]/.test(p)||!/[0-9]/.test(p)||!/[a-z]/.test(p)){
+									p=g();
+								}return p;
+							})()		 
+					
+					callback(null,null);
+				},
+				function (callback) {
+					//Gravando Token
+					utils.grava_token(result[0].id, token, lifetime, function(error, result){
+						if(!error){
+							//utils.ultimo_registro(function(error, result){
+								app.app.controllers.mailer.mailer(body.email, 'Link para redefinição de senha', token, result.insertId);
+								response.render('cadastro/reset',{validacao: [{'msg':'email enviado com sucesso'},{'erro':'false'}]});
+							//})
+						}else{
+							callback(error,result);
+						}
+					})
+				}
+			],function(err, results){
+				if(err){
+					console.log(err);
 				}
 			})
+
+			
 		}else{
-			response.render('cadastro/reset',{validacao: [{'msg':'email não encontrado'}]});
+			response.render('cadastro/reset',{validacao: [{'msg':'email não encontrado'},{'erro':'true'}]});
 		}
 	}, 1);
 

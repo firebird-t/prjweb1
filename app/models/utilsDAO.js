@@ -3,7 +3,7 @@ function utils(connection){
 }
 
 utils.prototype.grava_token = function(id, token, lifetime, callback){
-	var query = "insert into tokens(user_id, activate_date, lifetime, token) values("+id+",NOW(),"+lifetime+","+token+")";
+	var query = "insert into tokens(user_id, activate_date, lifetime, token) values("+id+",NOW(),"+lifetime+",'"+token+"')";
 	this._connection.query(query,callback);
 }
 
