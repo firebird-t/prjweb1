@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 //var mosca = require('mosca');
 //var cookieSession = require('cookie-session');
 var morgan = require('morgan');
+var mongodb = require("mongodb");
 
 //instância do express
 var app = express();

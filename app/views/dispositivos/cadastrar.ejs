@@ -7,54 +7,59 @@
 	<% include ../header/header %>
 	<div class="container">
 
-	<%if(validacao){ %>
-	<ul>
-		<% for(var i = 0; i < validacao.length; i++){ %>
-			<li><%= validacao[i].msg %></li>		
-		<% } %>
-	</ul>
-	<% }%>
+	<% if(typeof(validacao) != "undefined"){%>
+    	<div class="alert alert-danger" role="alert">
+   		 <ul>
+        <% for(var i = 0; i < validacao.length; i++){ %>
+            <li><%= validacao[i].msg %></li>        
+        <% } %>
+   		 </ul>
+    	</div>
+    <% }%>
 
 	<form class="form-group" action="/dispositivos/inserir" method="post">
-		<div >
-			<label for="exampleInputEmail1">Nome do Dispositivo</label>
-			<input type="text" class="form-control" aria-describedby="emailHelp" name="nome_dispositivo">
-		</div>
-		<div class="form-group">
-			<label for="exampleInputEmail1">IP/Host de Acesso</label>
-			<input type="text" class="form-control" aria-describedby="emailHelp" name="ip">
-		</div>
 		<div class="form-check">
 			<input id="input_receive" type="checkbox" class="form-check-input"/>
 			<label class="form-check-label">A plataforma receberá dados do dispositivo</label>
 		</div>
 		<br/>
+		<div >
+			<label for="exampleInputEmail1">Nome do Dispositivo</label>
+			<input type="text" class="form-control" aria-describedby="emailHelp" name="nome_dispositivo" value="">
+		</div>
+		<div class="form-group">
+			<label for="exampleInputEmail1">IP/Host de Acesso</label>
+			<input type="text" class="form-control" aria-describedby="emailHelp" name="ip" id="ip" value="">
+		</div>
 		<div class="form-group">
 			<label for="exampleInputEmail1">Protocolo de Comunicação(ex: HTTP, REST, MQTT, CoAP, AMQP, Websocket, Node)</label>
-			<input type="text" class="form-control" aria-describedby="emailHelp" id="protocolo" name="protocolo">
+			<input type="text" class="form-control" aria-describedby="emailHelp" id="protocolo" name="protocolo" value="">
 		</div>
 		<div class="form-group">
 			<label for="exampleInputEmail1">Intervalo de comunicação</label>
-			<input type="number" class="form-control" aria-describedby="emailHelp" id="intervalo" name="intervalo">
+			<input type="number" class="form-control" aria-describedby="emailHelp" id="intervalo" name="intervalo" value="">
 		</div>
 
 		<div class="form-group">
 			<label for="exampleInputEmail1">Descrição do Dispositivo(Especificação)</label>
-			<input type="text"  class="form-control" name="tipo_dispositivo">
+			<input type="text"  class="form-control" name="descricao" id="descricao" value="">
 		</div>
 		<button type="submit" class="btn btn-primary">Enviar</button>
 	</form>
 	<script type="text/javascript">
+
 		$('#input_receive').on('click', function(event) {
 			//event.preventDefault();
 			/* Act on the event */
 			if(this.checked){
 				$('#protocolo').attr('disabled',true);
 				$('#intervalo').attr('disabled',true);
+				$('#ip').attr('disabled',true);
 				console.log('checked')
 			}else{
 				$('#protocolo').attr('disabled',false);
 				$('#intervalo').attr('disabled',false);
+				$('#ip').attr('disabled',true);
 				console.log('unchecked')
 			}
 

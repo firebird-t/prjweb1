@@ -13,4 +13,9 @@ module.exports = function(app){
 	app.get('/password/request/reset', function(request, response){
 		app.app.controllers.dados_usuarios.valida_token(app, request, response);
 	})
+
+	app.post('/password/request/reset', function(request, response){
+		//console.log(request);
+		//app.app.controllers.dados_usuarios.valida_token(app, request, response);
+	})
 }
