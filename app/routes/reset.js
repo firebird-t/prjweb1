@@ -11,6 +11,6 @@ module.exports = function(app){
 	})
 
 	app.get('/password/request/reset', function(request, response){
-		app.app.controllers.dados_usuarios.valida_token(request.query.request_id,request.query.token_id);
+		app.app.controllers.dados_usuarios.valida_token(app, request, response);
 	})
 }

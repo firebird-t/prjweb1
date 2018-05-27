@@ -92,17 +92,13 @@ module.exports.atualizar_dados = function(app, request, response){
 				else{
 					cadUser.recuperar([request.session.user_id], function(error, result){
 						response.cookie("dados_atualizados","true")
-						//response.render("cadastro/meus_dados",{dados : result});
-						response.redirect("/perfil/dados");
-						
+						response.redirect("/perfil/dados");						
 					})
 				}
 			})
 		}
 	],function(err, results){
 		if(err){
-			//erro_cadastro[nivel]["success"] = false;
-			//response.render('cadastro/meus_dados',{validacao : [erro_cadastro[nivel]]});
 			response.cookie("dados_atualizados","false");
 			response.redirect("/perfil/dados");
 		}
@@ -115,12 +111,9 @@ module.exports.senha_reset = function(app, request, response){
 	var cadUser = new app.app.models.dados_usuariosDAO(connection);
 	var body = request.body;
 	var mailer = new app.app.controllers.mailer();
-
-	console.log(body.email);
 	
 	//Verifica se o email existe
 	cadUser.validaEmail(body, function(error, result){
-		console.log(error);
 		if(result.length > 0){
 			
 			//duração da validade do token
@@ -155,8 +148,18 @@ module.exports.senha_reset = function(app, request, response){
 					//Gravando Token
 					utils.grava_token(result[0].id, token, lifetime, function(error, result){
 						if(!error){
-								mailer.send_mail(body.email, 'Link para redefinição de senha', token, result.insertId);
-								response.render('cadastro/reset',{validacao: [{'msg':'email enviado com sucesso'},{'erro':'false'}]});
+								mailer.send_mail(body.email, 'Link para redefinição de senha', token, result.insertId, function(err, info){
+									if (err) {
+									    console.log('Error occurred. ' + err.message);
+									    return process.exit(1);
+									}										
+									console.log('Message sent: %s', info.messageId);
+									// Preview only available when sending through an Ethereal account
+									//console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+									response.render('cadastro/reset',{validacao: [{'msg':'email enviado com sucesso'},{'erro':'false'}]});									
+									
+								});
+								
 						}else{
 							callback(error,result);
 						}
@@ -224,17 +227,19 @@ module.exports.atualizar_senha = function(app, request, response){
 
 }
 
-module.exports.valida_token = function(app, request, response, request_id, token_id){
+module.exports.valida_token = function(app, request, response){
 	var connection = new app.config.dbconn();
 	var utils = new app.app.models.utilsDAO.utils(connection);
 
-	utils.pesquisa_token(request_id, token_id, function(error, result){
+	utils.pesquisa_token(request.query.request_id, request.query.token_id, function(error, result){
 		if(!error){
 			if(result.length > 0 ){
-
+				response.render("cadastro/password_change",{validacao : {}});
+			}else{
+				response.render("cadastro/password_change",{validacao : [{'msg':'Link inválido','erro':true}]});
 			}
 		}else{
-			response.render("cadastro/password_change",{validacao : [{'msg':''}]});
+			response.render("cadastro/password_change",{validacao : [{'msg':'A página está inacessível','erro':true}]});
 		}
 	})
 }	
