@@ -114,8 +114,10 @@ module.exports.senha_reset = function(app, request, response){
 	var connection = app.config.dbconn();
 	var cadUser = new app.app.models.dados_usuariosDAO(connection);
 	var body = request.body;
+	var mailer = new app.app.controllers.mailer();
 
 	console.log(body.email);
+	
 	//Verifica se o email existe
 	cadUser.validaEmail(body, function(error, result){
 		console.log(error);
@@ -153,7 +155,7 @@ module.exports.senha_reset = function(app, request, response){
 					//Gravando Token
 					utils.grava_token(result[0].id, token, lifetime, function(error, result){
 						if(!error){
-								app.app.controllers.mailer.mailer(body.email, 'Link para redefinição de senha', token, result.insertId);
+								mailer.send_mail(body.email, 'Link para redefinição de senha', token, result.insertId);
 								response.render('cadastro/reset',{validacao: [{'msg':'email enviado com sucesso'},{'erro':'false'}]});
 						}else{
 							callback(error,result);
@@ -163,6 +165,7 @@ module.exports.senha_reset = function(app, request, response){
 			],function(err, results){
 				if(err){
 					console.log(err);
+					response.render('cadastro/reset',{validacao: [{'msg':err,'erro':'true'}]});
 				}
 			})
 
@@ -221,11 +224,17 @@ module.exports.atualizar_senha = function(app, request, response){
 
 }
 
-module.exports.valida_token = function(request_id, token_id){
+module.exports.valida_token = function(app, request, response, request_id, token_id){
 	var connection = new app.config.dbconn();
 	var utils = new app.app.models.utilsDAO.utils(connection);
 
 	utils.pesquisa_token(request_id, token_id, function(error, result){
+		if(!error){
+			if(result.length > 0 ){
 
+			}
+		}else{
+			response.render("cadastro/password_change",{validacao : [{'msg':''}]});
+		}
 	})
 }	

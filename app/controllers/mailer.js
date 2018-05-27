@@ -1,8 +1,9 @@
 // Use at least Nodemailer v4.1.0
 const nodemailer = require('nodemailer');
 
-module.exports.mailer = function(to, link, token, token_id, callback){
-    
+function mailer(){}
+
+mailer.prototype.send_mail = function(to, link, token, token_id, callback){
     const transporter = nodemailer.createTransport({
         host: 'smtp.ethereal.email',
         port: 587,
@@ -31,6 +32,10 @@ module.exports.mailer = function(to, link, token, token_id, callback){
         console.log('Message sent: %s', info.messageId);
         // Preview only available when sending through an Ethereal account
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-    });    
+    }); 
+}
+    
 
+module.exports = function(){
+    return mailer;
 }
