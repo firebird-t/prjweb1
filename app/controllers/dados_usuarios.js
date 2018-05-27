@@ -229,17 +229,17 @@ module.exports.atualizar_senha = function(app, request, response){
 
 module.exports.valida_token = function(app, request, response){
 	var connection = new app.config.dbconn();
-	var utils = new app.app.models.utilsDAO.utils(connection);
+	var utils = new app.app.models.utilsDAO(connection);
 
 	utils.pesquisa_token(request.query.request_id, request.query.token_id, function(error, result){
 		if(!error){
 			if(result.length > 0 ){
-				response.render("cadastro/password_change",{validacao : {}});
+				response.render("cadastro/reset_password",{validacao : {}});
 			}else{
-				response.render("cadastro/password_change",{validacao : [{'msg':'Link inválido','erro':true}]});
+				response.render("cadastro/reset_password",{validacao : [{'msg':'Link inválido','erro':true}]});
 			}
 		}else{
-			response.render("cadastro/password_change",{validacao : [{'msg':'A página está inacessível','erro':true}]});
+			response.render("cadastro/reset_password",{validacao : [{'msg':'A página está inacessível','erro':true}]});
 		}
 	})
 }	
