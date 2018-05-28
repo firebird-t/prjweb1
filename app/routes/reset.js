@@ -15,7 +15,6 @@ module.exports = function(app){
 	})
 
 	app.post('/password/request/reset', function(request, response){
-		//console.log(request);
-		//app.app.controllers.dados_usuarios.valida_token(app, request, response);
+		app.app.controllers.dados_usuarios.troca_senha(app, request, response);
 	})
 }

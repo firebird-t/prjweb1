@@ -234,7 +234,7 @@ module.exports.valida_token = function(app, request, response){
 	utils.pesquisa_token(request.query.request_id, request.query.token_id, function(error, result){
 		if(!error){
 			if(result.length > 0 ){
-				response.cookie("usuario",result[0].user_id);
+				response.cookie("data",result[0].user_id);
 				utils.atualiza_token(request.query.token_id, function(error, result){
 					if(!error){
 						response.render("cadastro/reset_password");
@@ -248,4 +248,34 @@ module.exports.valida_token = function(app, request, response){
 			response.render("cadastro/reset_password",{validacao : [{'msg':'A página está inacessível','erro':'true'}]});
 		}
 	})
-}	
+}
+
+module.exports.troca_senha = function(app, request, response){
+	var connection = new app.config.dbconn();
+	var cadUser = new app.app.models.dados_usuariosDAO(connection);
+
+	var body = request.body;
+
+	request.assert('senha_nova', 'Senha inválida').trim().notEmpty();
+	request.assert('senha_nova', 'as senhas não são iguais').trim().isEqual(body.senha_nova_conf);
+
+	var erros = request.validationErrors();
+
+	if (erros) {
+		console.log(erros)
+		response.render('cadastro/reset_password',{validacao: erros});
+		return;
+	}
+
+	cadUser.atualizar_senha_usuario(body.senha_nova, response.cookie("data"), function(error, result){
+		if(!error){
+			response.clearCookie("data")
+			//response.cookie("senha_atualizada","true");
+			response.redirect('home/home');
+		}else{
+			//console.log(error);
+			//response.cookie("senha_atualizada","false")
+			response.redirect('home/home');
+		}
+	})
+}
