@@ -20,6 +20,7 @@ utils.prototype.pesquisa_token = function(request_id, token_id, callback){
 utils.prototype.ultimo_registro = function(callback){
 	var query = "SELECT LAST_INSERT_ID()";
 	this._connection.query(query, callback);
+	//select * from tokens where now() < addtime(activate_date, concat(lifetime,":00:00"))
 }
 
 

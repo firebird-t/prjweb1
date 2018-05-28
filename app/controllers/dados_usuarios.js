@@ -29,6 +29,8 @@ module.exports.verifica_dados_login = function(app, request, response){
 			 	//Cookie de lembrança de login
 			 	if(dados.remember != undefined && dados.remember == 'on'){
 			 		response.cookie("lembrar_login","sim");
+			 		response.cookie("autorizado","sim");
+			 		response.cookie("dado_usuario",dados.nome_usuario);
 			 	}
 
 			 	console.log('Usuário '+result[0]['nome']+' logado');	

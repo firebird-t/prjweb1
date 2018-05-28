@@ -20,7 +20,7 @@ module.exports.dados_inserir = function(app, request, response){
 	deviceDataModel.insertData(request.session.user_id, body, function(error , result){
 		if(error){
 			console.log(error);
-			response.render("dispositivos/cadastrar", {validacao : error});
+			response.render("dispositivos/cadastrar", {validacao : [{'msg':error}]});
 		}else{
 			response.render("dispositivos/listar", {validacao : {}});
 		}

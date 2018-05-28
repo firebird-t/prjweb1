@@ -3,42 +3,87 @@
 <head>
 	<title>Página Inicial</title>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://foxythemes.net/preview/products/beagle/assets/css/app.css">
+	<link rel="stylesheet" type="text/css" href="http://foxythemes.net/preview/products/beagle/assets/lib/material-design-icons/css/material-design-iconic-font.min.css">
 </head>
 <body>
 	<% include ../header/header %>
+	
+	
 	<div class="container">
+		<div class="page-head">
+			<h2 class="page-head-title">Estatísticas</h2>
+		</div>
 		
-		<h4>Dados Gerais</h4>
 		<hr>
+		<div class="row">
+			<div class="col-md-7">
+				<canvas id="canvas_default"></canvas>
+			</div>
+			<div class="col-md-5">
+
+			</div>
+		</div>
+		<div class="row">
+            <div class="col-12 col-lg-6 col-xl-3">
+                        <div class="widget widget-tile">
+                          <div id="spark1" class="chart sparkline"></div>
+                          <div class="data-info">
+                            <div class="desc">Dispositivos</div>
+                            <div class="value"><span class="indicator indicator-equal mdi mdi-chevron-right"></span><span data-toggle="counter" data-end="113" class="number">113</span>
+                            </div>
+                          </div>
+                        </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-3">
+                        <div class="widget widget-tile">
+                          <div id="spark2" class="chart sparkline"></div>
+                          <div class="data-info">
+                            <div class="desc">Registros</div>
+                            <div class="value"><span class="indicator indicator-positive mdi mdi-chevron-up"></span><span data-toggle="counter" data-end="80" data-suffix="%" class="number">80%</span>
+                            </div>
+                          </div>
+                        </div>
+            </div>
+          </div>
 		<h6>Dispositivos</h6>
 		<table class="table">
-		  <thead>
-		    <tr>
-		      <th scope="col">Nome</th>
-		      <th scope="col">IP</th>
-		      <th scope="col">Protocolo</th>
-		      <th scope="col">Menu</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-			<% 
+			<thead>
+				<tr>
+					<th scope="col">Nome</th>
+					<th scope="col">Tópico</th>
+					<th scope="col">Menu</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% 
 				if(typeof(devices) != "undefined"){
 					for (var i = 0; i < devices.length; i++) { %>
 					<tr>
 						<td> <%= devices[i].nome_dispositivo %> </td>
-						<td> <%= devices[i].ip %> </td>
+						<td> <%= devices[i].topic%> </td>
 						<td> <%= devices[i].protocolo %> </td>
 						<td></td>
 					</tr>		
 					<%
-					}
 				}
+			}
 			%>
-		  </tbody>
-		</table>
-		<hr>
-		<h6>Status</h6>
-		<div id="charts"></div>
-	</div>
+		</tbody>
+	</table>
+	<hr>
+	<h6>Status</h6>
+	<div id="charts"></div>
+</div>
+	
+	<style type="text/css">
+		.widget.widget-tile .data-info {
+		    display: table-cell;
+		    text-align: left;
+		}
+	</style>
+<script type="text/javascript">
+	var first_char = new Chart($("#canvas_default"),{});
+</script>
 </body>
 </html>
