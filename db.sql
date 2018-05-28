@@ -31,20 +31,21 @@ DELETE FROM `client_data`;
 -- Copiando estrutura para tabela trabalho.devices
 CREATE TABLE IF NOT EXISTS `devices` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario` int(10) NOT NULL,
+  `id_usuario` int(11) NOT NULL DEFAULT 0,
   `nome_dispositivo` varchar(50) NOT NULL,
-  `ip` varchar(16) NOT NULL,
-  `protocolo` varchar(10) NOT NULL,
-  `data_criacao` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `tipo_dispositivo` varchar(50) NOT NULL DEFAULT '0',
-  `tempo_verificacao` int(11) DEFAULT 0,
-  PRIMARY KEY (`id`),
-  KEY `id_usuarioFK1` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+  `topic` varchar(50) DEFAULT NULL,
+  `ip` varchar(16) DEFAULT NULL,
+  `protocolo` varchar(10) DEFAULT NULL,
+  `data_criacao` timestamp NOT NULL DEFAULT current_timestamp(),
+  `descricao` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela trabalho.devices: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela trabalho.devices: ~1 rows (aproximadamente)
 DELETE FROM `devices`;
 /*!40000 ALTER TABLE `devices` DISABLE KEYS */;
+INSERT INTO `devices` (`id`, `id_usuario`, `nome_dispositivo`, `topic`, `ip`, `protocolo`, `data_criacao`, `descricao`) VALUES
+	(1, 29, 'Sensor Temperatura', '\\sensor\\temp', '', '', '2018-05-27 15:47:37', 'Sensor de teste');
 /*!40000 ALTER TABLE `devices` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela trabalho.device_data
@@ -63,13 +64,16 @@ CREATE TABLE IF NOT EXISTS `tokens` (
   `user_id` int(11) NOT NULL,
   `activate_date` datetime NOT NULL DEFAULT current_timestamp(),
   `lifetime` int(11) NOT NULL,
-  `used_date` datetime NOT NULL,
+  `used_date` datetime DEFAULT NULL,
   `token` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela trabalho.tokens: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela trabalho.tokens: ~2 rows (aproximadamente)
 DELETE FROM `tokens`;
 /*!40000 ALTER TABLE `tokens` DISABLE KEYS */;
+INSERT INTO `tokens` (`user_id`, `activate_date`, `lifetime`, `used_date`, `token`) VALUES
+	(29, '2018-05-26 22:52:12', 12, NULL, 'cj6Csjy5ixfY2G2ArtcWS1swgK0bNKbtaxRPup609wK1GPxbQpjkBsJJztVqYuCLlcGtCa9nOCYhgG6MH7vKjgX1579GrKhkJZBeFpDZY36b8udybAgaZxv6HCl3vFH1'),
+	(29, '2018-05-26 22:59:07', 12, NULL, 'frylDcbB3KHsePHxKQjPv0QcE911KQHJLU7F18bTFpihZItNAAOiXNvJ0TJ4t3Ac7YoFLhg0yJgStE7cCz8TFfSkGKFI3SjH8usD4toCh9Tqo2sfWcwrjn87QSlLJJCj');
 /*!40000 ALTER TABLE `tokens` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela trabalho.users
@@ -86,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `nome`, `nome_usuario`, `senha`, `email`) VALUES
-	(29, 'Leonardo', 'leonardo', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f', 'leonardo.everson@outlook.com');
+	(29, 'Leonardo', 'leonardo', '18ccba186d8757c20cbf05d7a98b2c64f9f16eb64ea4a64659bbc5c9b7b3a7fe', 'leonardo.everson@outlook.com');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
