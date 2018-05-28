@@ -25,15 +25,33 @@ var aedes = require("aedes")({
 var aedes_server = require('net').createServer(aedes.handle);
 var port = 1883
 
-aedes.on('publish', function(packet, client) {
-    console.log("published", packet.payload.toString());
-});
-aedes.on('client', function(client) {
-    console.log('client connected', client.id);
-});
+aedes.on('client', client => {
+    console.log(`Client [${client.id}] connected`);
+})
 
-aedes.on('subscribe', function (subscriptions, client) {
-    console.log('client subscribe ', client.id, 'topic is', subscriptions);
+aedes.on('clientDisconnect', client => {
+    console.log(`Client [${client.id}] disconnected`);
+})
+
+aedes.on('clientError', (client, err) => {
+    console.log(`Client [${client.id}] encountered error: ${JSON.stringify(err)}`);
+})
+
+aedes.on('publish', (packet, client) => {
+    client ? console.log(`Client [${client.id}] published on ${packet.topic}: ${packet.payload}`)
+        : console.log(`aedes published on ${packet.topic}: ${packet.payload}`);
+})
+
+aedes.on('subscribe', (subscriptions, client) => {
+    var subscriptionArr = subscriptions.map(subscription => {
+        return `${subscription['topic']} (${subscription['qos']})`;
+    });
+    client ? console.log(`Client [${client.id}] subscribed ${subscriptionArr}`)
+        : console.log(`aedes subscribed ${packet.topic}: ${packet.payload}`);
+})
+
+aedes.on('unsubscribe', (unsubscriptions, client) => {
+    client ? console.log(`Client [${client.id}] unsubscribe ${unsubscriptions}`) : '';
 })
 
 //Mensagem de inicio
