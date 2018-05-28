@@ -13,7 +13,7 @@ utils.prototype.atualiza_token = function(token_id, callback){
 }
 
 utils.prototype.pesquisa_token = function(request_id, token_id, callback){
-	var query = "select * from tokens where token_id="+token_id+" token='"+request_id+"' and used_date is null";
+	var query = "select * from tokens where token_id="+token_id+" and token='"+request_id+"' and used_date is null";
 	this._connection.query(query,callback);
 }
 

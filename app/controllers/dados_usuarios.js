@@ -234,12 +234,18 @@ module.exports.valida_token = function(app, request, response){
 	utils.pesquisa_token(request.query.request_id, request.query.token_id, function(error, result){
 		if(!error){
 			if(result.length > 0 ){
-				response.render("cadastro/reset_password",{validacao : {}});
+				response.cookie("usuario",result[0].user_id);
+				utils.atualiza_token(request.query.token_id, function(error, result){
+					if(!error){
+						response.render("cadastro/reset_password");
+					}	
+				})
+				
 			}else{
-				response.render("cadastro/reset_password",{validacao : [{'msg':'Link inválido','erro':true}]});
+				response.render("cadastro/reset_password",{validacao : [{'msg':'Link inválido','erro':'true'}]});
 			}
 		}else{
-			response.render("cadastro/reset_password",{validacao : [{'msg':'A página está inacessível','erro':true}]});
+			response.render("cadastro/reset_password",{validacao : [{'msg':'A página está inacessível','erro':'true'}]});
 		}
 	})
 }	

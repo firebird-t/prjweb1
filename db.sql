@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `devices` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela trabalho.devices: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela trabalho.devices: ~0 rows (aproximadamente)
 DELETE FROM `devices`;
 /*!40000 ALTER TABLE `devices` DISABLE KEYS */;
 INSERT INTO `devices` (`id`, `id_usuario`, `nome_dispositivo`, `topic`, `ip`, `protocolo`, `data_criacao`, `descricao`) VALUES
@@ -61,19 +61,18 @@ DELETE FROM `device_data`;
 
 -- Copiando estrutura para tabela trabalho.tokens
 CREATE TABLE IF NOT EXISTS `tokens` (
+  `token_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `activate_date` datetime NOT NULL DEFAULT current_timestamp(),
   `lifetime` int(11) NOT NULL,
   `used_date` datetime DEFAULT NULL,
-  `token` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `token` varchar(250) NOT NULL,
+  PRIMARY KEY (`token_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela trabalho.tokens: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela trabalho.tokens: ~0 rows (aproximadamente)
 DELETE FROM `tokens`;
 /*!40000 ALTER TABLE `tokens` DISABLE KEYS */;
-INSERT INTO `tokens` (`user_id`, `activate_date`, `lifetime`, `used_date`, `token`) VALUES
-	(29, '2018-05-26 22:52:12', 12, NULL, 'cj6Csjy5ixfY2G2ArtcWS1swgK0bNKbtaxRPup609wK1GPxbQpjkBsJJztVqYuCLlcGtCa9nOCYhgG6MH7vKjgX1579GrKhkJZBeFpDZY36b8udybAgaZxv6HCl3vFH1'),
-	(29, '2018-05-26 22:59:07', 12, NULL, 'frylDcbB3KHsePHxKQjPv0QcE911KQHJLU7F18bTFpihZItNAAOiXNvJ0TJ4t3Ac7YoFLhg0yJgStE7cCz8TFfSkGKFI3SjH8usD4toCh9Tqo2sfWcwrjn87QSlLJJCj');
 /*!40000 ALTER TABLE `tokens` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela trabalho.users
