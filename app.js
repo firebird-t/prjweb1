@@ -11,9 +11,14 @@ var persistence = aedesPersistenceMongoDB({url: 'mongodb://127.0.0.1:27017/aedes
 //Emitter
 var mqmongo = require('mqemitter-mongodb')
 
+var emitter = mqmongo({
+	url: 'mongodb://localhost:27017/aedes'
+})
+
 //Aedes Server
 var aedes = require("aedes")({
-	persistence:persistence
+	mq: emitter,
+	persistence: persistence
 });
 
 //MQTT Server
