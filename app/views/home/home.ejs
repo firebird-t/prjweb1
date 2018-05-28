@@ -2,13 +2,15 @@
 <html>
 <head>
 	<title>Página Inicial</title>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 </head>
 <body>
 	<% include ../header/header %>
 	<div class="container">
 		
-		<h6>Dados Gerais</h6>
-		
+		<h4>Dados Gerais</h4>
+		<hr>
+		<h6>Dispositivos</h6>
 		<table class="table">
 		  <thead>
 		    <tr>
@@ -34,8 +36,9 @@
 			%>
 		  </tbody>
 		</table>
-
+		<hr>
 		<h6>Status</h6>
+		<div id="charts"></div>
 	</div>
 </body>
 </html>

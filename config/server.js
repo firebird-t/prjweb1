@@ -39,7 +39,7 @@ app.use(session({
 }))
 
 //Pastas estáticas
-//app.use(express.static('./app/public'));
+app.use(express.static('./app/public'));
 
 //Configurando Engine
 app.set('view engine','ejs');
