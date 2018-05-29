@@ -1,3 +1,7 @@
+// var ws = require('websocket-stream');
+// var httpServer = require('http').createServer()
+// var wsPort = 8888;
+
 //var persistence = require('aedes-persistence');
 var aedesPersistenceMongoDB = require('aedes-persistence-mongodb')
 
@@ -13,43 +17,47 @@ var emitter = mqmongo({
 
 //Aedes Server
 var aedes = require("aedes")({
-    mq: emitter,
+    /*mq: emitter,*/
     persistence: persistence
 });
+
+//Web Socket
+// ws.createServer({
+//   server: httpServer
+// }, aedes.handle)
+
+// httpServer.listen(wsPort, function () {
+//   console.log('websocket server listening on port', wsPort)
+// })
 
 //MQTT Server
 var aedes_server = require('net').createServer(aedes.handle);
 var port = 1883
 
-aedes.on('client', client => {
-    console.log(`Client [${client.id}] connected`);
+aedes.on('clientError', function (client, err) {
+  console.log('client error', client.id, err.message, err.stack)
 })
 
-aedes.on('clientDisconnect', client => {
-    console.log(`Client [${client.id}] disconnected`);
+aedes.on('connectionError', function (client, err) {
+  console.log('client error', client, err.message, err.stack)
 })
 
-aedes.on('clientError', (client, err) => {
-    console.log(`Client [${client.id}] encountered error: ${JSON.stringify(err)}`);
+aedes.on('publish', function (packet, client) {
+  if (client) {
+    console.log('message from client', client.id)
+  }
 })
 
-aedes.on('publish', (packet, client) => {
-    client ? console.log(`Client [${client.id}] published on ${packet.topic}: ${packet.payload}`)
-        : console.log(`aedes published on ${packet.topic}: ${packet.payload}`);
+aedes.on('subscribe', function (subscriptions, client) {
+  if (client) {
+    console.log('subscribe from client', subscriptions, client.id)
+  }
 })
 
-aedes.on('subscribe', (subscriptions, client) => {
-    var subscriptionArr = subscriptions.map(subscription => {
-        return `${subscription['topic']} (${subscription['qos']})`;
-    });
-    client ? console.log(`Client [${client.id}] subscribed ${subscriptionArr}`)
-        : console.log(`aedes subscribed ${packet.topic}: ${packet.payload}`);
-})
-
-aedes.on('unsubscribe', (unsubscriptions, client) => {
-    client ? console.log(`Client [${client.id}] unsubscribe ${unsubscriptions}`) : '';
+aedes.on('client', function (client) {
+  console.log('new client', client.id)
 })
 
 aedes_server.listen(port, function () {
-    console.log('Aedes Mqtt server started on port', port);
+    console.log('mqtt server started on port', port);
 })

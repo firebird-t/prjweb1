@@ -1,4 +1,5 @@
 function dadosDispositivos(connection){
+	this._connection.query('select nome_dispositivo, topic, descricao from devices where id_usuario ='+id, callback);
 	this._connection = connection;
 }
 

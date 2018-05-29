@@ -36,3 +36,44 @@ module.exports.capturaDados = function(app, request, response){
 		response.render("home/home",{devices : result});
 	})
 }
+
+module.exports.data_mgmt = function(app, request, response){
+	var connection = new app.config.dbconn();
+	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
+
+	//http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html
+	/*-----Publish----*/
+	//Verificar dados de autorizacao
+	//Se dados checarem 
+	//Verificar se dados de chegada que são ncessários estão completos
+	//Inserir dados
+
+	/*-----Subscribe----*/
+	//Verificar dados de autorizacao
+	//Se dados checarem 
+	//Verificar se dados de chegada que são ncessários estão completos
+	//Liberar dados
+
+	/*-----Unsubscribe----*/
+
+
+	/*-----Disconnect---*/
+
+
+	/*-----Clean---*/
+
+	if(request.body.command == 'publish'){
+
+	}
+	else if(request.body.command == 'subscribe'){
+
+	}
+
+	// if(request.method == 'get'){
+
+	// }
+
+	// if(request.method == 'post'){
+		
+	// }
+}

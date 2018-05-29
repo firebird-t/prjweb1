@@ -65,7 +65,6 @@ app.use(expressValidator({
 consign()
 	.include('./app/routes')
 	.then('config/dbconn.js')
-  .then('config/aedes_cfg.js')
 	.then('app/models')
 	.then('app/controllers')
 	.into(app);
