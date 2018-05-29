@@ -4,6 +4,7 @@ module.exports.gravaDadosDispositivos = function(app, request, response){
 	}
 
 	if(request.method == 'post'){
-		var body = request.body;
+		console.log(request.body);
+		response.send('ok')
 	}
 }

@@ -32,6 +32,7 @@ module.exports.capturaDados = function(app, request, response){
 	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
 	
 	deviceDataModel.getData(request.session.user_id,function(error , result){
+		console.log(result.length);
 		response.render("home/home",{devices : result});
 	})
 }
