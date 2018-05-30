@@ -39,19 +39,22 @@ CREATE TABLE IF NOT EXISTS `devices` (
   `data_criacao` timestamp NOT NULL DEFAULT current_timestamp(),
   `descricao` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela trabalho.devices: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela trabalho.devices: ~3 rows (aproximadamente)
 DELETE FROM `devices`;
 /*!40000 ALTER TABLE `devices` DISABLE KEYS */;
 INSERT INTO `devices` (`id`, `id_usuario`, `nome_dispositivo`, `topic`, `ip`, `protocolo`, `data_criacao`, `descricao`) VALUES
-	(1, 29, 'Sensor Temperatura', '\\sensor\\temp', '', '', '2018-05-27 15:47:37', 'Sensor de teste');
+	(1, 29, 'Sensor Temperatura', '\\sensor\\temp', '', '', '2018-05-27 15:47:37', 'Sensor de teste'),
+	(2, 29, 'sensor de umidade', '\\sensor\\umidade', '', '', '2018-05-28 14:49:03', 'Sensor de teste de umidade'),
+	(3, 29, 'sensor de chuva', '\\sensor\\chuva', '', '', '2018-05-28 15:00:08', 'Sensor de chuva');
 /*!40000 ALTER TABLE `devices` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela trabalho.device_data
 CREATE TABLE IF NOT EXISTS `device_data` (
   `device_id` int(11) NOT NULL,
-  `device_data` varchar(300) NOT NULL
+  `topic` varchar(300) NOT NULL,
+  `value` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela trabalho.device_data: ~0 rows (aproximadamente)
@@ -68,11 +71,13 @@ CREATE TABLE IF NOT EXISTS `tokens` (
   `used_date` datetime DEFAULT NULL,
   `token` varchar(250) NOT NULL,
   PRIMARY KEY (`token_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela trabalho.tokens: ~0 rows (aproximadamente)
 DELETE FROM `tokens`;
 /*!40000 ALTER TABLE `tokens` DISABLE KEYS */;
+INSERT INTO `tokens` (`token_id`, `user_id`, `activate_date`, `lifetime`, `used_date`, `token`) VALUES
+	(2, 29, '2018-05-28 09:22:21', 12, '2018-05-28 09:22:33', 'PdXtKEZ33D9sbhu1veSKNFX6TWMpX84JAJ8jMCZhFCBPCrC2xeN05f0FsRVKpRvF760eU9xZSNkg08NRVTCttFXpz4wwUH7IAEdaeMg3I6Wlgren5dqFwI6CLnYLfSGL');
 /*!40000 ALTER TABLE `tokens` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela trabalho.users
