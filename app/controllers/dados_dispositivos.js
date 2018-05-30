@@ -38,42 +38,86 @@ module.exports.capturaDados = function(app, request, response){
 }
 
 module.exports.data_mgmt = function(app, request, response){
-	var connection = new app.config.dbconn();
+	var conn = new app.config.dbconn();
 	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
+	var dadosUsuario = new app.app.models.dados_usuariosDAO(conn);
 
-	//http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html
-	/*-----Publish----*/
+	var async = require('async');
+	
+	/*-----Unsubscribe----*/
+
+
+	/*-----Disconnect-----*/
+
+
+	/*-----Clean----------*/
+
+		//http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html
+	/*-----Publish------*/
 	//Verificar dados de autorizacao
 	//Se dados checarem 
 	//Verificar se dados de chegada que são ncessários estão completos
 	//Inserir dados
+	
+	if(request.body.command == 'publish'){
+		//testa autenticacao
+		async.waterfall([
+			function (callback) {
+				dadosUsuario.validalogin(request.body, function(error, result){
+					 if(result.length > 0){			 	
+					 	
+					 }else{
+					 	response.status(403).render();
+					 }
+				})			
+			},
+			function (arg1, arg2, callback) {
+				deviceDataModel.get_topic_data(request.body,function(error, result){
+					if(result.length > 0){
 
-	/*-----Subscribe----*/
+					}
+				})
+			}, function (callback) {
+				
+			}
+			],function(err, results){
+			if(err){
+				
+			}
+		})
+	}
+
+	/*-----Subscribe-----*/
 	//Verificar dados de autorizacao
 	//Se dados checarem 
 	//Verificar se dados de chegada que são ncessários estão completos
 	//Liberar dados
-
-	/*-----Unsubscribe----*/
-
-
-	/*-----Disconnect---*/
-
-
-	/*-----Clean---*/
-
-	if(request.body.command == 'publish'){
-
-	}
 	else if(request.body.command == 'subscribe'){
+		//testa autenticacao
+		async.waterfall([
+			function (callback) {
+				dadosUsuario.validalogin(request.body, function(error, result){
+					 if(result.length > 0){			 	
+					 	
+					 }else{
+					 	response.status(403).render();
+					 }
+				})			
+			},
+			function (arg1, arg2, callback) {
+				deviceDataModel.get_topic_data(request.body,function(error, result){
+					if(result.length > 0){
 
-	}
-
-	// if(request.method == 'get'){
-
-	// }
-
-	// if(request.method == 'post'){
+					}
+				})
+			}, function (callback) {
+				
+			}
+			],function(err, results){
+			if(err){
+				
+			}
+		})
 		
-	// }
+	}
 }

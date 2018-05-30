@@ -13,6 +13,14 @@ dadosDispositivos.prototype.insertData = function(session_id, body, callback){
 		this._connection.query(query, callback);
 }
 
+dadosDispositivos.prototype.get_topic_data = function(dados, callback){
+		this._connection.query('select topic from devices where id_usuario ='+id, callback);
+}
+
+dadosDispositivos.prototype.insert_topic_data = function(dados, callback){
+
+}
+
 module.exports = function(){
 	return dadosDispositivos;
 }
