@@ -40,19 +40,21 @@ module.exports.capturaDados = function(app, request, response){
 module.exports.data_mgmt = function(app, request, response){
 	var conn = new app.config.dbconn();
 	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
-	var dadosUsuario = new app.app.models.dados_usuariosDAO(conn);
-
+	var dadosUsuario = new app.app.models.dados_usuariosDAO(conn)
 	var async = require('async');
+
+	var erros = [];
+	erros.push({ 'msg': 'Dados de login inválidos'});
+	erros.push({ 'msg': 'Tópico inexistente, você deve cadastrar o tópico'});
+	erros.push({ 'msg': 'Falha ao inserir/capturar as informações, tente novamente mais tarde'});
 	
 	/*-----Unsubscribe----*/
 
-
 	/*-----Disconnect-----*/
-
 
 	/*-----Clean----------*/
 
-		//http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html
+	//http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html
 	/*-----Publish------*/
 	//Verificar dados de autorizacao
 	//Se dados checarem 
@@ -116,7 +118,7 @@ module.exports.data_mgmt = function(app, request, response){
 			function (dados, callback) {
 				deviceDataModel.get_topic_data(request.body,function(error, result){
 					if(result.length > 0){
-
+						callback(null, result);
 					}else{
 						callback('null')
 					}
@@ -126,7 +128,7 @@ module.exports.data_mgmt = function(app, request, response){
 					if(!error){
 						response.status(200).render();
 					}else{
-
+						callback(null);
 					}
 				})
 			}
