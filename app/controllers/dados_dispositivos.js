@@ -65,24 +65,32 @@ module.exports.data_mgmt = function(app, request, response){
 			function (callback) {
 				dadosUsuario.validalogin(request.body, function(error, result){
 					 if(result.length > 0){			 	
-					 	
+					 	callback(null, result);
 					 }else{
-					 	response.status(403).render();
+					 	callback('null');
 					 }
 				})			
 			},
-			function (arg1, arg2, callback) {
+			function (dados, callback) {
 				deviceDataModel.get_topic_data(request.body,function(error, result){
 					if(result.length > 0){
-
+						callback(null, result);
+					}else{
+						callback('null')
 					}
 				})
-			}, function (callback) {
-				
+			}, function (dados, callback) {
+				deviceDataModel.insert_topic_data(request.body,function(error, result){
+					if(!error){
+						response.status(200).render();
+					}else{
+						
+					}
+				})
 			}
 			],function(err, results){
 			if(err){
-				
+				response.status(403).render();	
 			}
 		})
 	}
@@ -94,28 +102,37 @@ module.exports.data_mgmt = function(app, request, response){
 	//Liberar dados
 	else if(request.body.command == 'subscribe'){
 		//testa autenticacao
+		//testa autenticacao
 		async.waterfall([
 			function (callback) {
 				dadosUsuario.validalogin(request.body, function(error, result){
 					 if(result.length > 0){			 	
-					 	
+					 	callback(null, result);
 					 }else{
-					 	response.status(403).render();
+					 	callback('null');
 					 }
 				})			
 			},
-			function (arg1, arg2, callback) {
+			function (dados, callback) {
 				deviceDataModel.get_topic_data(request.body,function(error, result){
 					if(result.length > 0){
 
+					}else{
+						callback('null')
 					}
 				})
-			}, function (callback) {
-				
+			}, function (dados, callback) {
+				deviceDataModel.insert_topic_data(request.body,function(error, result){
+					if(!error){
+						response.status(200).render();
+					}else{
+
+					}
+				})
 			}
 			],function(err, results){
 			if(err){
-				
+				response.status(403).render();	
 			}
 		})
 		
