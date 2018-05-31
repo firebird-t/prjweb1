@@ -19,12 +19,11 @@ dadosDispositivos.prototype.get_all_topic_data = function(dados, callback){
 
 
 dadosDispositivos.prototype.get_topic_data = function(dados, topic, callback){
-		console.log('select topic from devices where id_usuario ='+ dados.id+' and topic = "'+topic+'"')
-		this._connection.query('select topic from devices where id_usuario ='+ dados.id+' and topic = "'+topic+'"', callback);
+		this._connection.query('select id, topic from devices where id_usuario ='+ dados.id+' and topic = "'+topic+'"', callback);
 }
 
 dadosDispositivos.prototype.insert_topic_data = function(dispositivo, mensagem , callback){
-		this._connection.query('insert into device_data(device_id, topic, value, datetime) values('+dispositivo+',"'+mensagem.topic+'","'+messagem.message+'",NOW())', callback);
+		this._connection.query('insert into device_data(device_id, topic, message, datetime) values('+dispositivo.id+',"'+mensagem.topic+'","'+mensagem.message+'",NOW())', callback);
 }
 
 module.exports = function(){

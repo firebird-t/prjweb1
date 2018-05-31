@@ -61,7 +61,6 @@ module.exports.data_mgmt = function(app, request, response){
 	//Se dados checarem 
 	//Verificar se dados de chegada que são ncessários estão completos
 	//Inserir dados
-	console.log(unescape(request.body.topic))
 	if(request.body.command == 'publish'){
 		async.waterfall([
 			function (callback) {
@@ -82,17 +81,17 @@ module.exports.data_mgmt = function(app, request, response){
 					}
 				})
 			}, function (dados, callback) {
-				deviceDataModel.insert_topic_data(result, request.body,function(error, result){
-					if(!error){
-						//response.send(200);
+				deviceDataModel.insert_topic_data(dados[0], request.body, function(error, result){
+					if(!error && result.affectedRows > 0){
+						console.log('dado gravado')
 					}else{
-						
+						console.log(error, result.affectedRows)
 					}
 				})
 			}
 			],function(err, result){
 			if(err){
-				//response.sendStatus(403);	
+				response.sendStatus(403);	
 			}
 		})
 	}
