@@ -38,9 +38,10 @@ module.exports.capturaDados = function(app, request, response){
 }
 
 module.exports.data_mgmt = function(app, request, response){
-	var conn = new app.config.dbconn();
+	var conn = app.config.dbconn();
 	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
 	var dadosUsuario = new app.app.models.dados_usuariosDAO(conn)
+	
 	var async = require('async');
 
 	var erros = [];
@@ -60,39 +61,38 @@ module.exports.data_mgmt = function(app, request, response){
 	//Se dados checarem 
 	//Verificar se dados de chegada que são ncessários estão completos
 	//Inserir dados
-	
+	console.log(unescape(request.body.topic))
 	if(request.body.command == 'publish'){
-		//testa autenticacao
 		async.waterfall([
 			function (callback) {
 				dadosUsuario.validalogin(request.body, function(error, result){
-					 if(result.length > 0){			 	
+					 if(!error && result.length > 0){			
 					 	callback(null, result);
 					 }else{
-					 	callback('null');
+					 	callback('null', result);
 					 }
 				})			
 			},
 			function (dados, callback) {
-				deviceDataModel.get_topic_data(request.body,function(error, result){
-					if(result.length > 0){
+				deviceDataModel.get_topic_data(dados[0], request.body.topic ,function(error, result){
+					if(!error && result.length > 0){
 						callback(null, result);
 					}else{
 						callback('null')
 					}
 				})
 			}, function (dados, callback) {
-				deviceDataModel.insert_topic_data(request.body,function(error, result){
+				deviceDataModel.insert_topic_data(result, request.body,function(error, result){
 					if(!error){
-						response.status(200).render();
+						//response.send(200);
 					}else{
 						
 					}
 				})
 			}
-			],function(err, results){
+			],function(err, result){
 			if(err){
-				response.status(403).render();	
+				//response.sendStatus(403);	
 			}
 		})
 	}
@@ -126,7 +126,7 @@ module.exports.data_mgmt = function(app, request, response){
 			}, function (dados, callback) {
 				deviceDataModel.insert_topic_data(request.body,function(error, result){
 					if(!error){
-						response.status(200).render();
+						//response.send(200);
 					}else{
 						callback(null);
 					}
@@ -134,7 +134,7 @@ module.exports.data_mgmt = function(app, request, response){
 			}
 			],function(err, results){
 			if(err){
-				response.status(403).render();	
+				//response.sendStatus(403);	
 			}
 		})
 		

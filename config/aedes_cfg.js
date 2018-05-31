@@ -17,7 +17,7 @@ var emitter = mqmongo({
 
 //Aedes Server
 var aedes = require("aedes")({
-    /*mq: emitter,*/
+    mq: emitter,
     persistence: persistence
 });
 
