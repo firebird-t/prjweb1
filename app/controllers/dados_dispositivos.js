@@ -107,33 +107,33 @@ module.exports.data_mgmt = function(app, request, response){
 		async.waterfall([
 			function (callback) {
 				dadosUsuario.validalogin(request.body, function(error, result){
-					 if(result.length > 0){			 	
+					 if(!error && result.length > 0){			
 					 	callback(null, result);
 					 }else{
-					 	callback('null');
+					 	callback('null', result);
 					 }
 				})			
 			},
 			function (dados, callback) {
-				deviceDataModel.get_topic_data(request.body,function(error, result){
-					if(result.length > 0){
+				deviceDataModel.get_topic_data(dados[0], request.body.topic ,function(error, result){
+					if(!error && result.length > 0){
 						callback(null, result);
 					}else{
 						callback('null')
 					}
 				})
 			}, function (dados, callback) {
-				deviceDataModel.insert_topic_data(request.body,function(error, result){
-					if(!error){
-						//response.send(200);
+				deviceDataModel.get_topic_message(dados[0], request.body, function(error, result){
+					if(!error && result.length > 0){
+						//console.log('dado gravado')
 					}else{
-						callback(null);
+						console.log(error);
 					}
 				})
 			}
-			],function(err, results){
+			],function(err, result){
 			if(err){
-				//response.sendStatus(403);	
+				response.sendStatus(403);	
 			}
 		})
 		

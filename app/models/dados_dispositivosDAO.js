@@ -26,6 +26,10 @@ dadosDispositivos.prototype.insert_topic_data = function(dispositivo, mensagem ,
 		this._connection.query('insert into device_data(device_id, topic, message, datetime) values('+dispositivo.id+',"'+mensagem.topic+'","'+mensagem.message+'",NOW())', callback);
 }
 
+dadosDispositivos.prototype.get_topic_message = function(device_id, topic){
+		this._connection.query('select id, topic from device_data where topic ="'+topic+'"', callback);
+}
+
 module.exports = function(){
 	return dadosDispositivos;
 }
