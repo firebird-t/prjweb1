@@ -50,8 +50,8 @@ INSERT INTO `devices` (`id`, `id_usuario`, `nome_dispositivo`, `topic`, `ip`, `p
 	(3, 29, 'sensor de chuva', 'sensor/chuva', '', '', '2018-05-28 15:00:08', 'Sensor de chuva');
 /*!40000 ALTER TABLE `devices` ENABLE KEYS */;
 
--- Copiando estrutura para tabela trabalho.device_data
-CREATE TABLE IF NOT EXISTS `device_data` (
+-- Copiando estrutura para tabela trabalho.messages
+CREATE TABLE IF NOT EXISTS `messages` (
   `message_id` int(11) NOT NULL AUTO_INCREMENT,
   `device_id` int(11) NOT NULL,
   `topic` varchar(300) NOT NULL,
@@ -60,10 +60,10 @@ CREATE TABLE IF NOT EXISTS `device_data` (
   PRIMARY KEY (`message_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=230 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela trabalho.device_data: ~38 rows (aproximadamente)
-DELETE FROM `device_data`;
-/*!40000 ALTER TABLE `device_data` DISABLE KEYS */;
-INSERT INTO `device_data` (`message_id`, `device_id`, `topic`, `message`, `datetime`) VALUES
+-- Copiando dados para a tabela trabalho.messages: ~229 rows (aproximadamente)
+DELETE FROM `messages`;
+/*!40000 ALTER TABLE `messages` DISABLE KEYS */;
+INSERT INTO `messages` (`message_id`, `device_id`, `topic`, `message`, `datetime`) VALUES
 	(1, 1, 'sensor/temp', '29.234293024', '2018-05-31 19:42:52'),
 	(2, 1, 'sensor/temp', '29.9169242249', '2018-05-31 19:43:02'),
 	(3, 1, 'sensor/temp', '29.9432983787', '2018-05-31 19:43:12'),
@@ -293,7 +293,7 @@ INSERT INTO `device_data` (`message_id`, `device_id`, `topic`, `message`, `datet
 	(227, 2, 'sensor/umidade', '89.830761172', '2018-05-31 20:05:38'),
 	(228, 2, 'sensor/umidade', '12.7044699943', '2018-05-31 20:05:48'),
 	(229, 2, 'sensor/umidade', '30.5957203783', '2018-05-31 20:05:58');
-/*!40000 ALTER TABLE `device_data` ENABLE KEYS */;
+/*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela trabalho.tokens
 CREATE TABLE IF NOT EXISTS `tokens` (

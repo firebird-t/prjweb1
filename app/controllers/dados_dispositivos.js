@@ -30,10 +30,28 @@ module.exports.dados_inserir = function(app, request, response){
 module.exports.capturaDados = function(app, request, response){
 	var conn = app.config.dbconn();
 	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
-	
-	deviceDataModel.getData(request.session.user_id,function(error , result){
-		console.log(result.length);
-		response.render("home/home",{devices : result});
+
+	//Carrega quantidade de registros e quantidade de mensagens
+	//Carrega Registro por data
+	//Carrega Dispositivos do usuario	
+	var results = [];
+	deviceDataModel.getDataRecord_Devices_Messages(request.session.user_id, function(error , result){
+		if(!error){
+			results[0] = result;
+			deviceDataModel.getDataRecordbyDate(request.session.user_id, function(error, result){
+				results[1] = result;
+				if(!error){
+					deviceDataModel.getUserDevices(request.session.user_id, function(error, result){
+						results[2] = result;
+						response.render("home/home",{devices : results});
+					})
+				}
+			})		
+		}else{
+			console.log(error)
+			response.render("home/home",{devices : result});	
+		}
+		
 	})
 }
 

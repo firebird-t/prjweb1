@@ -3,8 +3,26 @@ function dadosDispositivos(connection){
 }
 
 //this._connection.query('select nome_dispositivo, topic, descricao from devices where id_usuario ='+id, callback);
-dadosDispositivos.prototype.getData = function(id, callback){
-		this._connection.query('select nome_dispositivo, topic, descricao from devices where id_usuario ='+id, callback);
+dadosDispositivos.prototype.getDataRecord_Devices_Messages = function(id, callback){
+		var query = 'select';
+		query += '(select count(*) from devices where devices.id_usuario = '+id+' ) as quantidade,'
+		query += '(select count(*) from messages, devices where devices.id_usuario ='+id+' and messages.device_id = devices.id) as registros'
+
+		this._connection.query(query, callback);
+}
+
+dadosDispositivos.prototype.getDataRecordbyDate = function(id, callback){
+		var query = 'select count(DAY(messages.datetime)), DAY(messages.datetime)  from devices as d';
+		query += ' left join messages on d.id = messages.device_id'
+		query += ' and d.id_usuario ='+id
+		query += ' group by(DAY(messages.datetime))'
+
+		this._connection.query(query, callback);
+}
+
+dadosDispositivos.prototype.getUserDevices = function(id, callback){
+		var query = 'select count(*) from devices where devices.id_usuario = '+id;
+		this._connection.query(query, callback);
 }
 
 dadosDispositivos.prototype.insertData = function(session_id, body, callback){
@@ -23,11 +41,11 @@ dadosDispositivos.prototype.get_topic_data = function(dados, topic, callback){
 }
 
 dadosDispositivos.prototype.insert_topic_data = function(dispositivo, mensagem , callback){
-		this._connection.query('insert into device_data(device_id, topic, message, datetime) values('+dispositivo.id+',"'+mensagem.topic+'","'+mensagem.message+'",NOW())', callback);
+		this._connection.query('insert into messages(device_id, topic, message, datetime) values('+dispositivo.id+',"'+mensagem.topic+'","'+mensagem.message+'",NOW())', callback);
 }
 
 dadosDispositivos.prototype.get_topic_message = function(device_id, topic){
-		this._connection.query('select id, topic from device_data where topic ="'+topic+'"', callback);
+		this._connection.query('select id, topic from messages where topic ="'+topic+'"', callback);
 }
 
 module.exports = function(){

@@ -30,7 +30,7 @@
                           <div id="spark1" class="chart sparkline"></div>
                           <div class="data-info">
                             <div class="desc">Dispositivos</div>
-                            <div class="value"><span class="indicator indicator-equal mdi mdi-chevron-right"></span><span data-toggle="counter" data-end="113" class="number"><%= devices.length %></span>
+                            <div class="value"><span class="indicator indicator-equal mdi mdi-chevron-right"></span><span data-toggle="counter" data-end="113" class="number"><%= devices[0].quantidade %></span>
                             </div>
                           </div>
                         </div>
@@ -40,37 +40,13 @@
                           <div id="spark2" class="chart sparkline"></div>
                           <div class="data-info">
                             <div class="desc">Registros</div>
-                            <div class="value"><span class="indicator indicator-positive mdi mdi-chevron-up"></span><span data-toggle="counter" data-end="80" data-suffix="%" class="number"><%= devices.length %></span>
+                            <div class="value"><span class="indicator indicator-positive mdi mdi-chevron-up"></span><span data-toggle="counter" data-end="80" data-suffix="%" class="number"><%= devices[0].registros %></span>
                             </div>
                           </div>
                         </div>
             </div>
           </div>
-		<h6>Dispositivos</h6>
-		<table class="table">
-			<thead>
-				<tr>
-					<th scope="col">Nome</th>
-					<th scope="col">Tópico</th>
-					<th scope="col">Menu</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% 
-				if(typeof(devices) != "undefined"){
-					for (var i = 0; i < devices.length; i++) { %>
-					<tr>
-						<td> <%= devices[i].nome_dispositivo %> </td>
-						<td> <%= devices[i].topic%> </td>
-						<td> <%= devices[i].protocolo %> </td>
-						<td></td>
-					</tr>		
-					<%
-				}
-			}
-			%>
-		</tbody>
-	</table>
+		
 	<hr>
 	<h6>Status</h6>
 	<div id="charts"></div>
