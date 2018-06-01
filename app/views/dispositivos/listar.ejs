@@ -22,7 +22,7 @@
 				<tbody>
 					<% 
 					if(typeof(devices) != "undefined"){
-						for (var i = 0; i < devices[1].length; i++) { %>
+						for (var i = 0; i < devices.length; i++) { %>
 							<tr>
 								<td> <%= devices[i].nome_dispositivo %> </td>
 								<td> <%= devices[i].topic %> </td>
