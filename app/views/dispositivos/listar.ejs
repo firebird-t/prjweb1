@@ -7,110 +7,35 @@
 <body>
 	<% include ../header/header %>
 	<div class="container">
-
-		  <div class="form-inline">
-		    <div class="form-group mb-2">
-		    	    <label for="devices">Selecione o Dispositivo</label>
-		    	    <select class="form-control" id="devices">
-		    	    	<option value="-1">selecione o dispositivo</option>
-		    	      <% 
-		    	      if(typeof(devices) != "undefined"){
-		    	      	for (var i = 0; i < devices.length; i++) { %>
-		    	      		<option value=<%= devices[i].id %>><%= devices[i].nome_dispositivo + ' - ' + devices[i].topic %></option>
-		    		      	<%
-		    	      	}
-		    	      }
-		    	      %>
-		    	    </select>
-		    </div>
-
-		    <input type="button" name="button" id="bt_device" value="Pesquisar" class="btn btn-primary">
-		  </div>
-		  <canvas id="canvas_default"></canvas>
-
-		  <div class="page-head">
-			<h2 class="page-head-title">Dados de Registro</h2>
-		</div>
-		  <pre id="dados_log">
-		  	
-		  </pre>
+			<div class="page-head">
+				<h2 class="page-head-title">Dispositivos</h2>
+			</div>
+			<hr/>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th scope="col">Nome</th>
+						<th scope="col">Tópico</th>
+						<th scope="col">Menu</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% 
+					if(typeof(devices) != "undefined"){
+						for (var i = 0; i < devices[1].length; i++) { %>
+							<tr>
+								<td> <%= devices[i].nome_dispositivo %> </td>
+								<td> <%= devices[i].topic %> </td>
+								<td> <%= devices[i].protocolo %> </td>
+							</tr>		
+							<%
+						}
+					}
+					%>
+			</tbody>
+		</table>
+		<hr/>
 	</div>
-	<script type="text/javascript">
-		var messages = []
-		var log = '';
-		var labels = []
-		var myChart;
-		$("#bt_device").on('click', function(event) {
-			if($("#devices option:selected").val() > 0){
-				$.ajax({
-					url: '/dispositivos/status/grafico',
-					type: 'GET',
-					dataType: 'json',
-					data: {id: $("#devices option:selected").val()},
-				})
-				.done(function(dados) {
-					messages = [];
-					log = '';
-					labels = []
-
-					for (var i = 0; i < dados.length; i++) {
-						messages.push(parseInt(dados[i].message))
-						log += dados[i].topic + ' - ' + dados[i].message + ' - ' + dados[i].datetime + '\n'
-						labels.push(i);
-					}
-					try{
-						if(typeof myChart != "undefined"){
-							myChart.destroy();
-						}		
-					}catch(e){
-						console.log(e);
-					}
-
-					dados_log.innerText = log
-					gera_grafico(messages)
-				})
-				.fail(function() {
-					console.log("error");
-				})
-				.always(function() {
-					console.log("complete");
-				});
-			}
-		});
-
-
-		function gera_grafico(dados){
-
-		myChart = new Chart($("#canvas_default"), {
-			type: 'line',
-			data:{
-				labels: labels,
-				datasets: [{
-					label:'Mensagens',
-					data: dados,
-					fill: false
-				}]
-			},
-
-			options: {
-				responsive: true,
-				title: {
-					display: true,
-					text: 'Registro de Mensagens'
-				},
-				tooltips: {
-					mode: 'index',
-					intersect: false,
-				},
-				scales: {
-					yAxes: [{
-						stacked: true
-					}]
-				}
-			}
-		});
-	}
-	</script>
 </body>
 	
 </html>
