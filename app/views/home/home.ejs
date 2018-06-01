@@ -2,13 +2,12 @@
 <html>
 <head>
 	<title>Página Inicial</title>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="http://foxythemes.net/preview/products/beagle/assets/css/app.css">
-	<link rel="stylesheet" type="text/css" href="http://foxythemes.net/preview/products/beagle/assets/lib/material-design-icons/css/material-design-iconic-font.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/app.css">
+	<link rel="stylesheet" type="text/css" href="css/material-design-iconic-font.min.css">
 </head>
 <body>
 	<% include ../header/header %>
-	
 	
 	<div class="container">
 		<div class="page-head">
@@ -46,7 +45,31 @@
                         </div>
             </div>
           </div>
-		
+		<h6>Dispositivos</h6>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Nome</th>
+					<th scope="col">Tópico</th>
+					<th scope="col">Menu</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% 
+				if(typeof(devices) != "undefined"){
+					for (var i = 0; i <= devices.length; i++) { %>
+					<tr>
+						<td> <%= devices[1][i].nome_dispositivo %> </td>
+						<td> <%= devices[1][i].topic%> </td>
+						<td> <%= devices[1][i].protocolo %> </td>
+						<td></td>
+					</tr>		
+					<%
+				}
+			}
+			%>
+		</tbody>
+	</table>
 	<hr>
 	<h6>Status</h6>
 	<div id="charts"></div>
@@ -59,7 +82,69 @@
 		}
 	</style>
 <script type="text/javascript">
-	var first_char = new Chart($("#canvas_default"),{});
+	var dados_grafico = [];
+	var labels = []
+	var data=[];
+
+	function _ajax(){
+		$.ajax({
+			url: '/dispositivos/dados/grafico',
+			type: 'GET',
+			dataType: 'json',
+			data: {param1: 'value1'},
+		})
+		.done(function(dados) {
+			console.log("success");
+			for(i = 0; i < dados.length ; i++){
+				dados_grafico.push(dados[i].x)
+				labels.push(dados[i].y)
+			}		
+			gera_grafico();
+		
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+	}
+	
+
+	function gera_grafico(){
+
+		var myChart = new Chart($("#canvas_default"), {
+		    type: 'line',
+		    data:{
+		   		labels: labels,
+		        datasets: [{
+		            label:'Mensagens',
+		            data: dados_grafico,
+		            fill: false
+		        }]
+		    },
+
+		    options: {
+		    		responsive: true,
+				title: {
+					display: true,
+					text: 'Registro de Mensagens'
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false,
+				},
+		        scales: {
+		                yAxes: [{
+		                    stacked: true
+		                }]
+		            }
+		        }
+		});
+	}
+
+	_ajax();
+
 </script>
 </body>
 </html>

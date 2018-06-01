@@ -37,16 +37,13 @@ module.exports.capturaDados = function(app, request, response){
 	var results = [];
 	deviceDataModel.getDataRecord_Devices_Messages(request.session.user_id, function(error , result){
 		if(!error){
-			results[0] = result;
-			deviceDataModel.getDataRecordbyDate(request.session.user_id, function(error, result){
-				results[1] = result;
+			results[0] = result[0];
 				if(!error){
 					deviceDataModel.getUserDevices(request.session.user_id, function(error, result){
-						results[2] = result;
+						results[1] = result;
 						response.render("home/home",{devices : results});
 					})
-				}
-			})		
+				}	
 		}else{
 			console.log(error)
 			response.render("home/home",{devices : result});	
@@ -156,4 +153,17 @@ module.exports.data_mgmt = function(app, request, response){
 		})
 		
 	}
+}
+
+module.exports.dados_grafico = function(app, request, response){
+	var conn = app.config.dbconn();
+	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
+	var dadosUsuario = new app.app.models.dados_usuariosDAO(conn)
+
+	deviceDataModel.getDataRecordbyDate(request.session.user_id, function(error, result){
+		if(!error){
+			response.setHeader('Content-Type', 'application/json');
+			response.send(result)
+		}
+	})
 }

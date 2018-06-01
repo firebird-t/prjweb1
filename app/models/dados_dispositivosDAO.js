@@ -3,7 +3,7 @@ function dadosDispositivos(connection){
 }
 
 //this._connection.query('select nome_dispositivo, topic, descricao from devices where id_usuario ='+id, callback);
-dadosDispositivos.prototype.getDataRecord_Devices_Messages = function(id, callback){
+dadosDispositivos.prototype.getDataRecord_Devices_Messages = function(id, callback){		
 		var query = 'select';
 		query += '(select count(*) from devices where devices.id_usuario = '+id+' ) as quantidade,'
 		query += '(select count(*) from messages, devices where devices.id_usuario ='+id+' and messages.device_id = devices.id) as registros'
@@ -12,16 +12,16 @@ dadosDispositivos.prototype.getDataRecord_Devices_Messages = function(id, callba
 }
 
 dadosDispositivos.prototype.getDataRecordbyDate = function(id, callback){
-		var query = 'select count(DAY(messages.datetime)), DAY(messages.datetime)  from devices as d';
-		query += ' left join messages on d.id = messages.device_id'
+		var query = 'select count(DAY(messages.datetime)) as x, DAYNAME(messages.datetime)  as y from devices as d';
+		query += ' right join messages on d.id = messages.device_id'
 		query += ' and d.id_usuario ='+id
-		query += ' group by(DAY(messages.datetime))'
+		query += ' group by(DAY(messages.datetime)) order by(DAYNAME(messages.datetime))'
 
 		this._connection.query(query, callback);
 }
 
 dadosDispositivos.prototype.getUserDevices = function(id, callback){
-		var query = 'select count(*) from devices where devices.id_usuario = '+id;
+		var query = 'select nome_dispositivo, topic from devices where devices.id_usuario = '+id;
 		this._connection.query(query, callback);
 }
 

@@ -25,6 +25,14 @@ module.exports = function(app){
 		}
 	})
 
+	app.get('/dispositivos/dados/grafico',function(request, response){
+		if(request.session.autorizado){
+			app.app.controllers.dados_dispositivos.dados_grafico(app, request, response)
+		}else{
+			response.redirect('/');
+		}
+	})
+
 	//Recebendo dados do formulário da página de cadastro de dispositivos
 	app.post('/dispositivos/inserir',function(request, response){
 		if(request.session.autorizado){
