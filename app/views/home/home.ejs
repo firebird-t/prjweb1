@@ -15,38 +15,44 @@
 		</div>
 		
 		<hr>
-		<div class="row">
-			<div class="col-md-7">
-				<canvas id="canvas_default"></canvas>
-			</div>
-			<div class="col-md-5">
+		<div class="main-content container-fluid">
+			<div class="row">
+			    <div class="col-md-9">
+			      <canvas id="canvas_default"></canvas>
+			    </div>
+			    <div class="col-sm">
+			    	<div class="col-12 col-lg-6 col-xl-3">
+			    		<div class="widget widget-tile">
+			    			<div id="spark1" class="chart sparkline"></div>
+			    			<div class="data-info">
+			    				<div class="desc">Dispositivos</div>
+			    				<div class="value"><span class="indicator indicator-equal mdi mdi-chevron-right"></span><span data-toggle="counter" data-end="113" class="number"><%= devices[0].quantidade %></span>
+			    				</div>
+			    			</div>
+			    		</div>
+			    	</div>
+			    	<div class="col-12 col-lg-6 col-xl-3">
+			    		<div class="widget widget-tile">
+			    			<div id="spark2" class="chart sparkline"></div>
+			    			<div class="data-info">
+			    				<div class="desc">Registros</div>
+			    				<div class="value"><span class="indicator indicator-positive mdi mdi-chevron-up"></span><span data-toggle="counter" data-end="80" data-suffix="%" class="number"><%= devices[0].registros %></span>
+			    				</div>
+			    			</div>
+			    		</div>
+			    	</div>
+			    </div>
+			  </div>
+			<br>
 
-			</div>
 		</div>
-		<div class="row">
-            <div class="col-12 col-lg-6 col-xl-3">
-                        <div class="widget widget-tile">
-                          <div id="spark1" class="chart sparkline"></div>
-                          <div class="data-info">
-                            <div class="desc">Dispositivos</div>
-                            <div class="value"><span class="indicator indicator-equal mdi mdi-chevron-right"></span><span data-toggle="counter" data-end="113" class="number"><%= devices[0].quantidade %></span>
-                            </div>
-                          </div>
-                        </div>
-            </div>
-            <div class="col-12 col-lg-6 col-xl-3">
-                        <div class="widget widget-tile">
-                          <div id="spark2" class="chart sparkline"></div>
-                          <div class="data-info">
-                            <div class="desc">Registros</div>
-                            <div class="value"><span class="indicator indicator-positive mdi mdi-chevron-up"></span><span data-toggle="counter" data-end="80" data-suffix="%" class="number"><%= devices[0].registros %></span>
-                            </div>
-                          </div>
-                        </div>
-            </div>
-          </div>
-		<h6>Dispositivos</h6>
-		<table class="table">
+		
+
+		<div class="page-head">
+			<h2 class="page-head-title">Dispositivos</h2>
+		</div>
+		<hr/>
+		<table class="table table-bordered">
 			<thead>
 				<tr>
 					<th scope="col">Nome</th>
@@ -57,12 +63,11 @@
 			<tbody>
 				<% 
 				if(typeof(devices) != "undefined"){
-					for (var i = 0; i <= devices.length; i++) { %>
+					for (var i = 0; i < devices[1].length; i++) { %>
 					<tr>
 						<td> <%= devices[1][i].nome_dispositivo %> </td>
 						<td> <%= devices[1][i].topic%> </td>
 						<td> <%= devices[1][i].protocolo %> </td>
-						<td></td>
 					</tr>		
 					<%
 				}
@@ -70,17 +75,26 @@
 			%>
 		</tbody>
 	</table>
-	<hr>
-	<h6>Status</h6>
+	<hr/>
 	<div id="charts"></div>
 </div>
-	
-	<style type="text/css">
-		.widget.widget-tile .data-info {
-		    display: table-cell;
-		    text-align: left;
-		}
-	</style>
+
+<style type="text/css">
+.widget.widget-tile .data-info {
+	display: table-cell;
+	text-align: left;
+}
+
+.widget.widget-tile .data-info .desc {
+    font-size: 1.077rem;
+    line-height: 18px;
+    overflow: initial;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+</style>
 <script type="text/javascript">
 	var dados_grafico = [];
 	var labels = []
@@ -100,7 +114,7 @@
 				labels.push(dados[i].y)
 			}		
 			gera_grafico();
-		
+
 		})
 		.fail(function() {
 			console.log("error");
@@ -114,18 +128,18 @@
 	function gera_grafico(){
 
 		var myChart = new Chart($("#canvas_default"), {
-		    type: 'line',
-		    data:{
-		   		labels: labels,
-		        datasets: [{
-		            label:'Mensagens',
-		            data: dados_grafico,
-		            fill: false
-		        }]
-		    },
+			type: 'line',
+			data:{
+				labels: labels,
+				datasets: [{
+					label:'Mensagens',
+					data: dados_grafico,
+					fill: false
+				}]
+			},
 
-		    options: {
-		    		responsive: true,
+			options: {
+				responsive: true,
 				title: {
 					display: true,
 					text: 'Registro de Mensagens'
@@ -134,12 +148,12 @@
 					mode: 'index',
 					intersect: false,
 				},
-		        scales: {
-		                yAxes: [{
-		                    stacked: true
-		                }]
-		            }
-		        }
+				scales: {
+					yAxes: [{
+						stacked: true
+					}]
+				}
+			}
 		});
 	}
 
