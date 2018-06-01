@@ -21,7 +21,12 @@ dadosDispositivos.prototype.getDataRecordbyDate = function(id, callback){
 }
 
 dadosDispositivos.prototype.getUserDevices = function(id, callback){
-		var query = 'select nome_dispositivo, topic from devices where devices.id_usuario = '+id;
+		var query = 'select id, nome_dispositivo, topic from devices where devices.id_usuario = '+id;
+		this._connection.query(query, callback);
+}
+
+dadosDispositivos.prototype.getDataDevice = function(id, callback){
+		var query = 'select * from devices right join messages on messages.device_id = devices.id where devices.id = '+id+' limit 50';
 		this._connection.query(query, callback);
 }
 
@@ -45,7 +50,7 @@ dadosDispositivos.prototype.insert_topic_data = function(dispositivo, mensagem ,
 }
 
 dadosDispositivos.prototype.get_topic_message = function(device_id, topic){
-		this._connection.query('select id, topic from messages where topic ="'+topic+'"', callback);
+		this._connection.query('select id, topic from messages where topic ="'+topic+'" ORDER BY id DESC LIMIT 1', callback);
 }
 
 module.exports = function(){

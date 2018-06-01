@@ -140,7 +140,7 @@ module.exports.data_mgmt = function(app, request, response){
 			}, function (dados, callback) {
 				deviceDataModel.get_topic_message(dados[0], request.body, function(error, result){
 					if(!error && result.length > 0){
-						//console.log('dado gravado')
+						console.log('dado enviado')
 					}else{
 						console.log(error);
 					}
@@ -155,7 +155,7 @@ module.exports.data_mgmt = function(app, request, response){
 	}
 }
 
-module.exports.dados_grafico = function(app, request, response){
+module.exports.dados_grafico_geral = function(app, request, response){
 	var conn = app.config.dbconn();
 	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
 	var dadosUsuario = new app.app.models.dados_usuariosDAO(conn)
@@ -165,5 +165,29 @@ module.exports.dados_grafico = function(app, request, response){
 			response.setHeader('Content-Type', 'application/json');
 			response.send(result)
 		}
+	})
+}
+
+
+module.exports.dados_grafico = function(app, request, response){
+	var conn = app.config.dbconn();
+	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
+	var dadosUsuario = new app.app.models.dados_usuariosDAO(conn)
+
+	deviceDataModel.getDataDevice(request.query.id, function(error, result){
+		if(!error){
+			response.send(result);
+		}
+	})
+}
+
+
+module.exports.info_dispositivos = function(app, request, response){
+	var conn = app.config.dbconn();
+	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
+	var dadosUsuario = new app.app.models.dados_usuariosDAO(conn)
+
+	deviceDataModel.getUserDevices(request.session.user_id, function(error, result){
+		response.render("dispositivos/listar",{devices : result});
 	})
 }

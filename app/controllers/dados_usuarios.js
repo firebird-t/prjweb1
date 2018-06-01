@@ -33,8 +33,8 @@ module.exports.verifica_dados_login = function(app, request, response){
 			 		response.cookie("dado_usuario",dados.nome_usuario);
 			 	}
 
-			 	console.log('Usuário '+result[0]['nome']+' logado');	
-
+			 	//console.log('Usuário '+result[0]['nome']+' logado');	
+			 	
 			 	response.redirect('/home');
 				return;
 			 }else{
@@ -133,7 +133,7 @@ module.exports.senha_reset = function(app, request, response){
 							c='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 							p='';
 							for(i=0;i<128;i++){
-								p+=c.charAt(Math.floor(Math.random()*62));
+								p+=c.charAt(Math.floor(Math.random()*64));
 							}
 							return p;
 						};

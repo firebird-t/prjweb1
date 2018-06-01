@@ -64,15 +64,15 @@
 				<% 
 				if(typeof(devices) != "undefined"){
 					for (var i = 0; i < devices[1].length; i++) { %>
-					<tr>
-						<td> <%= devices[1][i].nome_dispositivo %> </td>
-						<td> <%= devices[1][i].topic%> </td>
-						<td> <%= devices[1][i].protocolo %> </td>
-					</tr>		
-					<%
+						<tr>
+							<td> <%= devices[1][i].nome_dispositivo %> </td>
+							<td> <%= devices[1][i].topic %> </td>
+							<td> <%= devices[1][i].protocolo %> </td>
+						</tr>		
+						<%
+					}
 				}
-			}
-			%>
+				%>
 		</tbody>
 	</table>
 	<hr/>

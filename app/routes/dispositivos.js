@@ -11,7 +11,15 @@ module.exports = function(app){
 
 	app.get('/dispositivos/listar',function(request, response){
 		if(request.session.autorizado){
-			response.render("dispositivos/listar");
+			app.app.controllers.dados_dispositivos.info_dispositivos(app, request, response)
+		}else{
+			response.redirect('/');
+		}
+	})
+
+	app.get('/dispositivos/status/grafico',function(request, response){
+		if(request.session.autorizado){
+			app.app.controllers.dados_dispositivos.dados_grafico(app, request, response)
 		}else{
 			response.redirect('/');
 		}
@@ -27,7 +35,7 @@ module.exports = function(app){
 
 	app.get('/dispositivos/dados/grafico',function(request, response){
 		if(request.session.autorizado){
-			app.app.controllers.dados_dispositivos.dados_grafico(app, request, response)
+			app.app.controllers.dados_dispositivos.dados_grafico_geral(app, request, response)
 		}else{
 			response.redirect('/');
 		}
