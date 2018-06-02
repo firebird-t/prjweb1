@@ -235,7 +235,7 @@ module.exports.dados_gerais_item = function(app, request, response){
 
 	deviceDataModel.data_by_device(request.query.id, function(error, result){
 		if(!error){
-			var filename = './tmp/dados_usuario_'+request.session.user_id+'request.body.id.txt';
+			var filename = './tmp/dados_usuario_'+request.session.user_id+request.body.id+'.txt';
 			fs.writeFile(filename,JSON.stringify(result),(err)=>{
 				if(err){
 					throw err;
