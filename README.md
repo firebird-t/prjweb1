@@ -4,8 +4,8 @@ Sistema de gerência de dispositivos
 
 ### Pré-requisitos
 
-Node JS
-Banco de dados mysql
+ - Node Js
+ - Banco de dados MYSQL
 
 ### Instalação
 
@@ -13,4 +13,3 @@ Para a instalação das depedências, rode o seguinte comando na pasta do projet
 ```
 npm install
 ```
-
