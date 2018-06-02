@@ -12,21 +12,24 @@
 		
 			  <div class="form-inline">
 			    <div class="form-group mb-2">
-			    	    <label for="devices">Selecione o Dispositivo</label>
-			    	    <select class="form-control" id="devices">
-			    	    	<option value="-1">selecione o dispositivo</option>
-			    	      <% 
-			    	      if(typeof(devices) != "undefined"){
-			    	      	for (var i = 0; i < devices.length; i++) { %>
-			    	      		<option value=<%= devices[i].id %>><%= devices[i].nome_dispositivo + ' - ' + devices[i].topic %></option>
-			    		      	<%
-			    	      	}
-			    	      }
-			    	      %>
-			    	    </select>
+			    	    <label for="devices">Selecione o Dispositivo:</label>
+			    	    
 			    </div>
+			    <div class="form-group mx-sm-3 mb-2">
+			           <select class="form-control" id="devices">
+			           	<option value="-1">selecione o dispositivo</option>
+			             <% 
+			             if(typeof(devices) != "undefined"){
+			             	for (var i = 0; i < devices.length; i++) { %>
+			             		<option value=<%= devices[i].id %>><%= devices[i].nome_dispositivo + ' - ' + devices[i].topic %></option>
+			       	      	<%
+			             	}
+			             }
+			             %>
+			           </select>
+			     </div>
 
-			    <input type="button" name="button" id="bt_device" value="Pesquisar" class="btn btn-primary">
+			    <input type="button" name="button" id="bt_device" value="Pesquisar" class="btn btn-primary mb-2">
 			  </div>
 			  <canvas id="canvas_default"></canvas>
 
@@ -42,6 +45,9 @@
 			var log = '';
 			var labels = []
 			var myChart;
+			var colors = [];
+
+
 			$("#bt_device").on('click', function(event) {
 				if($("#devices option:selected").val() > 0){
 					$.ajax({
@@ -53,13 +59,25 @@
 					.done(function(dados) {
 						messages = [];
 						log = '';
-						labels = []
+						labels = [];
+						colors = [];
 
 						for (var i = 0; i < dados.length; i++) {
 							messages.push(parseInt(dados[i].message))
 							log += dados[i].topic + ' - ' + dados[i].message + ' - ' + dados[i].datetime + '\n'
 							labels.push(i);
 						}
+
+						function dynamicColors() {
+			            	var r = Math.floor(Math.random() * 255);
+			            	var g = Math.floor(Math.random() * 255);
+			            	var b = Math.floor(Math.random() * 255);
+			            	return "rgb(" + r + "," + g + "," + b + ")";
+						};
+						
+						//
+						colors.push(dynamicColors());
+						
 						try{
 							if(typeof myChart != "undefined"){
 								myChart.destroy();
@@ -88,7 +106,8 @@
 				data:{
 					labels: labels,
 					datasets: [{
-						label:'Mensagens',
+						label:'Valor',
+						backgroundColor:colors,
 						data: dados,
 						fill: false
 					}]

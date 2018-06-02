@@ -8,7 +8,7 @@
 </head>
 <body>
 	<% include ../header/header %>
-	<div class="container">
+	<div class="container-fluid">
 			<div class="page-head">
 				<h2 class="page-head-title">Dispositivos</h2>
 			</div>
@@ -18,7 +18,8 @@
 					<tr>
 						<th scope="col">Nome</th>
 						<th scope="col">Tópico</th>
-						<th scope="col">Menu</th>
+						<th scope="col">Ver dados</th>
+						<th scope="col">Excluir</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -28,7 +29,8 @@
 							<tr>
 								<td> <%= devices[i].nome_dispositivo %> </td>
 								<td> <%= devices[i].topic %> </td>
-								<td> <%= devices[i].protocolo %> </td>
+								<td><input type="button" data-id=<%= devices[i].id %> name="button" value="Ver registros" class="bt_device btn btn-primary mb-2"> </td>
+								<td><input type="button" data-id=<%= devices[i].id %> name="button" value="Excluir" class="bt_excluir btn btn-danger mb-2"></td>
 							</tr>		
 							<%
 						}
@@ -38,6 +40,32 @@
 		</table>
 		<hr/>
 	</div>
+
+	<script type="text/javascript">
+		$('.bt_excluir').on('click',function(){
+			var r = confirm('Deseja excluir o dispositivo e seus registros ?');
+			if (r == true) {
+				$.ajax({
+					url: '/dispositivo/exluir',
+					type: 'POST',
+					dataType: 'json',
+					data: {id: 'value1'},
+				})
+				.done(function() {
+					console.log("success");
+				})
+				.fail(function() {
+					console.log("error");
+				})
+				.always(function() {
+					console.log("complete");
+				});
+
+			} 
+		})
+
+
+	</script>
 </body>
 	
 </html>
