@@ -1,4 +1,3 @@
-# Título
 
 Sistema de gerência de dispositivos
 
