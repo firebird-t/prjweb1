@@ -98,7 +98,7 @@ module.exports.data_mgmt = function(app, request, response){
 			}, function (dados, callback) {
 				deviceDataModel.insert_topic_data(dados[0], request.body, function(error, result){
 					if(!error && result.affectedRows > 0){
-						console.log('dado gravado')
+						//console.log('dado gravado')
 					}else{
 						console.log(error, result.affectedRows)
 					}
@@ -202,3 +202,18 @@ module.exports.excluir_dispositivo = function(app, request, response, render){
 		response.render(render,{devices : result});
 	})
 }
+
+module.exports.dados_por_dispositivos = function(app, request, response){
+	var conn = app.config.dbconn();
+	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
+	//var dadosUsuario = new app.app.models.dados_usuariosDAO(conn)
+
+	deviceDataModel.data_by_device(request.session.user_id, function(error, result){
+		if(!error){
+			response.send(result);	
+		}else{
+			console.log(error);
+		}
+		
+	})
+}	

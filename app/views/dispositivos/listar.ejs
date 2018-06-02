@@ -8,7 +8,7 @@
 </head>
 <body>
 	<% include ../header/header %>
-	<div class="container-fluid">
+	<div class="container">
 			<div class="page-head">
 				<h2 class="page-head-title">Dispositivos</h2>
 			</div>
@@ -18,7 +18,7 @@
 					<tr>
 						<th scope="col">Nome</th>
 						<th scope="col">Tópico</th>
-						<th scope="col">Ver dados</th>
+						<th scope="col">Baixar Dados</th>
 						<th scope="col">Excluir</th>
 					</tr>
 				</thead>
@@ -29,7 +29,7 @@
 							<tr>
 								<td> <%= devices[i].nome_dispositivo %> </td>
 								<td> <%= devices[i].topic %> </td>
-								<td><input type="button" data-id=<%= devices[i].id %> name="button" value="Ver registros" class="bt_device btn btn-primary mb-2"> </td>
+								<td><input type="button" data-id=<%= devices[i].id %> name="button" value="Baixar" class="bt_device btn btn-primary mb-2"> </td>
 								<td><input type="button" data-id=<%= devices[i].id %> name="button" value="Excluir" class="bt_excluir btn btn-danger mb-2"></td>
 							</tr>		
 							<%

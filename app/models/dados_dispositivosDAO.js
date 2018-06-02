@@ -15,7 +15,7 @@ dadosDispositivos.prototype.getDataRecordbyDate = function(id, callback){
 		var query = 'select count(DAY(messages.datetime)) as x, DAYNAME(messages.datetime)  as y from devices as d';
 		query += ' right join messages on d.id = messages.device_id'
 		query += ' and d.id_usuario ='+id
-		query += ' group by(DAY(messages.datetime)) order by(DAYNAME(messages.datetime))'
+		query += ' group by(DAY(messages.datetime)) order by(DAYOFWEEK(messages.datetime))'
 
 		this._connection.query(query, callback);
 }
@@ -49,14 +49,22 @@ dadosDispositivos.prototype.insert_topic_data = function(dispositivo, mensagem ,
 		this._connection.query('insert into messages(device_id, topic, message, datetime) values('+dispositivo.id+',"'+mensagem.topic+'","'+mensagem.message+'",NOW())', callback);
 }
 
-dadosDispositivos.prototype.get_topic_message = function(device_id, topic){
+dadosDispositivos.prototype.get_topic_message = function(device_id, topic, callback){
 		this._connection.query('select id, topic from messages where topic ="'+topic+'" ORDER BY id DESC LIMIT 1', callback);
 }
 
-dadosDispositivos.prototype.exluirDispositivo = function(device_id, topic){
+dadosDispositivos.prototype.exluirDispositivo = function(device_id, topic, callback){
 		var query = 'delete from'
 		//this._connection.query('', callback);
 }
+
+dadosDispositivos.prototype.data_by_device = function(id_usuario, callback){
+	var query = 'select devices.topic as topic, count(devices.id) as stat from devices right join messages on devices.id = messages.device_id';
+	query += ' where devices.id_usuario ='+id_usuario+' group by devices.id' 
+
+	this._connection.query(query, callback);
+}
+
 
 module.exports = function(){
 	return dadosDispositivos;

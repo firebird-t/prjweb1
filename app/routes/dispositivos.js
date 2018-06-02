@@ -66,4 +66,13 @@ module.exports = function(app){
 			response.redirect('/');
 		}
 	})
+
+
+	app.get('/dispositivos/dados/dispositivos',function(request, response){
+		if(request.session.autorizado){
+			app.app.controllers.dados_dispositivos.dados_por_dispositivos(app, request, response);
+		}else{
+			response.redirect('/');
+		}
+	})
 }

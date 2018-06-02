@@ -11,7 +11,7 @@
 	
 	<div class="container">
 		<div class="page-head">
-			<h2 class="page-head-title">Estatísticas</h2>
+			<h2 class="page-head-title">Estatísticas Gerais</h2>
 		</div>
 		
 		<hr>
@@ -46,6 +46,19 @@
 			<br>
 
 		</div>
+		<div class="page-head">
+			<h2 class="page-head-title">Estatísticas por dispositivos</h2>
+		</div>
+		<div class="main-content container-fluid">
+			<div class="row">
+			    <div class="col-md-9">
+			      <canvas id="canvas_dispositivos"></canvas>
+			    </div>
+			   
+			  </div>
+			<br>
+
+		</div>
 </div>
 
 <style type="text/css">
@@ -65,9 +78,12 @@
 
 </style>
 <script type="text/javascript">
-	var dados_grafico = [];
-	var labels = []
-	var data=[];
+	var dados_grafico1 = [];
+	var dados_grafico2 = [];
+	var labels1 = [];
+	var labels2 = [];
+	var grafico1;
+	var grafico2;
 
 	function _ajax(){
 		$.ajax({
@@ -79,10 +95,10 @@
 		.done(function(dados) {
 			console.log("success");
 			for(i = 0; i < dados.length ; i++){
-				dados_grafico.push(dados[i].x)
-				labels.push(dados[i].y)
+				dados_grafico1.push(dados[i].x)
+				labels1.push(dados[i].y)
 			}		
-			gera_grafico();
+			gera_grafico1();
 
 		})
 		.fail(function() {
@@ -94,15 +110,42 @@
 	}
 	
 
-	function gera_grafico(){
+	function _ajax2(){
+		$.ajax({
+			url: '/dispositivos/dados/dispositivos',
+			type: 'GET',
+			dataType: 'json',
+			data: {param1: 'value1'},
+		})
+		.done(function(dados) {
+			console.log("success");
+			
+			for(i = 0; i < dados.length ; i++){
+				dados_grafico2.push(dados[i].stat)
+				labels2.push(dados[i].topic)
+			}
 
-		var myChart = new Chart($("#canvas_default"), {
+			gera_grafico2();
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+	}
+
+
+	function gera_grafico1(){
+
+		grafico1 = new Chart($("#canvas_default"), {
 			type: 'line',
 			data:{
-				labels: labels,
+				labels: labels1,
 				datasets: [{
 					label:'Mensagens',
-					data: dados_grafico,
+					data: dados_grafico1,
 					fill: false
 				}]
 			},
@@ -126,7 +169,45 @@
 		});
 	}
 
+
+	function gera_grafico2(){
+
+		grafico2 = new Chart($("#canvas_dispositivos"), {
+			type: 'bar',
+			data:{
+				labels: labels2,
+				datasets: [{
+					label:'Mensagens',
+					data: dados_grafico2,
+					fill: false
+				}]
+			},
+
+			options: {
+				responsive: true,
+				title: {
+					display: true,
+					text: 'Registro de Mensagens'
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false,
+				},
+				scales: {
+					yAxes: [{
+						stacked: true
+					}]
+				}
+			}
+		});
+	}
+
+
+	//primeiro gráfico
 	_ajax();
+
+	//segundo gráfico
+	_ajax2();
 
 </script>
 </body>
