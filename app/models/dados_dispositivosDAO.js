@@ -53,9 +53,40 @@ dadosDispositivos.prototype.get_topic_message = function(device_id, topic, callb
 		this._connection.query('select id, topic from messages where topic ="'+topic+'" ORDER BY id DESC LIMIT 1', callback);
 }
 
-dadosDispositivos.prototype.exluirDispositivo = function(device_id, topic, callback){
-		var query = 'delete from'
-		//this._connection.query('', callback);
+dadosDispositivos.prototype.excluirDispositivo = function(device_id, callback){
+		var query = 'delete from devices where id='+device_id;
+		var query2 = 'delete from messages where device_id='+device_id;
+
+		
+		this._connection.beginTransaction(function(err) {
+		  if (err) { throw err; }
+		  this._connection.query(query, function (error, result) {
+		    if (error) {
+		      return this._connection.rollback(function() {
+		        throw error;
+		      	callback(error, null);
+		      });
+		    }
+
+		    this._connection.query(query2, function (error, results) {
+		      if (error) {
+		        return connection.rollback(function() {
+		          throw error;
+		          callback(error, null);
+		        });
+		      }
+		      this._connection.commit(function(err) {
+		        if (err) {
+		          return this._connection.rollback(function() {
+		            throw err;
+		            callback(error, null);
+		          });
+		        }
+		        callback(null, result);
+		      });
+		    });
+		  });
+		});
 }
 
 dadosDispositivos.prototype.data_by_device = function(id_usuario, callback){

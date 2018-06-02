@@ -43,16 +43,22 @@
 
 	<script type="text/javascript">
 		$('.bt_excluir').on('click',function(){
+
 			var r = confirm('Deseja excluir o dispositivo e seus registros ?');
 			if (r == true) {
+				var id = $(this).attr('data-id');
 				$.ajax({
-					url: '/dispositivo/exluir',
+					url: '/dispositivos/excluir',
 					type: 'POST',
 					dataType: 'json',
-					data: {id: 'value1'},
+					data: {id: id},
 				})
-				.done(function() {
-					console.log("success");
+				.done(function(resposta) {
+					if(resposta.success == 'true'){
+						alert('Dados excluídos com sucesso')
+					}
+
+					location.reload(true);
 				})
 				.fail(function() {
 					console.log("error");

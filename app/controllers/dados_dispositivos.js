@@ -22,7 +22,7 @@ module.exports.dados_inserir = function(app, request, response){
 			console.log(error);
 			response.render("dispositivos/cadastrar", {validacao : [{'msg':error}]});
 		}else{
-			response.render("dispositivos/listar", {validacao : {}});
+			response.redirect('/dispositivos/listar');
 		}
 	})
 }
@@ -193,13 +193,17 @@ module.exports.info_dispositivos = function(app, request, response, render){
 }
 
 
-module.exports.excluir_dispositivo = function(app, request, response, render){
+module.exports.excluir_dispositivo = function(app, request, response){
 	var conn = app.config.dbconn();
 	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
 	//var dadosUsuario = new app.app.models.dados_usuariosDAO(conn)
-
-	deviceDataModel.excluirDispositivo(request.session.user_id, function(error, result){
-		response.render(render,{devices : result});
+	deviceDataModel.excluirDispositivo(request.body.id, function(error, result){
+		if(!error){
+			console.log(result)
+			response.send(JSON.stringify({'success':'true'}))
+		}else{
+			throw error;
+		}
 	})
 }
 
