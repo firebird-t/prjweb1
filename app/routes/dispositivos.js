@@ -58,4 +58,12 @@ module.exports = function(app){
 			response.redirect('/');
 		}
 	})
+
+	app.post('/dispositivos/exluir',function(request, response){
+		if(request.session.autorizado){
+			app.app.controllers.dados_dispositivos.exluir_dispositivo(app, request, response);
+		}else{
+			response.redirect('/');
+		}
+	})
 }

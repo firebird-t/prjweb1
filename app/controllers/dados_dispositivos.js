@@ -185,9 +185,20 @@ module.exports.dados_grafico = function(app, request, response){
 module.exports.info_dispositivos = function(app, request, response, render){
 	var conn = app.config.dbconn();
 	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
-	var dadosUsuario = new app.app.models.dados_usuariosDAO(conn)
+	//var dadosUsuario = new app.app.models.dados_usuariosDAO(conn)
 
 	deviceDataModel.getUserDevices(request.session.user_id, function(error, result){
+		response.render(render,{devices : result});
+	})
+}
+
+
+module.exports.excluir_dispositivo = function(app, request, response, render){
+	var conn = app.config.dbconn();
+	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
+	//var dadosUsuario = new app.app.models.dados_usuariosDAO(conn)
+
+	deviceDataModel.excluirDispositivo(request.session.user_id, function(error, result){
 		response.render(render,{devices : result});
 	})
 }

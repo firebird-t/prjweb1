@@ -53,6 +53,11 @@ dadosDispositivos.prototype.get_topic_message = function(device_id, topic){
 		this._connection.query('select id, topic from messages where topic ="'+topic+'" ORDER BY id DESC LIMIT 1', callback);
 }
 
+dadosDispositivos.prototype.exluirDispositivo = function(device_id, topic){
+		var query = 'delete from'
+		//this._connection.query('', callback);
+}
+
 module.exports = function(){
 	return dadosDispositivos;
 }
