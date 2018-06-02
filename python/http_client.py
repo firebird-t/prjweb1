@@ -6,7 +6,7 @@ import threading
 import sys
 
 def pub():
-    payload = {'command':'publish','nome_usuario': 'leonardo', 'senha': '12345678','topic' : "sensor/chuva",'message':str(random.normalvariate(50, 35))}
+    payload = {'command':'publish','nome_usuario': 'leonardo', 'senha': '12345678','topic' : "sensor/casa/temperatura",'message':str(random.normalvariate(50, 35))}
     try:
         r = requests.post("http://localhost/device/post", data = payload)
     except ValueError:

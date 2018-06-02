@@ -59,11 +59,13 @@ dadosDispositivos.prototype.excluirDispositivo = function(device_id, callback){
 
 		
 		this._connection.beginTransaction(function(err) {
-		  if (err) { throw err; }
+		  if (err) { 
+		  	callback(err, null);
+		  }
 		  this._connection.query(query, function (error, result) {
 		    if (error) {
 		      return this._connection.rollback(function() {
-		        throw error;
+		        //throw error;
 		      	callback(error, null);
 		      });
 		    }
@@ -71,15 +73,15 @@ dadosDispositivos.prototype.excluirDispositivo = function(device_id, callback){
 		    this._connection.query(query2, function (error, results) {
 		      if (error) {
 		        return connection.rollback(function() {
-		          throw error;
+		          //throw error;
 		          callback(error, null);
 		        });
 		      }
 		      this._connection.commit(function(err) {
 		        if (err) {
 		          return this._connection.rollback(function() {
-		            throw err;
-		            callback(error, null);
+		            //throw err;
+		            callback(err, null);
 		          });
 		        }
 		        callback(null, result);
@@ -89,10 +91,15 @@ dadosDispositivos.prototype.excluirDispositivo = function(device_id, callback){
 		});
 }
 
-dadosDispositivos.prototype.data_by_device = function(id_usuario, callback){
+dadosDispositivos.prototype.stats_by_device = function(id_usuario, callback){
 	var query = 'select devices.topic as topic, count(devices.id) as stat from devices right join messages on devices.id = messages.device_id';
 	query += ' where devices.id_usuario ='+id_usuario+' group by devices.id' 
 
+	this._connection.query(query, callback);
+}
+
+dadosDispositivos.prototype.data_by_device = function(device_id, callback){
+	var query = 'select * from devices right join messages on messages.device_id = devices.id where devices.id='+device_id;
 	this._connection.query(query, callback);
 }
 

@@ -202,22 +202,63 @@ module.exports.excluir_dispositivo = function(app, request, response){
 			console.log(result)
 			response.send(JSON.stringify({'success':'true'}))
 		}else{
-			throw error;
+			console.log("erro: ")
+			console.log(error)
+			response.send(JSON.stringify({'success':'false'}))
 		}
 	})
 }
 
-module.exports.dados_por_dispositivos = function(app, request, response){
+module.exports.stats_por_dispositivos = function(app, request, response){
 	var conn = app.config.dbconn();
 	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
 	//var dadosUsuario = new app.app.models.dados_usuariosDAO(conn)
 
-	deviceDataModel.data_by_device(request.session.user_id, function(error, result){
+	deviceDataModel.stats_by_device(request.session.user_id, function(error, result){
 		if(!error){
 			response.send(result);	
 		}else{
+			response.send(403)
 			console.log(error);
 		}
 		
 	})
-}	
+}
+
+
+module.exports.dados_gerais_item = function(app, request, response){
+	var conn = app.config.dbconn();
+	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
+	var stream = require('stream');
+	var fs = require('fs');
+	//var dadosUsuario = new app.app.models.dados_usuariosDAO(conn)
+
+	deviceDataModel.data_by_device(request.query.id, function(error, result){
+		if(!error){
+			var filename = './tmp/dados_usuario_'+request.session.user_id+'request.body.id.txt';
+			fs.writeFile(filename,JSON.stringify(result),(err)=>{
+				if(err){
+					throw err;
+				}
+
+				response.setHeader('Content-disposition', 'attachment; filename=' + filename);
+				response.setHeader('Content-type', 'data:application/txt');
+				response.download(filename);
+			})
+			// var fileContents = Buffer.from(result,'base64');
+			// var readStream = new stream.PassThrough();
+
+			// readStream.end(fileContents);
+
+			// response.set('Content-disposition', 'attachment; filename=dados_usuario.txt');
+			// response.set('Content-Type', 'text/plain');
+
+			// readStream.pipe(response);
+		
+		}else{
+			response.send(403)
+			console.log(error);
+		}
+		
+	})
+}

@@ -70,7 +70,16 @@ module.exports = function(app){
 
 	app.get('/dispositivos/dados/dispositivos',function(request, response){
 		if(request.session.autorizado){
-			app.app.controllers.dados_dispositivos.dados_por_dispositivos(app, request, response);
+			app.app.controllers.dados_dispositivos.stats_por_dispositivos(app, request, response);
+		}else{
+			response.redirect('/');
+		}
+	})
+
+
+	app.get('/dispositivos/dados/baixar',function(request, response){
+		if(request.session.autorizado){
+			app.app.controllers.dados_dispositivos.dados_gerais_item(app, request, response);
 		}else{
 			response.redirect('/');
 		}
