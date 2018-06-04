@@ -134,15 +134,15 @@ module.exports.data_mgmt = function(app, request, response){
 					if(!error && result.length > 0){
 						callback(null, result);
 					}else{
-						callback('null')
+						callback('null');
 					}
 				})
 			}, function (dados, callback) {
-				deviceDataModel.get_topic_subscribe(dados[0], request.body, function(error, result){
+				deviceDataModel.insert_client_subscribe(dados[0], request.body, function(error, result){
 					if(!error && result.affectedRows > 0){
-						//console.log('dado gravado')
+						response.sendStatus(200);
 					}else{
-						console.log(error, result.affectedRows)
+						console.log(error, result.affectedRows);
 					}
 				})
 			}
