@@ -138,11 +138,11 @@ module.exports.data_mgmt = function(app, request, response){
 					}
 				})
 			}, function (dados, callback) {
-				deviceDataModel.get_topic_message(dados[0], request.body, function(error, result){
-					if(!error && result.length > 0){
-						console.log('dado enviado')
+				deviceDataModel.get_topic_subscribe(dados[0], request.body, function(error, result){
+					if(!error && result.affectedRows > 0){
+						//console.log('dado gravado')
 					}else{
-						console.log(error);
+						console.log(error, result.affectedRows)
 					}
 				})
 			}
@@ -231,11 +231,16 @@ module.exports.dados_gerais_item = function(app, request, response){
 	var deviceDataModel = new app.app.models.dados_dispositivosDAO(conn);
 	var stream = require('stream');
 	var fs = require('fs');
+	var dir = './tmp';
+
+	if (!fs.existsSync(dir)){
+	    fs.mkdirSync(dir);
+	}
 	//var dadosUsuario = new app.app.models.dados_usuariosDAO(conn)
 
 	deviceDataModel.data_by_device(request.query.id, function(error, result){
 		if(!error){
-			var filename = './tmp/dados_usuario_'+request.session.user_id+request.body.id+'.txt';
+			var filename = './tmp/dados_usuario_'+request.session.user_id+'____'+request.body.id+'.txt';
 			fs.writeFile(filename,JSON.stringify(result),(err)=>{
 				if(err){
 					throw err;

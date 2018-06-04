@@ -156,8 +156,9 @@ module.exports.senha_reset = function(app, request, response){
 									    return process.exit(1);
 									}										
 									console.log('Message sent: %s', info.messageId);
+									//console.log('Preview URL: %s', nodemailer.getTestMessageUrl(result));
 									// Preview only available when sending through an Ethereal account
-									//console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+									
 									response.render('cadastro/reset',{validacao: [{'msg':'email enviado com sucesso'},{'erro':'false'}]});									
 									
 								});
