@@ -1,4 +1,8 @@
 import websocket
+import json
+import pprint
+from StringIO import StringIO
+
 try:
     import thread
 except ImportError:
@@ -6,8 +10,14 @@ except ImportError:
 import time
 
 def on_message(ws, message):
-    print(message)
-
+    try:
+        json_object = json.loads(message)
+    except ValueError, e:
+        print ValueError
+    else:
+        print json_object['msg']
+    
+    
 def on_error(ws, error):
     print(error)
 
@@ -18,7 +28,8 @@ def on_open(ws):
     def run(*args):
         for i in range(3):
             time.sleep(1)
-            ws.send("Hello %d" % i)
+            #ws.send("Hello %d" % i)
+            ws.send(json.dumps({'msg': 'connect', 'version': '1', 'support': ['1', 'pre2', 'pre1']}))
         time.sleep(1)
         ws.close()
         print("thread terminating...")
@@ -27,7 +38,7 @@ def on_open(ws):
 
 if __name__ == "__main__":
     websocket.enableTrace(True)
-    ws = websocket.WebSocketApp("ws://localhost:8888/",
+    ws = websocket.WebSocketApp("ws://localhost/echo",
                               on_message = on_message,
                               on_error = on_error,
                               on_close = on_close)

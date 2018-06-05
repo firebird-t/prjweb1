@@ -2,7 +2,7 @@
 //Configuração do Servidor
 var app = require('./config/server');
 var aedes_cfg = require('./config/aedes_cfg')
-var ws = require('./config/ws')
+//var ws = require('./config/ws')
 
 //Mensagem de inicio
 var msg = require("./mod_test");
