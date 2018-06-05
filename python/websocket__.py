@@ -26,19 +26,22 @@ def on_close(ws):
 
 def on_open(ws):
     def run(*args):
-        for i in range(3):
-            time.sleep(1)
-            #ws.send("Hello %d" % i)
-            ws.send(json.dumps({'msg': 'connect', 'version': '1', 'support': ['1', 'pre2', 'pre1']}))
-        time.sleep(1)
-        ws.close()
-        print("thread terminating...")
+        #Enviar dados do cliente e autenticar
+        ws.send(json.dumps({'command':'subscribe'}))
+        # for i in range(3):
+        #     time.sleep(1)
+        #     #ws.send("Hello %d" % i)
+        #     ws.send(json.dumps({'msg': 'connect', 'version': '1', 'support': ['1', 'pre2', 'pre1']}))
+        # time.sleep(1)
+        # ws.close()
+        # print("thread terminating...")
+
     thread.start_new_thread(run, ())
 
 
 if __name__ == "__main__":
     websocket.enableTrace(True)
-    ws = websocket.WebSocketApp("ws://localhost/echo",
+    ws = websocket.WebSocketApp("ws://localhost/ws",
                               on_message = on_message,
                               on_error = on_error,
                               on_close = on_close)
