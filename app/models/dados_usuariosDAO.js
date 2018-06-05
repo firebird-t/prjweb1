@@ -13,9 +13,9 @@ dadosUsuario.prototype.validalogin = function(dados, callback){
 dadosUsuario.prototype.validaNomeUsuario = function(dados, callback, tipo){
 	var query;
 	if(tipo == 1){
-		query = 'SELECT nome_usuario FROM users WHERE nome_usuario ="'+dados.nome_usuario+"'";
+		query = 'SELECT nome_usuario FROM users WHERE nome_usuario ="'+dados.nome_usuario+'"';
 	}else{
-		query = "SELECT nome_usuario FROM users WHERE nome_usuario ='"+dados.nome_usuario+"'and id !="+dados.id;
+		query = "SELECT nome_usuario FROM users WHERE nome_usuario ='"+dados.nome_usuario+"' and id !="+dados.id;
 	}
 	
 	this._connection.query(query, callback);
@@ -26,7 +26,7 @@ dadosUsuario.prototype.validaEmail = function(dados, callback, tipo){
 	if(tipo == 1){
 		query = "SELECT email, id FROM users WHERE email ='"+dados.email+"'";
 	}else{
-		query = "SELECT email FROM users WHERE email ='"+dados.email+"'and id !="+dados.id;
+		query = "SELECT email FROM users WHERE email ='"+dados.email+"' and id !="+dados.id;
 	}
 	this._connection.query(query, callback);
 }

@@ -29,8 +29,9 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 	var nivel = 0;
 	async.series([
 		function (callback) {
-			cadUser.validaNomeUsuario(body.nome_usuario, function (error, result) {
-				if (result.length > 0) {
+			cadUser.validaNomeUsuario(body, function (error, result) {
+				if (error || result.length > 0) {
+					console.log(error)
 					callback('false', result)
 				}else{
 					callback(null, result)
@@ -38,9 +39,10 @@ module.exports.cadastrar_usuario = function (app, request, response) {
 			}, 1);
 		},
 		function (callback) {
-			cadUser.validaEmail(body.email,function(error, result){
+			cadUser.validaEmail(body,function(error, result){
 				nivel++;
-				if (result.length > 0) {
+				if (error || result.length > 0) {
+					console.log(error)
 					callback('false', result)
 				}else{
 					callback(null, result)
