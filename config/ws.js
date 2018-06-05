@@ -1,18 +1,28 @@
-/*Web Socket*/
-var ws = require('websocket-stream');
-var websocket_server = require('http').createServer()
-var wsPort = 8888;
+const WebSocket = require('ws');
 
-//Web Socket
-ws.createServer({
-  server: websocket_server
-}, ws_handle)
+const ws = new WebSocket.Server({ port: 8888 });
 
-websocket_server.listen(wsPort, function () {
-  console.log('WebSocket iniciado na porta', wsPort)
-})
+ws.on('connection', function connection(ws) {
+	ws.isAlive = true;
+  	ws.send('Hello');
 
-function ws_handle(stream, request) {
-  // `request` is the upgrade request sent by the client.
-  fs.createReadStream('bigdata.json').pipe(stream)
-}
+  	ws.on('open', function open() {
+  	  const array = new Float32Array(5);
+
+  	  for (var i = 0; i < array.length; ++i) {
+  	    array[i] = i / 2;
+  	  }
+
+  	  ws.send(array);
+  	});
+
+  	ws.on('message', function incoming(message) {
+  	    console.log('received: %s', message);
+  		ws.send("Mensagem recebida: "+message);
+  	});
+
+  	ws.on('close', () => {
+    	console.log('connection closed by client');
+  	});
+});
+
