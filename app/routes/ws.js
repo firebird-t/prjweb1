@@ -15,9 +15,7 @@ module.exports = function(app){
 				if(mensagem["command"] == "subscribe"){
 					console.log("cliente tentando estabelecer comunicação");				
 					app.app.controllers.subscribe_controller.subscribe_check(app, req, JSON.parse(msg), ws)
-
 				}
-				
 			}catch(e){
 				console.log(e)
 			}

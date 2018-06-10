@@ -11,6 +11,7 @@ module.exports.subscribe_check = function(app, request, msg, ws){
 				
 		}else{
 		 	error ? console.log(error) : console.log(result);
+		 	ws(JSON.stringify({'msg':'conexão inválida'})
 		 	console.log("Cliente não aceito");
 			ws.close();
 		}	
