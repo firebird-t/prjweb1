@@ -27,7 +27,7 @@ def on_close(ws):
 def on_open(ws):
     def run(*args):
         #Enviar dados do cliente e autenticar
-        ws.send(json.dumps({'command':'subscribe'}))
+        ws.send(json.dumps({'command':'subscribe','nome_usuario':'leonardo','senha':'123456789','topic':'sensor/temp'}))
         # for i in range(3):
         #     time.sleep(1)
         #     #ws.send("Hello %d" % i)
