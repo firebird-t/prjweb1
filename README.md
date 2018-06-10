@@ -8,7 +8,11 @@ Sistema de gerência de dispositivos
 
 ### Instalação
 
-Para a instalação das depedências, rode o seguinte comando na pasta do projeto
+Para a instalação das depedências, rode os seguintes comando na pasta do projeto
+
+
 ```
+npm install --global --production windows-build-tools
+
 npm install
 ```
