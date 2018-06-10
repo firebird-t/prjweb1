@@ -9,18 +9,17 @@ module.exports = function(app){
 	app.ws('/ws', (ws, req) => {
 	    ws.on('message', msg => {
 			var subscribe;	
-			
 			try{
 				var mensagem  = JSON.parse(msg);
 				if(mensagem["command"] == "subscribe"){
-					console.log("cliente tentando estabelecer comunicação");				
+					console.log("cliente tentando estabelecer comunicação na porta:",req.connection.remotePort);				
 					app.app.controllers.subscribe_controller.subscribe_check(app, req, JSON.parse(msg), ws)
+				}else{
+					ws.close();
 				}
 			}catch(e){
-				console.log(e)
-			}
-			
-			
+				console.log("Erro ao tentar interpretar os dados de entrada: ",e)
+			}	
 	    })
 
 	    ws.on('close', () => {
