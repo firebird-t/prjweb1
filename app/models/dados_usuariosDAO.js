@@ -58,6 +58,11 @@ dadosUsuario.prototype.validaSenha = function(dados, callback){
 	this._connection.query(query, callback);
 }
 
+dadosUsuario.prototype.insert_photo = function(user_id, dir, callback){
+	var query = "update users set foto_perfil = '"+dir+"' where id= "+user_id;
+	this._connection.query(query, callback);
+}
+
 module.exports = function(){
 	return dadosUsuario;
 }

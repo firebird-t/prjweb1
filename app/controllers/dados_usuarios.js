@@ -284,6 +284,8 @@ module.exports.troca_senha = function(app, request, response){
 }
 
 module.exports.foto_perfil = function(app, request, response){
+	var connection = new app.config.dbconn();
+	var cadUser = new app.app.models.dados_usuariosDAO(connection);
 	var path = require('path');
 	var ext = ['jpg','png','jpeg'];
 	var fs = require('fs')
@@ -294,7 +296,7 @@ module.exports.foto_perfil = function(app, request, response){
 	}
 
 	if (!request.files){
-		response.render('cadastro/foto_perfil',{validacao: [{'msg':'nenhum arquivo enviado','erro':'false'}]});
+		response.render('cadastro/foto_perfil',{validacao: [{'msg':'nenhum arquivo enviado','erro':'true'}]});
 	}
 	   
 	// The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
@@ -304,14 +306,24 @@ module.exports.foto_perfil = function(app, request, response){
 	//Nome aleatorio para o arquivo
 	var current_date = (new Date()).valueOf().toString();
 	var random = Math.random().toString();
+	dir = dir+'/'+crypto.createHash('sha1').update(current_date + random).digest('hex')+'.'+temp_ext[1];
 	
 	if(ext.find(k => k == temp_ext[1])){
 		// Use the mv() method to place the file somewhere on your server
-		arquivo_upl.mv(dir+'/'+crypto.createHash('sha1').update(current_date + random).digest('hex')+'.'+temp_ext[1], function(err) {
-			if (err)
+		arquivo_upl.mv(dir, function(err) {
+			if (err){
 		     	response.render('cadastro/foto_perfil',{validacao: [{'msg':err,'erro':'true'}]});
-		 
-		    response.render('cadastro/foto_perfil',{validacao: [{'msg':'arquivo enviado com sucesso','erro':'false'}]});
+			}
+		 	
+		 	cadUser.insert_photo(request.session.user_id, dir, function(error, result){
+		 		if(!error && result.affectedRows > 0){
+		 			response.render('cadastro/foto_perfil',{validacao: [{'msg':'arquivo enviado com sucesso','erro':'false'}]});
+		 		}else{
+		 			console.log(error)
+		 			response.render('cadastro/foto_perfil',{validacao: [{'msg':'houve um problema ao enviar o arquivo','erro':'true'}]});
+		 		}
+		 	})
+		    
 		});
 	}else{
 		return response.render('cadastro/foto_perfil',{validacao: [{'msg':'extensão não permitida','erro':'true'}]});
