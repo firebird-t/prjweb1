@@ -20,7 +20,7 @@ module.exports.verifica_dados_login = function(app, request, response){
 		}
 		
 		dadosUsuario.validalogin(dados, function(error, result){
-			 if(result.length > 0){			 	
+			 if(!error && result.length > 0){			 	
 			 	
 			 	request.session.autorizado = true;
 			 	request.session.user = result[0]['nome_usuario'];
@@ -38,7 +38,7 @@ module.exports.verifica_dados_login = function(app, request, response){
 			 	response.redirect('/home');
 				return;
 			 }else{
-			 	console.log('Usuário não encontrado');
+			 	console.log('Usuário não encontrado:', result);
 			 	response.render('home/login',{validacao:[{'msg':'Usuário não encontrado'}]});
 			 }
 		})
