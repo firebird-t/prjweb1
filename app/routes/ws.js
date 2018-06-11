@@ -1,3 +1,4 @@
+
 module.exports = function(app){
 	
 	/*Etapas
@@ -19,7 +20,7 @@ module.exports = function(app){
 				}
 			}catch(e){
 				console.log("Erro ao tentar interpretar os dados de entrada: ",e)
-			}	
+			}
 	    })
 
 	    ws.on('close', (ws, req) => {
@@ -29,7 +30,6 @@ module.exports = function(app){
 		ws.on('error',function(error){
 			console.log(error)
 		})
+	
 	})
-
-
 }

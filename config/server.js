@@ -5,7 +5,7 @@ var expressValidator = require('express-validator');
 var session = require('express-session');
 var helmet = require('helmet');
 var cookieParser = require('cookie-parser');
-var ws = require('express-ws');
+var express_ws = require('express-ws');
 //var mosca = require('mosca');
 //var cookieSession = require('cookie-session');
 var morgan = require('morgan');
@@ -15,7 +15,8 @@ var morgan = require('morgan');
 var app = express();
 
 //Express Web Socket
-ws(app);
+express_ws(app);
+
 
 //Proteção contra ataques
 app.use(helmet());

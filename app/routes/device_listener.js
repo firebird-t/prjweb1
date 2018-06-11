@@ -1,6 +1,7 @@
 module.exports = function(app){
-	app.post('/device/post',function(request, response){
-		response.sendStatus(200);
+	
+	app.post('/device/post',function(request, response){		
+		app.emit("publish", app, request)
 		app.app.controllers.dados_dispositivos.data_mgmt(app, request, response);
 	})
 

@@ -23,6 +23,12 @@ utils.prototype.ultimo_registro = function(callback){
 	//select * from tokens where now() < addtime(activate_date, concat(lifetime,":00:00"))
 }
 
+utils.prototype.conn_record = function(user_id, req, topic, callback){
+	var query = "insert into connecteds (user_id, address, port, topic) values ("+user_id+",'"+req.connection.remoteAddress;
+	query += "',"+req.connection.remotePort+",'"+topic+"')";
+
+	this._connection(query, callback);
+}
 
 module.exports = function(){
 	return utils;

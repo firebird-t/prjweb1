@@ -99,6 +99,7 @@ module.exports.data_mgmt = function(app, request, response){
 				deviceDataModel.insert_topic_data(dados[0], request.body, function(error, result){
 					if(!error && result.affectedRows > 0){
 						//console.log('dado gravado')
+						response.sendStatus(200);
 					}else{
 						console.log(error, result.affectedRows)
 					}
