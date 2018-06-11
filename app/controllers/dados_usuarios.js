@@ -282,3 +282,29 @@ module.exports.troca_senha = function(app, request, response){
 		}
 	})
 }
+
+module.exports.foto_perfil = function(app, request, response){
+	var path = require('path');
+	var ext = ['jpg','png','jpeg'];
+	var dir = './uploads';
+
+	if (!fs.existsSync(dir)){
+	    fs.mkdirSync(dir);
+	}
+
+	if (!request.files){
+		return response.sendStatus(400)
+	}
+	   
+	 
+	  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+	  var arquivo_upl = request.files.arquivo;
+	 
+	  // Use the mv() method to place the file somewhere on your server
+	  arquivo_upl.mv(dir+'/'+request.files.arquivo.name, function(err) {
+	    if (err)
+	      return response.status(500).send(err);
+	 
+	    response.send('Arquivo enviado com sucesso');
+	  });
+}

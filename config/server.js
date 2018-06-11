@@ -6,6 +6,8 @@ var session = require('express-session');
 var helmet = require('helmet');
 var cookieParser = require('cookie-parser');
 var express_ws = require('express-ws');
+var fileUpload = require('express-fileupload');
+
 //var mosca = require('mosca');
 //var cookieSession = require('cookie-session');
 var morgan = require('morgan');
@@ -17,6 +19,9 @@ var app = express();
 //Express Web Socket
 express_ws(app);
 
+//Uploads
+//Uploads
+app.use(fileUpload());
 
 //Proteção contra ataques
 app.use(helmet());

@@ -40,5 +40,20 @@ module.exports = function(app){
 		}
 	})
 
+	app.get("/perfil/imagem", function(request, response){
+		if(request.session.autorizado){
+			response.render('cadastro/foto_perfil')
+		}else{
+			response.redirect('/');
+		}
+	})
 	
+	app.post("/cadastro/atualizar/foto", function(request, response){
+		if(request.session.autorizado){
+			app.app.controllers.dados_usuarios.foto_perfil(app, request, response)
+		}else{
+			response.redirect('/');
+		}
+	})
+
 }
