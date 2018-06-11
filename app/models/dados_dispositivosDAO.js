@@ -15,7 +15,7 @@ dadosDispositivos.prototype.getDataRecordbyDate = function(id, callback){
 		var query = 'select count(DAY(messages.datetime)) as x, DAYNAME(messages.datetime)  as y from devices as d';
 		query += ' left join messages on d.id = messages.device_id'
 		query += ' and d.id_usuario ='+id
-		query += ' group by(DAY(messages.datetime)) order by(DAYOFWEEK(messages.datetime))'
+		query += ' where DAY(messages.datetime) is not null group by(DAY(messages.datetime)) order by(DAYOFWEEK(messages.datetime))'
 
 		this._connection.query(query, callback);
 }
