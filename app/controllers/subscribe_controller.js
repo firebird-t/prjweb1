@@ -19,7 +19,7 @@ module.exports.subscribe_check = function(app, request, msg, ws){
 }
 
 
-module.exports.connectedClientes = function(app, request, ws){
+module.exports.connectedClients = function(app, request, ws){
 
 }
 

@@ -22,7 +22,7 @@ module.exports = function(app){
 			}	
 	    })
 
-	    ws.on('close', () => {
+	    ws.on('close', (ws, req) => {
 	        console.log('WebSocket was closed')
 		})
 		
