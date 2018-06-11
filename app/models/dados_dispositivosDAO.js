@@ -17,6 +17,11 @@ dadosDispositivos.prototype.getDataRecordbyDate = function(id, callback){
 		query += " and d.id_usuario ="+id
 		query += " where DAY(messages.datetime) is not null group by(DAY(messages.datetime)) order by(messages.datetime)"
 
+		// var query = "select count(messages.datetime) as x, DATE_FORMAT(messages.datetime,'%d/%m/%Y') as y"
+		// query += " from messages, devices"
+		// query += " where devices.id_usuario = " + id;
+		// query += " and messages.device_id = devices.id"
+		// query += " group by(DATE(messages.datetime))"
 		this._connection.query(query, callback);
 }
 
