@@ -12,10 +12,10 @@ dadosDispositivos.prototype.getDataRecord_Devices_Messages = function(id, callba
 }
 
 dadosDispositivos.prototype.getDataRecordbyDate = function(id, callback){
-		var query = 'select count(DAY(messages.datetime)) as x, DAYNAME(messages.datetime)  as y from devices as d';
-		query += ' left join messages on d.id = messages.device_id'
-		query += ' and d.id_usuario ='+id
-		query += ' where DAY(messages.datetime) is not null group by(DAY(messages.datetime)) order by(DAYOFWEEK(messages.datetime))'
+		var query = "select count(DAY(messages.datetime)) as x, DATE_FORMAT(messages.datetime,'%d/%m/%Y') as y from devices as d";
+		query += " left join messages on d.id = messages.device_id"
+		query += " and d.id_usuario ="+id
+		query += " where DAY(messages.datetime) is not null group by(DAY(messages.datetime)) order by(messages.datetime)"
 
 		this._connection.query(query, callback);
 }
