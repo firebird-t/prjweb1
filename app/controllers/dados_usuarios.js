@@ -286,6 +286,7 @@ module.exports.troca_senha = function(app, request, response){
 module.exports.foto_perfil = function(app, request, response){
 	var path = require('path');
 	var ext = ['jpg','png','jpeg'];
+	var fs = require('fs')
 	var dir = './uploads';
 
 	if (!fs.existsSync(dir)){
@@ -293,18 +294,28 @@ module.exports.foto_perfil = function(app, request, response){
 	}
 
 	if (!request.files){
-		return response.sendStatus(400)
+		response.render('cadastro/foto_perfil',{validacao: [{'msg':'nenhum arquivo enviado','erro':'false'}]});
 	}
 	   
+	// The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+	var arquivo_upl = request.files.arquivo;
+	var temp_ext = request.files.arquivo.name.split('.');
+
+	//Nome aleatorio para o arquivo
+	var current_date = (new Date()).valueOf().toString();
+	var random = Math.random().toString();
+	
+	if(ext.find(k => k == temp_ext[1])){
+		// Use the mv() method to place the file somewhere on your server
+		arquivo_upl.mv(dir+'/'+crypto.createHash('sha1').update(current_date + random).digest('hex')+'.'+temp_ext[1], function(err) {
+			if (err)
+		     	response.render('cadastro/foto_perfil',{validacao: [{'msg':err,'erro':'true'}]});
+		 
+		    response.render('cadastro/foto_perfil',{validacao: [{'msg':'arquivo enviado com sucesso','erro':'false'}]});
+		});
+	}else{
+		return response.render('cadastro/foto_perfil',{validacao: [{'msg':'extensão não permitida','erro':'true'}]});
+	}
 	 
-	  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-	  var arquivo_upl = request.files.arquivo;
-	 
-	  // Use the mv() method to place the file somewhere on your server
-	  arquivo_upl.mv(dir+'/'+request.files.arquivo.name, function(err) {
-	    if (err)
-	      return response.status(500).send(err);
-	 
-	    response.send('Arquivo enviado com sucesso');
-	  });
+	
 }

@@ -7,13 +7,21 @@
 	<script type="text/javascript">
 		
 		//https://www.the-art-of-web.com/javascript/getcookie/
-		function getCookie(name)
-		  {
-		    var re = new RegExp(name + "=([^;]+)");
-		    var value = re.exec(document.cookie);
-		    return (value != null) ? unescape(value[1]) : null;
-		  }
-
+		function getCookie(cname) {
+		    var name = cname + "=";
+		    var decodedCookie = decodeURIComponent(document.cookie);
+		    var ca = decodedCookie.split(';');
+		    for(var i = 0; i <ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0) == ' ') {
+		            c = c.substring(1);
+		        }
+		        if (c.indexOf(name) == 0) {
+		            return c.substring(name.length, c.length);
+		        }
+		    }
+		    return "";
+		}
 	</script>
 	<% include ../header/header %>
     <% if(typeof(validacao) != "undefined"){%>
