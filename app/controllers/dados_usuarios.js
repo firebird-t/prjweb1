@@ -33,6 +33,7 @@ module.exports.verifica_dados_login = function(app, request, response){
 			 		response.cookie("dado_usuario",dados.nome_usuario);
 			 	}
 
+			 	response.cookie("photo_file",result[0].foto_perfil);
 			 	//console.log('Usuário '+result[0]['nome']+' logado');	
 			 	
 			 	response.redirect('/home');
@@ -289,7 +290,7 @@ module.exports.foto_perfil = function(app, request, response){
 	var path = require('path');
 	var ext = ['jpg','png','jpeg'];
 	var fs = require('fs')
-	var dir = './uploads';
+	var dir = './public/uploads';
 
 	if (!fs.existsSync(dir)){
 	    fs.mkdirSync(dir);
@@ -315,7 +316,7 @@ module.exports.foto_perfil = function(app, request, response){
 		     	response.render('cadastro/foto_perfil',{validacao: [{'msg':err,'erro':'true'}]});
 			}
 		 	
-		 	cadUser.insert_photo(request.session.user_id, dir, function(error, result){
+		 	cadUser.insert_photo(request.session.user_id, dir.replace("./public/",""), function(error, result){
 		 		if(!error && result.affectedRows > 0){
 		 			response.render('cadastro/foto_perfil',{validacao: [{'msg':'arquivo enviado com sucesso','erro':'false'}]});
 		 		}else{
