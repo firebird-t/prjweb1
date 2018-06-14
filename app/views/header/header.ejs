@@ -5,6 +5,23 @@
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<script type="text/javascript">
+	function getCookie(cname) {
+		    var name = cname + "=";
+		    var decodedCookie = decodeURIComponent(document.cookie);
+		    var ca = decodedCookie.split(';');
+		    for(var i = 0; i < ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0) == ' ') {
+		            c = c.substring(1);
+		        }
+		        if (c.indexOf(name) == 0) {
+		            return c.substring(name.length, c.length);
+		        }
+		    }
+		    return null;
+		}
+</script>
 	<a class="navbar-brand" href="#">#</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
@@ -45,22 +62,6 @@
 	</div>
 </nav>
 <script type="text/javascript">
-	function getCookie(cname) {
-		    var name = cname + "=";
-		    var decodedCookie = decodeURIComponent(document.cookie);
-		    var ca = decodedCookie.split(';');
-		    for(var i = 0; i < ca.length; i++) {
-		        var c = ca[i];
-		        while (c.charAt(0) == ' ') {
-		            c = c.substring(1);
-		        }
-		        if (c.indexOf(name) == 0) {
-		            return c.substring(name.length, c.length);
-		        }
-		    }
-		    return null;
-		}
-
 	function foto_perfil(){
 		$.ajax({
 			url: '/cadastro/foto/perfil',
