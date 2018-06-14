@@ -332,3 +332,16 @@ module.exports.foto_perfil = function(app, request, response){
 	 
 	
 }
+
+module.exports.foto_perfil_carregar = function(app, request, response){
+	var connection = new app.config.dbconn();
+	var cadUser = new app.app.models.dados_usuariosDAO(connection); 
+	
+	cadUser.carrega_foto(request.session.user_id, function(error, result){
+		if(!error && result.length > 0){
+			response.send(result[0])
+		}else{
+			console.log(error)
+		}
+	})
+}

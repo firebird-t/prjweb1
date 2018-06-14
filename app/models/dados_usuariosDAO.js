@@ -63,6 +63,11 @@ dadosUsuario.prototype.insert_photo = function(user_id, dir, callback){
 	this._connection.query(query, callback);
 }
 
+dadosUsuario.prototype.carrega_foto = function(user_id, callback){
+	var query = "select foto_perfil from users where id="+user_id;
+	this._connection.query(query, callback)
+}
+
 module.exports = function(){
 	return dadosUsuario;
 }

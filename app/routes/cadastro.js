@@ -56,4 +56,11 @@ module.exports = function(app){
 		}
 	})
 
+	app.get("/cadastro/foto/perfil", function(request, response){
+		if(request.session.autorizado){
+			app.app.controllers.dados_usuarios.foto_perfil_carregar(app, request, response)
+		}else{
+			response.redirect('/');
+		}
+	})
 }

@@ -60,4 +60,30 @@
 		    }
 		    return null;
 		}
+
+	function foto_perfil(){
+		$.ajax({
+			url: '/cadastro/foto/perfil',
+			type: 'GET',
+			dataType: '',
+			data: {param1: 'value1'},
+		})
+		.done(function(result) {
+			try{
+				img.src = "../" + result.foto_perfil
+			}catch(e){
+				console.log("falha ao atribuir a foto ao usuário")
+			}
+			console.log("success");
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+	}
+	
+	foto_perfil();
+		
 </script>
