@@ -70,7 +70,7 @@
 		})
 		.done(function(result) {
 			try{
-				img.src = "../" + result.foto_perfil
+				img.src = "http://"+location.hostname+'/'+result.foto_perfil
 			}catch(e){
 				console.log("falha ao atribuir a foto ao usuário")
 			}
