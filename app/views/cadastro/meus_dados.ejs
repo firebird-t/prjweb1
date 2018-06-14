@@ -4,26 +4,6 @@
 	<title>Atualizar dados de cadastro</title>
 </head>
 <body>
-	<script type="text/javascript">
-		
-		//https://www.the-art-of-web.com/javascript/getcookie/
-		function getCookie(cname) {
-		    var name = cname + "=";
-		    var decodedCookie = decodeURIComponent(document.cookie);
-		    var ca = decodedCookie.split(';');
-		    for(var i = 0; i < ca.length; i++) {
-		        var c = ca[i];
-		        while (c.charAt(0) == ' ') {
-		            c = c.substring(1);
-		        }
-		        if (c.indexOf(name) == 0) {
-		            return c.substring(name.length, c.length);
-		        }
-		    }
-		    return null;
-		}
-
-	</script>
 	<% include ../header/header %>
     <% if(typeof(validacao) != "undefined"){%>
     	<div class="alert alert-danger" role="alert">

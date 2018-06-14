@@ -33,7 +33,7 @@ module.exports.verifica_dados_login = function(app, request, response){
 			 		response.cookie("dado_usuario",dados.nome_usuario);
 			 	}
 
-			 	response.cookie("photo_file",result[0].foto_perfil);
+			 	//response.cookie("photo_file",result[0].foto_perfil);
 			 	//console.log('Usuário '+result[0]['nome']+' logado');	
 			 	
 			 	response.redirect('/home');

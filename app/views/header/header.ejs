@@ -36,7 +36,7 @@
 		</div>
 		<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex px-3">
 			<li class="nav-item text-nowrap" style="margin-right: 25px;">
-				<img src="" width="45px">
+				<img src="" id="img" width="45px">
 			</li>
 			<li class="nav-item text-nowrap">
 				<a class="nav-link" href="/sair">Sair</a>
@@ -44,3 +44,20 @@
 		</ul>
 	</div>
 </nav>
+<script type="text/javascript">
+	function getCookie(cname) {
+		    var name = cname + "=";
+		    var decodedCookie = decodeURIComponent(document.cookie);
+		    var ca = decodedCookie.split(';');
+		    for(var i = 0; i < ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0) == ' ') {
+		            c = c.substring(1);
+		        }
+		        if (c.indexOf(name) == 0) {
+		            return c.substring(name.length, c.length);
+		        }
+		    }
+		    return null;
+		}
+</script>

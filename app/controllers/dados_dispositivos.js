@@ -37,13 +37,12 @@ module.exports.capturaDados = function(app, request, response){
 	var results = [];
 	deviceDataModel.getDataRecord_Devices_Messages(request.session.user_id, function(error , result){
 		if(!error){
-			results[0] = result[0];
-				if(!error){
-					deviceDataModel.getUserDevices(request.session.user_id, function(error, result){
-						results[1] = result;
-						response.render("home/home",{devices : results});
-					})
-				}	
+			results[0] = result[0];	
+			deviceDataModel.getUserDevices(request.session.user_id, function(error, result){
+				results[1] = result;
+				response.render("home/home",{devices : results});
+			})
+					
 		}else{
 			console.log(error)
 			response.render("home/home",{devices : result});	

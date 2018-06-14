@@ -5,10 +5,7 @@ module.exports = function(app){
 
 		if(request.session.autorizado){
 			var pesquisa_dispositivos;
-			if(pesquisa_dispositivos = app.app.controllers.dados_dispositivos.capturaDados(app, request, response)){
-				response.render('home/home',{dispositivos:{}});
-				console.log('home carregada');
-			}
+			app.app.controllers.dados_dispositivos.capturaDados(app, request, response)
 						
 		}else{
 			response.redirect('/')
