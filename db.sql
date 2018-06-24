@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `devices` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela trabalho.devices: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela trabalho.devices: ~2 rows (aproximadamente)
 DELETE FROM `devices`;
 /*!40000 ALTER TABLE `devices` DISABLE KEYS */;
 INSERT INTO `devices` (`id`, `id_usuario`, `nome_dispositivo`, `topic`, `ip`, `protocolo`, `data_criacao`, `descricao`) VALUES
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`message_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2029 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela trabalho.messages: ~993 rows (aproximadamente)
+-- Copiando dados para a tabela trabalho.messages: ~618 rows (aproximadamente)
 DELETE FROM `messages`;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
 INSERT INTO `messages` (`message_id`, `device_id`, `topic`, `message`, `datetime`) VALUES
@@ -719,7 +719,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `nome`, `nome_usuario`, `senha`, `email`, `foto_perfil`) VALUES
-	(29, 'leonardo', 'leonardo', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f', 'leonardo.everson@outlook.com', './uploads/e81a9052fecbd0131e64b6c54a5785410abcbc39.png'),
+	(29, 'leonardo', 'leonardo', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f', 'leonardo.everson@outlook.com', 'uploads/748dec1accc5e282505d7902fbc3c2ddd311c12e.png'),
 	(31, 'Leonardo Everson', 'leonardoeverson', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f', 'llinharespinheiro@gmail.com', NULL),
 	(32, 'Leonardo Everson', 'leonardoe', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'leonardo_linhares15@hotmail.com', NULL),
 	(33, 'teste', 'teste', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f', 'teste@teste.com', NULL);

@@ -1,0 +1,23 @@
+Requisitos
+ - Mysql 
+ - Node JS
+
+Instalação(Windows)
+ - Rodar no cmd como administrador: npm install --global --production windows-build-tools
+ - Na pasta do projeto rodar o seguinte comando: npm install
+ - rodar script db.sql que se encontra na pasta do projeto no banco de dados
+
+Instalação(Linux)
+- Na pasta do projeto rodar o seguinte comando: npm install
+- rodar script db.sql que se encontra na pasta do projeto no banco de dados
+
+Configuração
+- O arquivo de configuração do banco de dados chamado dbconn.js se encontra na pasta config dentro do projeto.
+
+Execução
+- node app.js
+
+Para testar exemplos:
+- Instalar python 2.7.*
+- instalar o requests: pip install requests
+- instalar o websockets: pip install websocket-client
