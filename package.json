@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "aedes": "^0.34.1",
+    "aedes": "^0.35.1",
     "aedes-persistence": "^5.1.1",
     "aedes-persistence-mongodb": "^4.2.1",
     "async": "^2.6.1",
